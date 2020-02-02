@@ -26,11 +26,11 @@ class GameScene: SKScene {
         
         ground1 = GroundNode(ofSize: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground1)
-        ground1.position = CGPoint(x: 0, y: -view.frame.height / 4.0)
+        ground1.position = CGPoint(x: -ground1.frame.width / 2.0, y: -ground1.frame.height)
         
         ground2 = GroundNode(ofSize: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground2)
-        ground2.position = CGPoint(x: view.frame.width + 200, y: -view.frame.height / 4.0)
+        ground2.position = CGPoint(x: ground1.frame.maxX + 200, y: -ground2.frame.height)
         
         spikes = SKShapeNode(rectOf: CGSize(width: 100, height: 50))
         self.addChild(spikes)
