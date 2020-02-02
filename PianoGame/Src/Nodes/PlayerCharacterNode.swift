@@ -2,7 +2,7 @@
 import SpriteKit
 
 
-class PlayerCharacterNode: SKNode {
+class PlayerCharacterNode: SKShapeNode {
     
     
     static let nodeName = "player"
@@ -13,17 +13,16 @@ class PlayerCharacterNode: SKNode {
     }
     
     override init() {
+        
         super.init()
         
         let rectSize = CGSize(width: 50, height: 100)
-        let shape = SKShapeNode(rectOf: rectSize)
+        let rect = CGRect(x: 0, y: 0, width: rectSize.width, height: rectSize.height)
+        self.path = CGPath(rect: rect, transform: nil)
         
-        addChild(shape)
-
-        self.physicsBody = SKPhysicsBody(rectangleOf: rectSize)
+        self.physicsBody = SKPhysicsBody(rectangleOf: rect.size, center: CGPoint(x: rectSize.width / 2.0, y: rectSize.height / 2.0))
         self.physicsBody?.friction = 100
         self.physicsBody?.allowsRotation = false
-        self.physicsBody?.contactTestBitMask = 1
         self.name = PlayerCharacterNode.nodeName
     }
 }
