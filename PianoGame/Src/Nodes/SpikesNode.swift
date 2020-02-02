@@ -2,7 +2,7 @@
 import SpriteKit
 
 
-class SpikesNode: SKShapeNode {
+class SpikesNode: GenericRectanglePhysicsNode {
     
     
     static let nodeName = "spikes"
@@ -14,15 +14,9 @@ class SpikesNode: SKShapeNode {
     
     init(ofWidth width: CGFloat) {
         
-        super.init()
+        super.init(ofSize: CGSize(width: width, height: 50))
         
-        let rectSize = CGSize(width: width, height: 50)
-        let rect = CGRect(x: 0, y: 0, width: rectSize.width, height: rectSize.height)
-        self.path = CGPath(rect: rect, transform: nil)
-        
-        self.physicsBody = SKPhysicsBody(rectangleOf: rect.size, center: CGPoint(x: rectSize.width / 2.0, y: rectSize.height / 2.0))
-        self.physicsBody?.friction = 100
-        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.isDynamic = false
         self.name = SpikesNode.nodeName
     }
 }

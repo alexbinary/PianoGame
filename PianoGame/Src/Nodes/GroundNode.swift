@@ -2,7 +2,7 @@
 import SpriteKit
 
 
-class GroundNode: SKShapeNode {
+class GroundNode: GenericRectanglePhysicsNode {
     
     
     static let nodeName = "ground"
@@ -12,15 +12,10 @@ class GroundNode: SKShapeNode {
         super.init(coder: aDecoder)
     }
     
-    init(ofSize size: CGSize) {
+    override init(ofSize size: CGSize) {
         
-        super.init()
+        super.init(ofSize: size)
         
-        let rectSize = size
-        let rect = CGRect(x: 0, y: 0, width: rectSize.width, height: rectSize.height)
-        self.path = CGPath(rect: rect, transform: nil)
-        
-        self.physicsBody = SKPhysicsBody(rectangleOf: rect.size, center: CGPoint(x: rectSize.width / 2.0, y: rectSize.height / 2.0))
         self.physicsBody?.isDynamic = false
         self.name = GroundNode.nodeName
     }
