@@ -11,6 +11,7 @@
 		29F7524523E6DBA600CC776C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524423E6DBA600CC776C /* ViewController.swift */; };
 		29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
 		29F7524A23E6DBA700CC776C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524823E6DBA700CC776C /* Main.storyboard */; };
+		29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7525423E6E52500CC776C /* SpriteKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		29F7524923E6DBA700CC776C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		29F7524B23E6DBA700CC776C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29F7524C23E6DBA700CC776C /* PianoGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PianoGame.entitlements; sourceTree = "<group>"; };
+		29F7525423E6E52500CC776C /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +42,7 @@
 			children = (
 				29F7524123E6DBA600CC776C /* PianoGame */,
 				29F7524023E6DBA600CC776C /* Products */,
+				29F7525323E6E52500CC776C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +73,14 @@
 				29F7524823E6DBA700CC776C /* Main.storyboard */,
 			);
 			path = Src;
+			sourceTree = "<group>";
+		};
+		29F7525323E6E52500CC776C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29F7525423E6E52500CC776C /* SpriteKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
