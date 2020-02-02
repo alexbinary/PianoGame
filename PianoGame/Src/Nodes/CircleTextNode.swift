@@ -18,6 +18,6 @@ class CircleTextNode: SKShapeNode {
         
         let textNode = SKLabelNode(text: text)
         self.addChild(textNode)
-        textNode.position = CGPoint(x: self.frame.width / 2.0 - textNode.frame.width / 2.0, y: self.frame.height / 2.0 - textNode.frame.height / 2.0)
+        textNode.position = CGPoint(x: self.frame.width / 2.0 - textNode.frame.width / 2.0, y: self.frame.width / 2.0 - textNode.frame.height / 2.0)
     }
 }

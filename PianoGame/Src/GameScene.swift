@@ -12,7 +12,7 @@ class GameScene: SKScene {
     var ground2: GroundNode!
     var spikes: SpikesNode!
     
-    var circleNode1: CircleTextNode!
+    var scaleNode: ScaleNode!
     
     
     override func didMove(to view: SKView) {
@@ -39,8 +39,8 @@ class GameScene: SKScene {
         self.addChild(spikes)
         spikes.position = CGPoint(x: ground2.frame.minX + 100, y: ground2.frame.maxY)
         
-        circleNode1 = CircleTextNode(text: "1")
-        self.addChild(circleNode1)
+        scaleNode = ScaleNode(startingWith: "A")
+        self.addChild(scaleNode)
         
         
         physicsWorld.contactDelegate = self

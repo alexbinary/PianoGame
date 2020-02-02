@@ -13,6 +13,7 @@
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
 		29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */; };
 		29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */; };
+		29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3D23E7751F00760A8D /* ScaleNode.swift */; };
 		29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524223E6DBA600CC776C /* AppDelegate.swift */; };
 		29F7524523E6DBA600CC776C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524423E6DBA600CC776C /* ViewController.swift */; };
 		29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		29D7DF3723E771A400760A8D /* SpikesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpikesNode.swift; sourceTree = "<group>"; };
 		29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRectanglePhysicsNode.swift; sourceTree = "<group>"; };
 		29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleTextNode.swift; sourceTree = "<group>"; };
+		29D7DF3D23E7751F00760A8D /* ScaleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleNode.swift; sourceTree = "<group>"; };
 		29F7523F23E6DBA600CC776C /* PianoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7524223E6DBA600CC776C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29F7524423E6DBA600CC776C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				29D7DF3723E771A400760A8D /* SpikesNode.swift */,
 				29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */,
 				29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */,
+				29D7DF3D23E7751F00760A8D /* ScaleNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */,
 				29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
