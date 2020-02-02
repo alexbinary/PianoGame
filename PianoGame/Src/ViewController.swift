@@ -15,8 +15,11 @@ class ViewController: NSViewController {
         
         skView.presentScene(scene)
         
-        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         scene.scaleMode = .resizeFill
+        
+        let camera = SKCameraNode()
+        
+        scene.addChild(camera)
+        scene.camera = camera
     }
 }

@@ -9,7 +9,7 @@ class GameScene: SKScene {
     var label: SKLabelNode!
     
     
-    override func sceneDidLoad() {
+    override func didMove(to view: SKView) {
         
         label = SKLabelNode(text: "Hello")
         
