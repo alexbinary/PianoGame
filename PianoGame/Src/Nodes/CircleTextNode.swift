@@ -9,11 +9,11 @@ class CircleTextNode: SKShapeNode {
         super.init(coder: aDecoder)
     }
     
-    init(text: String) {
+    init(text: String, size: CGFloat) {
         
         super.init()
         
-        let circleSize = 50
+        let circleSize = size
         self.path = CGPath(ellipseIn: CGRect(x: 0, y: 0, width: circleSize, height: circleSize), transform: nil)
         
         let textNode = SKLabelNode(text: text)

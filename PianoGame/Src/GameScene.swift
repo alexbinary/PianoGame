@@ -32,16 +32,16 @@ class GameScene: SKScene {
         
         ground2 = GroundNode(ofSize: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground2)
-        ground2.position = CGPoint(x: ground1.frame.maxX + 200, y: -ground2.frame.height)
+        ground2.position = CGPoint(x: ground1.frame.maxX + 4 * ScaleNode.circleSize, y: -ground2.frame.height)
         
         spikes = SpikesNode(ofWidth: 100)
         spikes.physicsBody?.contactTestBitMask = 1
         self.addChild(spikes)
         spikes.position = CGPoint(x: ground2.frame.minX + 100, y: ground2.frame.maxY)
         
-        scaleNode = ScaleNode(startingWith: "A")
+        scaleNode = ScaleNode(startingWith: "A", numberOfElements: 4)
         self.addChild(scaleNode)
-        
+        scaleNode.position = CGPoint(x: ground1.frame.maxX - ScaleNode.circleSize, y: ground1.frame.maxY - ScaleNode.circleSize)
         
         physicsWorld.contactDelegate = self
     }
