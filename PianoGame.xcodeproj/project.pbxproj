@@ -53,14 +53,22 @@
 		29F7524123E6DBA600CC776C /* PianoGame */ = {
 			isa = PBXGroup;
 			children = (
-				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
-				29F7524423E6DBA600CC776C /* ViewController.swift */,
-				29F7524623E6DBA700CC776C /* Assets.xcassets */,
-				29F7524823E6DBA700CC776C /* Main.storyboard */,
 				29F7524B23E6DBA700CC776C /* Info.plist */,
 				29F7524C23E6DBA700CC776C /* PianoGame.entitlements */,
+				29F7524623E6DBA700CC776C /* Assets.xcassets */,
+				29F7525223E6E3EA00CC776C /* Src */,
 			);
 			path = PianoGame;
+			sourceTree = "<group>";
+		};
+		29F7525223E6E3EA00CC776C /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
+				29F7524423E6DBA600CC776C /* ViewController.swift */,
+				29F7524823E6DBA700CC776C /* Main.storyboard */,
+			);
+			path = Src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
