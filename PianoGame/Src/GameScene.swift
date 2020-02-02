@@ -7,7 +7,7 @@ class GameScene: SKScene {
     
     
     var defaultCamera: SKCameraNode!
-    var playerCharacter: SKShapeNode!
+    var playerCharacter: PlayerCharacterNode!
     var ground1: SKNode!
     var ground2: SKNode!
     var spikes: SKNode!
@@ -19,14 +19,9 @@ class GameScene: SKScene {
         self.addChild(defaultCamera)
         self.camera = defaultCamera
         
-        playerCharacter = SKShapeNode(rectOf: CGSize(width: 50, height: 100))
+        playerCharacter = PlayerCharacterNode()
         self.addChild(playerCharacter)
         playerCharacter.position = CGPoint(x: 0, y: 200)
-        playerCharacter.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 100))
-        playerCharacter.physicsBody?.friction = 100
-        playerCharacter.physicsBody?.allowsRotation = false
-        playerCharacter.physicsBody?.contactTestBitMask = 1
-        playerCharacter.name = "player"
         
         ground1 = SKShapeNode(rectOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground1)
@@ -90,7 +85,7 @@ extension GameScene : SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         
         let names = Set([contact.bodyA.node?.name, contact.bodyB.node?.name])
-        if names.contains("player") && names.contains("spikes") {
+        if names.contains(PlayerCharacterNode.nodeName) && names.contains("spikes") {
             
             gameoverFlag = true
         }
