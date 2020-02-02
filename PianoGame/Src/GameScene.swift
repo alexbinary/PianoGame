@@ -9,7 +9,8 @@ class GameScene: SKScene {
     var defaultCamera: SKCameraNode!
     var playerCharacter: SKShapeNode!
     var backgroundElement: SKNode!
-    var ground: SKNode!
+    var ground1: SKNode!
+    var ground2: SKNode!
     
     
     override func didMove(to view: SKView) {
@@ -22,21 +23,29 @@ class GameScene: SKScene {
         self.addChild(playerCharacter)
         playerCharacter.position = CGPoint(x: 0, y: 200)
         playerCharacter.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 100))
+        playerCharacter.physicsBody?.friction = 100
+        playerCharacter.physicsBody?.allowsRotation = false
         
         backgroundElement = SKShapeNode(ellipseOf: CGSize(width: 50, height: 50))
         self.addChild(backgroundElement)
         
-        ground = SKShapeNode(rectOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
-        self.addChild(ground)
-        ground.position = CGPoint(x: 0, y: -view.frame.height / 4.0)
-        ground.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
-        ground.physicsBody?.isDynamic = false
+        ground1 = SKShapeNode(rectOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
+        self.addChild(ground1)
+        ground1.position = CGPoint(x: 0, y: -view.frame.height / 4.0)
+        ground1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
+        ground1.physicsBody?.isDynamic = false
+        
+        ground2 = SKShapeNode(rectOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
+        self.addChild(ground2)
+        ground2.position = CGPoint(x: view.frame.width + 200, y: -view.frame.height / 4.0)
+        ground2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
+        ground2.physicsBody?.isDynamic = false
     }
     
     
     override func keyDown(with event: NSEvent) {
         
-        playerCharacter.physicsBody?.applyImpulse(CGVector(dx: 10, dy: 100))
+        playerCharacter.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
     }
     
     
