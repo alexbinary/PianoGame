@@ -18,6 +18,7 @@ class ViewController: NSViewController {
         let label = SKLabelNode(text: "Hello")
         
         scene.addChild(label)
+        label.fontSize = 128
         
         scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         scene.size = CGSize(width: 1600, height: 900)
