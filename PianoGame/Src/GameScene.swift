@@ -52,5 +52,10 @@ class GameScene: SKScene {
     override func didFinishUpdate() {
         
         camera?.position.x = playerCharacter.position.x
+        
+        if playerCharacter.position.y < 0 {
+           playerCharacter.position = CGPoint(x: 0, y: 200)
+            playerCharacter.physicsBody?.velocity = CGVector.zero
+        }
     }
 }
