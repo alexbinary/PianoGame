@@ -36,8 +36,7 @@ class GameScene: SKScene {
     
     override func keyDown(with event: NSEvent) {
         
-        let action = SKAction.moveBy(x: 10, y: 0, duration: 1)
-        playerCharacter.run(action)
+        playerCharacter.physicsBody?.applyImpulse(CGVector(dx: 10, dy: 100))
     }
     
     
