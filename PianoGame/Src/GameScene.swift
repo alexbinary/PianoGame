@@ -51,6 +51,6 @@ class GameScene: SKScene {
     
     override func didFinishUpdate() {
         
-        camera?.position = playerCharacter.position
+        camera?.position.x = playerCharacter.position.x
     }
 }
