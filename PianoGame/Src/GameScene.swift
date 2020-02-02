@@ -25,6 +25,8 @@ class GameScene: SKScene {
         playerCharacter.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: 100))
         playerCharacter.physicsBody?.friction = 100
         playerCharacter.physicsBody?.allowsRotation = false
+        playerCharacter.physicsBody?.contactTestBitMask = 1
+        playerCharacter.name = "player"
         
         ground1 = SKShapeNode(rectOf: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground1)
@@ -43,6 +45,10 @@ class GameScene: SKScene {
         spikes.position = CGPoint(x: ground2.frame.minX + 100, y: ground2.frame.maxY + 50 / 2.0)
         spikes.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 50))
         spikes.physicsBody?.isDynamic = false
+        spikes.physicsBody?.contactTestBitMask = 1
+        spikes.name = "spikes"
+        
+        physicsWorld.contactDelegate = self
     }
     
     
@@ -57,8 +63,36 @@ class GameScene: SKScene {
         camera?.position.x = playerCharacter.position.x
         
         if playerCharacter.position.y < 0 {
-           playerCharacter.position = CGPoint(x: 0, y: 200)
-            playerCharacter.physicsBody?.velocity = CGVector.zero
+           gameoverFlag = true
+        }
+        
+        if gameoverFlag {
+            gameover()
+        }
+    }
+    
+    
+    func gameover() {
+        
+        playerCharacter.physicsBody?.velocity = CGVector.zero
+        playerCharacter.position = CGPoint(x: 0, y: 200)
+        
+        gameoverFlag = false
+    }
+    
+    var gameoverFlag = false
+}
+
+
+extension GameScene : SKPhysicsContactDelegate {
+    
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        let names = Set([contact.bodyA.node?.name, contact.bodyB.node?.name])
+        if names.contains("player") && names.contains("spikes") {
+            
+            gameoverFlag = true
         }
     }
 }
