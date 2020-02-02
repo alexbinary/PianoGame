@@ -9,8 +9,8 @@ class GameScene: SKScene {
     var defaultCamera: SKCameraNode!
     var playerCharacter: PlayerCharacterNode!
     var ground1: GroundNode!
-    var ground2: SKNode!
-    var spikes: SKNode!
+    var ground2: GroundNode!
+    var spikes: SpikesNode!
     
     
     override func didMove(to view: SKView) {
@@ -32,13 +32,10 @@ class GameScene: SKScene {
         self.addChild(ground2)
         ground2.position = CGPoint(x: ground1.frame.maxX + 200, y: -ground2.frame.height)
         
-        spikes = SKShapeNode(rectOf: CGSize(width: 100, height: 50))
-        self.addChild(spikes)
-        spikes.position = CGPoint(x: ground2.frame.minX + 100, y: ground2.frame.maxY + 50 / 2.0)
-        spikes.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 50))
-        spikes.physicsBody?.isDynamic = false
+        spikes = SpikesNode(ofWidth: 100)
         spikes.physicsBody?.contactTestBitMask = 1
-        spikes.name = "spikes"
+        self.addChild(spikes)
+        spikes.position = CGPoint(x: ground2.frame.minX + 100, y: ground2.frame.maxY)
         
         physicsWorld.contactDelegate = self
     }
