@@ -22,7 +22,7 @@ class GameScene: SKScene {
         playerCharacter = PlayerCharacterNode()
         playerCharacter.physicsBody?.contactTestBitMask = 1
         self.addChild(playerCharacter)
-        playerCharacter.position = CGPoint(x: 0, y: 200)
+        resetPlayerPosition()
         
         ground1 = GroundNode(ofSize: CGSize(width: view.frame.width, height: view.frame.height / 2.0))
         self.addChild(ground1)
@@ -66,13 +66,19 @@ class GameScene: SKScene {
     
     func gameover() {
         
-        playerCharacter.physicsBody?.velocity = CGVector.zero
-        playerCharacter.position = CGPoint(x: 0, y: 200)
+        resetPlayerPosition()
         
         gameoverFlag = false
     }
     
     var gameoverFlag = false
+    
+    
+    func resetPlayerPosition() {
+        
+        playerCharacter.physicsBody?.velocity = CGVector.zero
+        playerCharacter.position = CGPoint(x: 0, y: 0)
+    }
 }
 
 
