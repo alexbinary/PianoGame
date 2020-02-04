@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
 		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2945345223EA16E700F92152 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
 		2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* GameScene.swift */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
+		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2945345023EA16C200F92152 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2945345123EA16E700F92152 /* sample.mid */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +149,7 @@
 				29F7524B23E6DBA700CC776C /* Info.plist */,
 				29F7524C23E6DBA700CC776C /* PianoGame.entitlements */,
 				29F7524623E6DBA700CC776C /* Assets.xcassets */,
+				2945345023EA16C200F92152 /* Resources */,
 				29F7525223E6E3EA00CC776C /* Src */,
 			);
 			path = PianoGame;
@@ -254,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2945345223EA16E700F92152 /* sample.mid in Resources */,
 				29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */,
 				29F7524A23E6DBA700CC776C /* Main.storyboard in Resources */,
 			);

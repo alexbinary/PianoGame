@@ -70,5 +70,20 @@ class ViewController: NSViewController {
         } catch {
             fatalError("failed to init synthesizer")
         }
+        
+        guard let url = Bundle.main.url(forResource: "sample", withExtension: "mid") else {
+            fatalError("could not find resource file")
+        }
+        
+        print(url)
+        
+        let sequence = try! MIKMIDISequence(fileAt: url)
+        print(sequence.tracks.count)
+        
+        let sequencer = MIKMIDISequencer(sequence: sequence)
+        sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks.first!)
+        sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks[1])
+        sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks[2])
+        sequencer.startPlayback()
     }
 }
