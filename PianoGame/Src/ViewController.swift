@@ -43,6 +43,22 @@ class ViewController: NSViewController {
             fatalError("failed to send commands")
         }
         
-        
+        do {
+            try MIKMIDIDeviceManager.shared.connectInput(alesisSource) { (_, commands) in
+                commands.forEach {
+                    if let noteOnCommand = $0 as? MIKMIDINoteOnCommand {
+                        print("Note ON - note: \(noteOnCommand.note) velocity: \(noteOnCommand.velocity)")
+                    }
+                    else if let controlChangeCommand = $0 as? MIKMIDIControlChangeCommand {
+                        print("Control change - number: \(controlChangeCommand.controllerNumber) value: \(controlChangeCommand.controllerValue)")
+                    }
+                    else {
+                        print("unrecognized command: \($0)")
+                    }
+                }
+            }
+        } catch {
+            fatalError("failed to connect to source")
+        }
     }
 }
