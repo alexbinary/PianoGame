@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
+		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* GameScene.swift */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
@@ -21,7 +23,46 @@
 		29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7525423E6E52500CC776C /* SpriteKit.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2945344723EA0AB200F92152 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9D74EEA517A7129300BEE89F;
+			remoteInfo = MIKMIDI;
+		};
+		2945344923EA0AB200F92152 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9DAF8B061A7AFF1100F46528;
+			remoteInfo = "MIKMIDI-iOS";
+		};
+		2945344B23EA0AB200F92152 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9D4DF13A1AAB57430065F004;
+			remoteInfo = "MIKMIDI Tests";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2945344F23EA0B2D00F92152 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
@@ -45,12 +86,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */,
+				2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2945344223EA0AB200F92152 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2945344823EA0AB200F92152 /* MIKMIDI.framework */,
+				2945344A23EA0AB200F92152 /* MIKMIDI.framework */,
+				2945344C23EA0AB200F92152 /* MIKMIDI Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +159,7 @@
 		29F7525323E6E52500CC776C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */,
 				29F7525423E6E52500CC776C /* SpriteKit.framework */,
 			);
 			name = Frameworks;
@@ -122,6 +175,7 @@
 				29F7523B23E6DBA600CC776C /* Sources */,
 				29F7523C23E6DBA600CC776C /* Frameworks */,
 				29F7523D23E6DBA600CC776C /* Resources */,
+				2945344F23EA0B2D00F92152 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,12 +212,42 @@
 			mainGroup = 29F7523623E6DBA500CC776C;
 			productRefGroup = 29F7524023E6DBA600CC776C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2945344223EA0AB200F92152 /* Products */;
+					ProjectRef = 2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				29F7523E23E6DBA600CC776C /* PianoGame */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2945344823EA0AB200F92152 /* MIKMIDI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MIKMIDI.framework;
+			remoteRef = 2945344723EA0AB200F92152 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2945344A23EA0AB200F92152 /* MIKMIDI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MIKMIDI.framework;
+			remoteRef = 2945344923EA0AB200F92152 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2945344C23EA0AB200F92152 /* MIKMIDI Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "MIKMIDI Tests.xctest";
+			remoteRef = 2945344B23EA0AB200F92152 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		29F7523D23E6DBA600CC776C /* Resources */ = {
