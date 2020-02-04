@@ -7,6 +7,9 @@ import MIKMIDI
 class ViewController: NSViewController {
     
     
+    var synth: MIKMIDISynthesizer!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +27,10 @@ class ViewController: NSViewController {
         
         guard let alesisEntity = alesisDevice.entities.first else {
             fatalError("MIDI device has no entity")
+        }
+        
+        guard let alesisSource = alesisEntity.sources.first else {
+            fatalError("MIDI entity has no source endpoints")
         }
         
         guard let alesisDestination = alesisEntity.destinations.first else {
@@ -56,6 +63,12 @@ class ViewController: NSViewController {
             }
         } catch {
             fatalError("failed to connect to source")
+        }
+        
+        do {
+            synth = try MIKMIDIEndpointSynthesizer(midiSource: alesisSource, error: ())
+        } catch {
+            fatalError("failed to init synthesizer")
         }
     }
 }
