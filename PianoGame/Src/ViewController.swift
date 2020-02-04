@@ -26,10 +26,6 @@ class ViewController: NSViewController {
             fatalError("MIDI device has no entity")
         }
         
-        guard let alesisSource = alesisEntity.sources.first else {
-            fatalError("MIDI entity has no source endpoints")
-        }
-        
         guard let alesisDestination = alesisEntity.destinations.first else {
             fatalError("MIDI entity has no destination endpoints")
         }
@@ -44,7 +40,8 @@ class ViewController: NSViewController {
         }
         
         do {
-            try MIKMIDIDeviceManager.shared.connectInput(alesisSource) { (_, commands) in
+            try MIKMIDIDeviceManager.shared.connect(alesisDevice) { (endpoint, commands) in
+                print("commands from endpoint: \(endpoint)")
                 commands.forEach {
                     if let noteOnCommand = $0 as? MIKMIDINoteOnCommand {
                         print("Note ON - note: \(noteOnCommand.note) velocity: \(noteOnCommand.velocity)")
