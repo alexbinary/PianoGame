@@ -51,7 +51,8 @@ class ViewController: NSViewController {
                 print("commands from endpoint: \(endpoint)")
                 commands.forEach {
                     if let noteOnCommand = $0 as? MIKMIDINoteOnCommand {
-                        print("Note ON - note: \(noteOnCommand.note) velocity: \(noteOnCommand.velocity)")
+                        print("Note ON - note: \(noteOnCommand.note) velocity: \(Int(noteOnCommand.velocity))")
+                        scene.midiEvent(note: noteOnCommand.note, velocity: noteOnCommand.velocity)
                     }
                     else if let controlChangeCommand = $0 as? MIKMIDIControlChangeCommand {
                         print("Control change - number: \(controlChangeCommand.controllerNumber) value: \(controlChangeCommand.controllerValue)")
@@ -84,6 +85,6 @@ class ViewController: NSViewController {
         sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks.first!)
         sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks[1])
         sequencer.setCommandScheduler(alesisDestination, for: sequence.tracks[2])
-        sequencer.startPlayback()
+//        sequencer.startPlayback()
     }
 }

@@ -47,6 +47,12 @@ class GameScene: SKScene {
     }
     
     
+    func midiEvent(note: UInt, velocity: UInt) {
+        
+        playerCharacter.physicsBody?.applyImpulse(CGVector(dx: 100, dy: Int(velocity) * 5))
+    }
+    
+    
     override func keyDown(with event: NSEvent) {
         
         playerCharacter.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 50))
