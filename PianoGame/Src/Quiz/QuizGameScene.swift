@@ -67,4 +67,12 @@ class QuizGameScene: SKScene {
             updateLabel()
         }
     }
+    
+    
+    func noteOn(_ noteCode: UInt) {
+        
+        let note = Note.allCases[(Int(noteCode) - 60 + 8*12) % Note.allCases.count]
+        
+        onNotePlayed(note)
+    }
 }
