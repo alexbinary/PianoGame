@@ -21,6 +21,8 @@
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA523EB7C7700A7D97B /* QuizViewController.swift */; };
 		296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
+		29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D3E23EB8711009E71F2 /* DisplayViewController.swift */; };
+		29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D4023EB8721009E71F2 /* DisplayGameScene.swift */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -97,6 +99,8 @@
 		296B1B9B23EB320700A7D97B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		296B1BA523EB7C7700A7D97B /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizGameScene.swift; sourceTree = "<group>"; };
+		29818D3E23EB8711009E71F2 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
+		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
 		29D7DF3723E771A400760A8D /* SpikesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpikesNode.swift; sourceTree = "<group>"; };
@@ -175,6 +179,15 @@
 			path = Quiz;
 			sourceTree = "<group>";
 		};
+		29818D3A23EB86EE009E71F2 /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				29818D3E23EB8711009E71F2 /* DisplayViewController.swift */,
+				29818D4023EB8721009E71F2 /* DisplayGameScene.swift */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +239,7 @@
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
 				29F7524423E6DBA600CC776C /* ViewController.swift */,
 				2964B39423E6EB9100E6BABF /* GameScene.swift */,
+				29818D3A23EB86EE009E71F2 /* Display */,
 				296B1BA923EB7C8600A7D97B /* Quiz */,
 				29D7DF3223E765A600760A8D /* Nodes */,
 			);
@@ -392,8 +406,10 @@
 				2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
+				29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */,
 				29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */,
 				29F7524523E6DBA600CC776C /* ViewController.swift in Sources */,
+				29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */,
 				29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */,
 				29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */,
 			);
