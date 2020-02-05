@@ -17,6 +17,8 @@
 		296B1B9523EB320300A7D97B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9323EB320300A7D97B /* Main.storyboard */; };
 		296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9623EB320700A7D97B /* Assets.xcassets */; };
 		296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */; };
+		296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; };
+		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -66,6 +68,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		296B1BA423EB334800A7D97B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +237,7 @@
 				296B1B8723EB320300A7D97B /* Sources */,
 				296B1B8823EB320300A7D97B /* Frameworks */,
 				296B1B8923EB320300A7D97B /* Resources */,
+				296B1BA423EB334800A7D97B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
