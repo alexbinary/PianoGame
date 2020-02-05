@@ -11,6 +11,12 @@
 		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2945345223EA16E700F92152 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
 		2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* GameScene.swift */; };
+		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
+		296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8F23EB320300A7D97B /* SceneDelegate.swift */; };
+		296B1B9223EB320300A7D97B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* ViewController.swift */; };
+		296B1B9523EB320300A7D97B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9323EB320300A7D97B /* Main.storyboard */; };
+		296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9623EB320700A7D97B /* Assets.xcassets */; };
+		296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -66,6 +72,14 @@
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame_iPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		296B1B8D23EB320300A7D97B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		296B1B8F23EB320300A7D97B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		296B1B9123EB320300A7D97B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		296B1B9423EB320300A7D97B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		296B1B9623EB320700A7D97B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		296B1B9923EB320700A7D97B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		296B1B9B23EB320700A7D97B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
 		29D7DF3723E771A400760A8D /* SpikesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpikesNode.swift; sourceTree = "<group>"; };
@@ -83,6 +97,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		296B1B8823EB320300A7D97B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		29F7523C23E6DBA600CC776C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,6 +134,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		296B1B8C23EB320300A7D97B /* PianoGame_iPad */ = {
+			isa = PBXGroup;
+			children = (
+				296B1B8D23EB320300A7D97B /* AppDelegate.swift */,
+				296B1B8F23EB320300A7D97B /* SceneDelegate.swift */,
+				296B1B9123EB320300A7D97B /* ViewController.swift */,
+				296B1B9323EB320300A7D97B /* Main.storyboard */,
+				296B1B9623EB320700A7D97B /* Assets.xcassets */,
+				296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */,
+				296B1B9B23EB320700A7D97B /* Info.plist */,
+			);
+			path = PianoGame_iPad;
+			sourceTree = "<group>";
+		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				29F7524123E6DBA600CC776C /* PianoGame */,
+				296B1B8C23EB320300A7D97B /* PianoGame_iPad */,
 				29F7524023E6DBA600CC776C /* Products */,
 				29F7525323E6E52500CC776C /* Frameworks */,
 			);
@@ -139,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				29F7523F23E6DBA600CC776C /* PianoGame.app */,
+				296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,6 +216,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		296B1B8A23EB320300A7D97B /* PianoGame_iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 296B1BA123EB320700A7D97B /* Build configuration list for PBXNativeTarget "PianoGame_iPad" */;
+			buildPhases = (
+				296B1B8723EB320300A7D97B /* Sources */,
+				296B1B8823EB320300A7D97B /* Frameworks */,
+				296B1B8923EB320300A7D97B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PianoGame_iPad;
+			productName = PianoGame_iPad;
+			productReference = 296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
 		29F7523E23E6DBA600CC776C /* PianoGame */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29F7524F23E6DBA700CC776C /* Build configuration list for PBXNativeTarget "PianoGame" */;
@@ -203,10 +257,13 @@
 		29F7523723E6DBA600CC776C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Alexandre Bintz";
 				TargetAttributes = {
+					296B1B8A23EB320300A7D97B = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					29F7523E23E6DBA600CC776C = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -232,6 +289,7 @@
 			projectRoot = "";
 			targets = (
 				29F7523E23E6DBA600CC776C /* PianoGame */,
+				296B1B8A23EB320300A7D97B /* PianoGame_iPad */,
 			);
 		};
 /* End PBXProject section */
@@ -261,6 +319,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		296B1B8923EB320300A7D97B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */,
+				296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */,
+				296B1B9523EB320300A7D97B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		29F7523D23E6DBA600CC776C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,6 +342,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		296B1B8723EB320300A7D97B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				296B1B9223EB320300A7D97B /* ViewController.swift in Sources */,
+				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
+				296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		29F7523B23E6DBA600CC776C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +371,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		296B1B9323EB320300A7D97B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				296B1B9423EB320300A7D97B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				296B1B9923EB320700A7D97B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		29F7524823E6DBA700CC776C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -304,6 +398,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		296B1B9C23EB320700A7D97B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2N6DR3R99K;
+				INFOPLIST_FILE = PianoGame_iPad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.bintz.PianoGame-iPad";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		296B1B9D23EB320700A7D97B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2N6DR3R99K;
+				INFOPLIST_FILE = PianoGame_iPad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.bintz.PianoGame-iPad";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		29F7524D23E6DBA700CC776C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -460,6 +595,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		296B1BA123EB320700A7D97B /* Build configuration list for PBXNativeTarget "PianoGame_iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				296B1B9C23EB320700A7D97B /* Debug */,
+				296B1B9D23EB320700A7D97B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		29F7523A23E6DBA600CC776C /* Build configuration list for PBXProject "PianoGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
