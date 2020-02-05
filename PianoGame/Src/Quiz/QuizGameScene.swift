@@ -23,6 +23,8 @@ enum Note : CaseIterable {
 class QuizGameScene: SKScene {
     
     
+    var playerDelegate: PlayerDelegate?
+    
     var labelNode: SKLabelNode!
     
     var currentNote: Note!
@@ -43,6 +45,7 @@ class QuizGameScene: SKScene {
         
         generateNewNote()
         updateLabel()
+        playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60))
     }
     
     
@@ -65,6 +68,7 @@ class QuizGameScene: SKScene {
             
             generateNewNote()
             updateLabel()
+            playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60))
         }
     }
     
@@ -75,4 +79,11 @@ class QuizGameScene: SKScene {
         
         onNotePlayed(note)
     }
+}
+
+
+protocol PlayerDelegate {
+    
+    
+    func playNote(_ note: UInt)
 }

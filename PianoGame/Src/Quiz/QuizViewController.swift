@@ -15,6 +15,8 @@ class QuizViewController: NSViewController {
         let scene = QuizGameScene()
         scene.scaleMode = .resizeFill
         
+        scene.playerDelegate = self
+        
         skView.presentScene(scene)
         
         
@@ -32,5 +34,30 @@ class QuizViewController: NSViewController {
                 }
             }
         }
+        
+        
+        
+        
+               
+              
+    }
+}
+
+
+extension QuizViewController : PlayerDelegate {
+    
+    
+    func playNote(_ note: UInt) {
+        
+        let alesisDevice = MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!
+
+        let alesisEntity = alesisDevice.entities.first!
+
+        let alesisDestination = alesisEntity.destinations.first!
+
+        try! MIKMIDIDeviceManager.shared.send([
+            MIKMIDINoteOnCommand(note: note, velocity: 64, channel: 0, timestamp: Date().advanced(by: 2)),
+            MIKMIDINoteOffCommand(note: note, velocity: 0, channel: 0, timestamp: Date().advanced(by: 4))
+        ], to: alesisDestination)
     }
 }
