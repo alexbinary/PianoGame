@@ -23,6 +23,8 @@
 		296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
 		29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D3E23EB8711009E71F2 /* DisplayViewController.swift */; };
 		29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D4023EB8721009E71F2 /* DisplayGameScene.swift */; };
+		299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */; };
+		299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -101,6 +103,8 @@
 		296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizGameScene.swift; sourceTree = "<group>"; };
 		29818D3E23EB8711009E71F2 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
+		299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizViewController.swift; sourceTree = "<group>"; };
+		299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizGameScene.swift; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
 		29D7DF3723E771A400760A8D /* SpikesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpikesNode.swift; sourceTree = "<group>"; };
@@ -188,6 +192,15 @@
 			path = Display;
 			sourceTree = "<group>";
 		};
+		299F7AB223EB88B2008E6F56 /* SimpleQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */,
+				299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */,
+			);
+			path = SimpleQuiz;
+			sourceTree = "<group>";
+		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +252,7 @@
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
 				29F7524423E6DBA600CC776C /* ViewController.swift */,
 				2964B39423E6EB9100E6BABF /* GameScene.swift */,
+				299F7AB223EB88B2008E6F56 /* SimpleQuiz */,
 				29818D3A23EB86EE009E71F2 /* Display */,
 				296B1BA923EB7C8600A7D97B /* Quiz */,
 				29D7DF3223E765A600760A8D /* Nodes */,
@@ -402,7 +416,9 @@
 				29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */,
 				296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */,
 				296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */,
+				299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */,
 				29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */,
+				299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* GameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
