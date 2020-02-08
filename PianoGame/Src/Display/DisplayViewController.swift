@@ -9,6 +9,8 @@ class DisplayViewController: NSViewController {
     
     var scene: DisplayGameScene!
     
+    var synth: MIKMIDISynthesizer!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +44,15 @@ class DisplayViewController: NSViewController {
         sequencer.setCommandScheduler(self, for: sequence.tracks[2])
         
         sequencer.startPlayback()
+        
+        
+        synth = MIKMIDISynthesizer()
     }
     
     
     func onCommands(_ commands: [MIKMIDICommand]) {
+        
+        synth.handleMIDIMessages(commands)
         
         commands.forEach { command in
             
@@ -76,6 +83,6 @@ extension DisplayViewController: MIKMIDICommandScheduler {
         
         onCommands(commands)
         
-        try! MIKMIDIDeviceManager.shared.send(commands, to: MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!.entities.first!.destinations.first!)
+//        try! MIKMIDIDeviceManager.shared.send(commands, to: MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!.entities.first!.destinations.first!)
     }
 }
