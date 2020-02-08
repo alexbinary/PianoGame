@@ -11,9 +11,7 @@ class DisplayGameScene: SKScene {
     var activeNotes: Set<UInt> = []
     var x: CGFloat = 0.0
     
-    var lastNotes: Set<UInt> = []
-    var lastTimestamp: Date!
-    var lastTimestampNote: UInt!
+    var detectedChords: Set<String> = []
     
     
     override func didMove(to view: SKView) {
@@ -28,32 +26,28 @@ class DisplayGameScene: SKScene {
     
     func noteChanged(on: Set<UInt>, off: Set<UInt>) {
         
-        activeNotes = on
+        activeNotes = activeNotes.union(on).subtracting(off)
         
         updateNoteLabel()
         
-        on.forEach { self.processNote($0) }
+        detectChords()
         
-        if !on.isEmpty {
-            updateChordLabel()
-        }
+        updateChordLabel()
     }
     
     
-    func processNote(_ noteCode: UInt) {
+    func detectChords() {
         
-        if lastTimestamp != nil && DateInterval(start: lastTimestamp!, end: Date()).duration < TimeInterval(0.5) {
-            
-            lastNotes.insert(lastTimestampNote)
-            lastNotes.insert(noteCode)
-        }
-        else {
-            
-            lastNotes.removeAll()
-        }
+        detectedChords.removeAll()
         
-        lastTimestamp = Date()
-        lastTimestampNote = noteCode
+        let notes = Set<UInt>(activeNotes)
+        
+        let mappedNotes = Set<Note>(notes.map { Note.fromNoteCode($0) })
+
+        if mappedNotes == Set<Note>([.c, .e, .g]) {
+
+            detectedChords.insert("CM")
+        }
     }
     
     
@@ -81,20 +75,9 @@ class DisplayGameScene: SKScene {
 
         let labelNode = SKLabelNode()
         
-        let notes = Set<UInt>(lastNotes)
+        labelNode.text = detectedChords.joined(separator: " - ")
         
-        var detectedChord = ""
-        
-        let mappedNotes = Set<Note>(notes.map { Note.fromNoteCode($0) })
-        
-        if mappedNotes == Set<Note>([.c, .e, .g]) {
-            
-            detectedChord = "CM"
-        }
-        
-        labelNode.text = [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ") + " (\(detectedChord))"
-        
-        print("simultaneous notes detected: \(String(describing: labelNode.text))")
+        print("detected chords: \(String(describing: detectedChords))")
         
         labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
         

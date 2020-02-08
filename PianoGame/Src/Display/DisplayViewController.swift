@@ -14,7 +14,7 @@ class DisplayViewController: NSViewController {
     
     // game parameters
     let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
-    let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
+    let useEmulatedInput = false     // false to use device input, true to emulate device input from a MIDI file
     
     // control flags derived from game parameters
     var synthInputCommands: Bool { return useComputerSound }
