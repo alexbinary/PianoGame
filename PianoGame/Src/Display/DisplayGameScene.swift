@@ -8,7 +8,7 @@ class DisplayGameScene: SKScene {
     
     var labelNode: SKLabelNode!
     
-    var noteOnCounter = 0
+    var activeNotes: Set<UInt> = []
     
     
     override func didMove(to view: SKView) {
@@ -23,21 +23,32 @@ class DisplayGameScene: SKScene {
     
     func noteOn(_ noteCode: UInt) {
         
-        let note = Note.allCases[(Int(noteCode) - 60 + 8*12) % Note.allCases.count]
+        activeNotes.insert(noteCode)
         
-        labelNode.text = "\(String(describing: note).uppercased())"
-        
-        noteOnCounter += 1
+        updateLabel()
     }
     
     
     func noteOff(_ noteCode: UInt) {
         
-        noteOnCounter -= 1
+        activeNotes.remove(noteCode)
         
-        if noteOnCounter == 0 {
+        updateLabel()
+    }
+    
+    
+    func updateLabel() {
 
-            labelNode.text = ""
-        }
+        labelNode.text =  [UInt](activeNotes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
+    }
+}
+
+
+extension Note {
+    
+    
+    static func fromNoteCode(_ code: UInt) -> Note {
+        
+        return Note.allCases[(Int(code) - 60 + 8*12) % Note.allCases.count]
     }
 }
