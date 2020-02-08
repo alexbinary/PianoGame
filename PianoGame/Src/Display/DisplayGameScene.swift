@@ -5,6 +5,7 @@ import SpriteKit
 
 class DisplayGameScene: SKScene {
     
+    
     var activeNotes: Set<UInt> = []
     
     
@@ -18,7 +19,7 @@ class DisplayGameScene: SKScene {
     
     func noteChanged(on: Set<UInt>, off: Set<UInt>) {
         
-        activeNotes = activeNotes.union(on).subtracting(off)
+        activeNotes = on
         
         updateLabel()
     }
@@ -28,7 +29,9 @@ class DisplayGameScene: SKScene {
 
         let labelNode = SKLabelNode()
         
-        labelNode.text =  [UInt](activeNotes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
+        let notes = Set<UInt>(activeNotes)
+        
+        labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
         
         labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
         
