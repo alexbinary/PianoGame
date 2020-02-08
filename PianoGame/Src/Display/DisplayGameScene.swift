@@ -5,9 +5,6 @@ import SpriteKit
 
 class DisplayGameScene: SKScene {
     
-    
-    var labelNode: SKLabelNode!
-    
     var activeNotes: Set<UInt> = []
     
     
@@ -15,23 +12,13 @@ class DisplayGameScene: SKScene {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        labelNode = SKLabelNode()
-        
-        addChild(labelNode)
+        self.physicsWorld.gravity.dy = -1
     }
     
     
-    func noteOn(_ noteCode: UInt) {
+    func noteChanged(on: Set<UInt>, off: Set<UInt>) {
         
-        activeNotes.insert(noteCode)
-        
-        updateLabel()
-    }
-    
-    
-    func noteOff(_ noteCode: UInt) {
-        
-        activeNotes.remove(noteCode)
+        activeNotes = activeNotes.union(on).subtracting(off)
         
         updateLabel()
     }
@@ -39,7 +26,13 @@ class DisplayGameScene: SKScene {
     
     func updateLabel() {
 
+        let labelNode = SKLabelNode()
+        
         labelNode.text =  [UInt](activeNotes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
+        
+        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+        
+        addChild(labelNode)
     }
 }
 

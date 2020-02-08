@@ -14,7 +14,7 @@ class DisplayViewController: NSViewController {
     
     // game parameters
     let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
-    let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
+    let useEmulatedInput = false     // false to use device input, true to emulate device input from a MIDI file
     
     // control flags derived from game parameters
     var synthInputCommands: Bool { return useComputerSound }
@@ -66,6 +66,9 @@ class DisplayViewController: NSViewController {
             synth.handleMIDIMessages(commands)
         }
         
+        var on: Set<UInt> = []
+        var off: Set<UInt> = []
+        
         commands.forEach { command in
             
             print("now: \(Date()) - command timestamp: \(command.timestamp)")
@@ -74,18 +77,20 @@ class DisplayViewController: NSViewController {
                 
                 if noteOnCommand.velocity > 0 {
                     
-                    scene.noteOn(noteOnCommand.note)
+                    on.insert(noteOnCommand.note)
                 
                 } else {
                     
-                    scene.noteOff(noteOnCommand.note)
+                    off.insert(noteOnCommand.note)
                 }
             }
             else if let noteOffCommand = command as? MIKMIDINoteOffCommand {
                     
-                scene.noteOff(noteOffCommand.note)
+                off.insert(noteOffCommand.note)
             }
         }
+        
+        scene.noteChanged(on: on, off: off)
     }
 }
 
