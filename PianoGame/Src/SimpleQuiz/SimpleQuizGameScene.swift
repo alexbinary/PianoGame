@@ -23,7 +23,7 @@ class SimpleQuizGameScene: SKScene {
         
         generateNewNote()
         updateLabel()
-        playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60))
+        playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60 - 12))
     }
     
     
@@ -47,7 +47,7 @@ class SimpleQuizGameScene: SKScene {
                 
                 self.generateNewNote()
                 self.updateLabel()
-                self.playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: self.currentNote)! + 60))
+                self.playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: self.currentNote)! + 60 - 12))
                 
             }
         }
