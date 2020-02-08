@@ -6,12 +6,17 @@ import SpriteKit
 class DisplayGameScene: SKScene {
     
     
+    var defaultCamera: SKCameraNode!
+    
     var activeNotes: Set<UInt> = []
+    var x: CGFloat = 0.0
     
     
     override func didMove(to view: SKView) {
         
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        defaultCamera = SKCameraNode()
+        self.addChild(defaultCamera)
+        self.camera = defaultCamera
         
         self.physicsWorld.gravity.dy = -1
     }
@@ -34,6 +39,12 @@ class DisplayGameScene: SKScene {
         labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
         
         labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+        
+        labelNode.position = CGPoint(x: x, y: 0)
+        
+        defaultCamera.position = labelNode.position
+        
+        x += 10
         
         addChild(labelNode)
     }
