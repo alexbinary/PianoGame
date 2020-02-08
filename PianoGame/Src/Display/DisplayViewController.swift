@@ -12,6 +12,15 @@ class DisplayViewController: NSViewController {
     var synth: MIKMIDISynthesizer!
     
     
+    // game parameters
+    let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
+    let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
+    
+    // control flags derived from game parameters
+    var synthInputCommands: Bool { return useComputerSound }
+    var sendEmulatedInputToDevice: Bool { return !useComputerSound }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +52,9 @@ class DisplayViewController: NSViewController {
         sequencer.setCommandScheduler(self, for: sequence.tracks[1])
         sequencer.setCommandScheduler(self, for: sequence.tracks[2])
         
-        sequencer.startPlayback()
-        
+        if useEmulatedInput {
+            sequencer.startPlayback()
+        }
         
         synth = MIKMIDISynthesizer()
     }
@@ -52,7 +62,9 @@ class DisplayViewController: NSViewController {
     
     func onCommands(_ commands: [MIKMIDICommand]) {
         
-        synth.handleMIDIMessages(commands)
+        if synthInputCommands {
+            synth.handleMIDIMessages(commands)
+        }
         
         commands.forEach { command in
             
@@ -83,6 +95,8 @@ extension DisplayViewController: MIKMIDICommandScheduler {
         
         onCommands(commands)
         
-//        try! MIKMIDIDeviceManager.shared.send(commands, to: MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!.entities.first!.destinations.first!)
+        if sendEmulatedInputToDevice {
+            try! MIKMIDIDeviceManager.shared.send(commands, to: MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!.entities.first!.destinations.first!)
+        }
     }
 }
