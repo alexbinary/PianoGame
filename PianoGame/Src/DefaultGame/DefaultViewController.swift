@@ -4,7 +4,7 @@ import SpriteKit
 import MIKMIDI
 
 
-class ViewController: NSViewController {
+class DefaultViewController: NSViewController {
     
     
     var synth: MIKMIDISynthesizer!
@@ -15,7 +15,7 @@ class ViewController: NSViewController {
         
         let skView = view as! SKView
         
-        let scene = GameScene()
+        let scene = DefaultGameScene()
         scene.scaleMode = .resizeFill
         
         skView.presentScene(scene)

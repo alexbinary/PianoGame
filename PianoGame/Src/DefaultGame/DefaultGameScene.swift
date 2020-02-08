@@ -3,7 +3,7 @@ import Foundation
 import SpriteKit
 
 
-class GameScene: SKScene {
+class DefaultGameScene: SKScene {
     
     
     var defaultCamera: SKCameraNode!
@@ -91,7 +91,7 @@ class GameScene: SKScene {
 }
 
 
-extension GameScene : SKPhysicsContactDelegate {
+extension DefaultGameScene : SKPhysicsContactDelegate {
     
     
     func didBegin(_ contact: SKPhysicsContact) {
