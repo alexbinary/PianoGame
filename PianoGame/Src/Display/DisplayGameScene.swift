@@ -11,6 +11,10 @@ class DisplayGameScene: SKScene {
     var activeNotes: Set<UInt> = []
     var x: CGFloat = 0.0
     
+    var lastNotes: Set<UInt> = []
+    var lastTimestamp: Date!
+    var lastTimestampNote: UInt!
+    
     
     override func didMove(to view: SKView) {
         
@@ -26,11 +30,34 @@ class DisplayGameScene: SKScene {
         
         activeNotes = on
         
-        updateLabel()
+        updateNoteLabel()
+        
+        on.forEach { self.processNote($0) }
+        
+        if !on.isEmpty {
+            updateChordLabel()
+        }
     }
     
     
-    func updateLabel() {
+    func processNote(_ noteCode: UInt) {
+        
+        if lastTimestamp != nil && DateInterval(start: lastTimestamp!, end: Date()).duration < TimeInterval(0.5) {
+            
+            lastNotes.insert(lastTimestampNote)
+            lastNotes.insert(noteCode)
+        }
+        else {
+            
+            lastNotes.removeAll()
+        }
+        
+        lastTimestamp = Date()
+        lastTimestampNote = noteCode
+    }
+    
+    
+    func updateNoteLabel() {
 
         let labelNode = SKLabelNode()
         
@@ -45,6 +72,22 @@ class DisplayGameScene: SKScene {
         defaultCamera.position = labelNode.position
         
         x += 10
+        
+        addChild(labelNode)
+    }
+    
+    
+    func updateChordLabel() {
+
+        let labelNode = SKLabelNode()
+        
+        let notes = Set<UInt>(lastNotes)
+        
+        labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
+        
+        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+        
+        labelNode.position = CGPoint(x: x, y: 200)
         
         addChild(labelNode)
     }
