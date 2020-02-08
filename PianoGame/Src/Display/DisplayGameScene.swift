@@ -83,7 +83,18 @@ class DisplayGameScene: SKScene {
         
         let notes = Set<UInt>(lastNotes)
         
-        labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
+        var detectedChord = ""
+        
+        let mappedNotes = Set<Note>(notes.map { Note.fromNoteCode($0) })
+        
+        if mappedNotes == Set<Note>([.c, .e, .g]) {
+            
+            detectedChord = "CM"
+        }
+        
+        labelNode.text = [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ") + " (\(detectedChord))"
+        
+        print("simultaneous notes detected: \(String(describing: labelNode.text))")
         
         labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
         
