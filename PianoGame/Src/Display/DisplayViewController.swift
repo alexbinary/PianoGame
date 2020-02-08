@@ -29,6 +29,10 @@ class DisplayViewController: NSViewController {
                     if noteOnCommand.velocity > 0 {
                         
                         scene.noteOn(noteOnCommand.note)
+                    
+                    } else {
+                        
+                        scene.noteOff(noteOnCommand.note)
                     }
                 }
             }
