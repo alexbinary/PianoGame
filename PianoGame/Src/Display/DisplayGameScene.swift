@@ -53,11 +53,11 @@ class DisplayGameScene: SKScene {
             let minimumNoteCode: UInt = 21
             let maximumNoteCode: UInt = 107
             
-            let noteCodeStartingAtZero = note - minimumNoteCode
-            let noteCodeFractionnal = Double(noteCodeStartingAtZero) / Double(maximumNoteCode)
-            let noteCodeFractionnalCentered = noteCodeFractionnal - 0.5
-            let scaleFactor: Double = 800
-            let noteCodeFractionnalCenteredScaled = noteCodeFractionnalCentered * scaleFactor
+            let noteCodeStartingAtZero = note - minimumNoteCode // [0; max]
+            let noteCodeFractionnal = Double(noteCodeStartingAtZero) / Double(maximumNoteCode - minimumNoteCode + 2) // [0; 1]
+            let noteCodeFractionnalCentered = (noteCodeFractionnal - 0.5) * 2   // [-1; 1]
+            let scaleFactor: Double = Double(self.size.height) / 2.0 * 0.9
+            let noteCodeFractionnalCenteredScaled = noteCodeFractionnalCentered * scaleFactor    // [-h/2; +h/2]
             
             let labelNode = SKLabelNode()
             labelNode.text =  String(describing: Note.fromNoteCode(note)).uppercased()
