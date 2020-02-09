@@ -50,9 +50,18 @@ class DisplayGameScene: SKScene {
             let distanceToReferencePoint = CGFloat(timeIntervalSinceStart) * displaySpeed
             let position = referencePosition + distanceToReferencePoint
             
+            let minimumNoteCode: UInt = 21
+            let maximumNoteCode: UInt = 107
+            
+            let noteCodeStartingAtZero = note - minimumNoteCode
+            let noteCodeFractionnal = Double(noteCodeStartingAtZero) / Double(maximumNoteCode)
+            let noteCodeFractionnalCentered = noteCodeFractionnal - 0.5
+            let scaleFactor: Double = 800
+            let noteCodeFractionnalCenteredScaled = noteCodeFractionnalCentered * scaleFactor
+            
             let labelNode = SKLabelNode()
             labelNode.text =  String(describing: Note.fromNoteCode(note)).uppercased()
-            labelNode.position = CGPoint(x: position, y: 0)
+            labelNode.position = CGPoint(x: position, y: CGFloat(noteCodeFractionnalCenteredScaled))
             
             addChild(labelNode)
         }
