@@ -8,8 +8,7 @@ class DisplayGameScene: SKScene {
     
     var defaultCamera: SKCameraNode!
     
-    var activeNotes: Set<UInt> = []
-    var x: CGFloat = 0.0
+    var currentNotePosition: CGFloat = 0.0
     
     
     override func didMove(to view: SKView) {
@@ -17,34 +16,28 @@ class DisplayGameScene: SKScene {
         defaultCamera = SKCameraNode()
         self.addChild(defaultCamera)
         self.camera = defaultCamera
-        
-        self.physicsWorld.gravity.dy = -1
     }
     
     
-    func noteChanged(on: Set<UInt>, off: Set<UInt>) {
+    func onNotesChanged(notesGoingOn: Set<UInt>, notesGoingOff: Set<UInt>) {
         
-        activeNotes = activeNotes.union(on).subtracting(off)
-        
-        updateNoteLabel()
+        if !notesGoingOn.isEmpty {
+            onNotesGoingOn(notesGoingOn)
+        }
     }
     
     
-    func updateNoteLabel() {
-
+    func onNotesGoingOn(_ notes: Set<UInt>) {
+        
         let labelNode = SKLabelNode()
-        
-        let notes = Set<UInt>(activeNotes)
         
         labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
         
-        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
-        
-        labelNode.position = CGPoint(x: x, y: 0)
+        labelNode.position = CGPoint(x: currentNotePosition, y: 0)
         
         defaultCamera.position = labelNode.position
         
-        x += 10
+        currentNotePosition += 100
         
         addChild(labelNode)
     }
