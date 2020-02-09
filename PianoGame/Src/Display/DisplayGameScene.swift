@@ -44,15 +44,18 @@ class DisplayGameScene: SKScene {
     
     func onNotesGoingOn(_ notes: Set<UInt>) {
         
-        let timeIntervalSinceStart = DateInterval(start: dateStart, end: Date()).duration
-        let distanceToReferencePoint = CGFloat(timeIntervalSinceStart) * displaySpeed
-        let position = referencePosition + distanceToReferencePoint
+        notes.forEach { note in
         
-        let labelNode = SKLabelNode()
-        labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
-        labelNode.position = CGPoint(x: position, y: 0)
-        
-        addChild(labelNode)
+            let timeIntervalSinceStart = DateInterval(start: dateStart, end: Date()).duration
+            let distanceToReferencePoint = CGFloat(timeIntervalSinceStart) * displaySpeed
+            let position = referencePosition + distanceToReferencePoint
+            
+            let labelNode = SKLabelNode()
+            labelNode.text =  String(describing: Note.fromNoteCode(note)).uppercased()
+            labelNode.position = CGPoint(x: position, y: 0)
+            
+            addChild(labelNode)
+        }
     }
 }
 
