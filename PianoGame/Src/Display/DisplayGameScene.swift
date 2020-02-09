@@ -13,6 +13,8 @@ class DisplayGameScene: SKScene {
     
     let displaySpeed: CGFloat = 100    // points per second
     
+    var allNotesPlayed: [(date: Date, note: UInt)] = []
+    
     
     override func didMove(to view: SKView) {
         
@@ -64,6 +66,11 @@ class DisplayGameScene: SKScene {
             labelNode.position = CGPoint(x: position, y: CGFloat(noteCodeFractionnalCenteredScaled))
             
             addChild(labelNode)
+            
+            //
+            
+            allNotesPlayed.append((date: Date(), note: note))
+            print("allNotesPlayed: \(allNotesPlayed)")
         }
     }
 }
