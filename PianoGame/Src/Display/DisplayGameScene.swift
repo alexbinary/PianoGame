@@ -49,6 +49,11 @@ extension Note {
     
     static func fromNoteCode(_ code: UInt) -> Note {
         
-        return Note.allCases[(Int(code) - 60 + 8*12) % Note.allCases.count]
+        let originalNoteCode = Int(code)
+        let C4NoteCode = 60
+        let noteCodeRelativeToC4 = originalNoteCode - C4NoteCode    // align code on the 4th octave
+        let finalNoteCode = noteCodeRelativeToC4 + 5*12 // add as many octaves as needed to guarantee the code is always positive while staying properly aligned on the octaves
+        
+        return Note.allCases[finalNoteCode % Note.allCases.count]
     }
 }
