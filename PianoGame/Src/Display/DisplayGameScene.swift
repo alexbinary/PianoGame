@@ -11,8 +11,6 @@ class DisplayGameScene: SKScene {
     var activeNotes: Set<UInt> = []
     var x: CGFloat = 0.0
     
-    var detectedChords: Set<String> = []
-    
     
     override func didMove(to view: SKView) {
         
@@ -29,25 +27,6 @@ class DisplayGameScene: SKScene {
         activeNotes = activeNotes.union(on).subtracting(off)
         
         updateNoteLabel()
-        
-        detectChords()
-        
-        updateChordLabel()
-}
-    
-    
-    func detectChords() {
-        
-        detectedChords.removeAll()
-        
-        let notes = Set<UInt>(activeNotes)
-        
-        let mappedNotes = Set<Note>(notes.map { Note.fromNoteCode($0) })
-
-        if mappedNotes == Set<Note>([.c, .e, .g]) {
-
-            detectedChords.insert("CM")
-        }
     }
     
     
@@ -66,22 +45,6 @@ class DisplayGameScene: SKScene {
         defaultCamera.position = labelNode.position
         
         x += 10
-        
-        addChild(labelNode)
-    }
-    
-    
-    func updateChordLabel() {
-
-        let labelNode = SKLabelNode()
-        
-        labelNode.text = detectedChords.joined(separator: " - ")
-        
-        print("detected chords: \(String(describing: detectedChords))")
-        
-        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: 10)
-        
-        labelNode.position = CGPoint(x: x, y: 200)
         
         addChild(labelNode)
     }
