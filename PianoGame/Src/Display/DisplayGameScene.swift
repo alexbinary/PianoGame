@@ -13,9 +13,6 @@ class DisplayGameScene: SKScene {
     
     var detectedChords: Set<String> = []
     
-    var lastTimeIntervals: [TimeInterval] = []
-    var lastNoteOnTimestamp: Date!
-    
     
     override func didMove(to view: SKView) {
         
@@ -36,36 +33,7 @@ class DisplayGameScene: SKScene {
         detectChords()
         
         updateChordLabel()
-        
-        if !on.isEmpty {
-            
-//            if lastNoteOnTimestamp != nil {
-//                
-//                let interval = DateInterval(start: lastNoteOnTimestamp!, end: Date()).duration
-//                
-//                if interval > TimeInterval(0.1) {
-//                
-//                    lastTimeIntervals.insert(interval, at: 0)
-//                    
-//                    while lastTimeIntervals.count > 10 {
-//                        
-//                        _ = lastTimeIntervals.popLast()
-//                    }
-//                }
-//            }
-//            
-//            print("last time intervals: \(lastTimeIntervals)")
-//            
-//            lastNoteOnTimestamp = Date()
-//            
-//            if lastTimeIntervals.count >= 10 {
-//            
-////                let mean = Double(lastTimeIntervals.reduce(0, +)) / Double(lastTimeIntervals.count)
-////                
-////                print("last time intervals mean: \(mean)")
-//            }
-        }
-    }
+}
     
     
     func detectChords() {
