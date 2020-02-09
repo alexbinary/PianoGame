@@ -70,3 +70,28 @@ extension Note {
         return Note.allCases[finalNoteCode % Note.allCases.count]
     }
 }
+
+
+extension Note: CustomStringConvertible {
+    
+    
+    var description: String {
+        
+        let mapping: [Note: String] = [
+            .c: "C",
+            .c_sharp: "C#",
+            .d: "D",
+            .d_sharp: "D#",
+            .e: "E",
+            .f: "F#",
+            .f_sharp: "F#",
+            .g: "G",
+            .g_sharp: "G#",
+            .a: "A",
+            .a_sharp: "A#",
+            .b: "B",
+        ]
+        
+        return mapping[self]!
+    }
+}
