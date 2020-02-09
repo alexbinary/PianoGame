@@ -13,8 +13,10 @@ class DisplayGameScene: SKScene {
     
     let displaySpeed: CGFloat = 100    // points per second
     
-    var allNotesPlayed: [(date: Date, note: UInt)] = []
-    let patternAnalysisInterval = TimeInterval(3)
+    var previousNote: UInt!
+    var previousNoteDate: Date!
+    var allNoteIntervalsPlayed: [(dateStart: Date, interval: UInt, duration: TimeInterval)] = []
+    let patternAnalysisTimeWindow = TimeInterval(5)
     
     
     override func didMove(to view: SKView) {
@@ -70,11 +72,20 @@ class DisplayGameScene: SKScene {
             
             //
             
-            allNotesPlayed.append((date: Date(), note: note))
-            print("allNotesPlayed: \(allNotesPlayed)")
+            if previousNote != nil {
             
-            let notesForPatternAnalysis = allNotesPlayed.filter { return DateInterval(start: $0.date, end: Date()).duration < patternAnalysisInterval }
-            print("notesForPatternAnalysis: \(notesForPatternAnalysis)")
+                let interval = note - previousNote
+                let duration = DateInterval(start: previousNoteDate, end: Date()).duration
+                
+                allNoteIntervalsPlayed.append((dateStart: Date(), interval: interval, duration: duration))
+                print("allNoteIntervalsPlayed: \(allNoteIntervalsPlayed)")
+                
+                let intervalsForPatternAnalysis = allNoteIntervalsPlayed.filter { return DateInterval(start: $0.dateStart, end: Date()).duration < patternAnalysisTimeWindow }
+                print("intervalsForPatternAnalysis: \(intervalsForPatternAnalysis)")
+            }
+            
+            previousNote = note
+            previousNoteDate = Date()
         }
     }
 }

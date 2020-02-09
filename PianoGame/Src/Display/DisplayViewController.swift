@@ -16,7 +16,7 @@ class DisplayViewController: NSViewController {
     // game parameters
     let deviceName = "Alesis Recital Pro "  // don't forget the trailing space character!
     let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
-    let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
+    let useEmulatedInput = false     // false to use device input, true to emulate device input from a MIDI file
     let emulatedInputFilename = "wedding"   // without extension, assumed to be .mid
     let emulatedInputStartPlaybackTime: MusicTimeStamp = 0
     
