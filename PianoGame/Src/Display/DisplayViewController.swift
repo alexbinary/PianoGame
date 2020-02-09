@@ -9,10 +9,12 @@ class DisplayViewController: NSViewController {
     
     var scene: DisplayGameScene!
     
+    var device: MIKMIDIDevice!
     var synth: MIKMIDISynthesizer!
     
     
     // game parameters
+    let deviceName = "Alesis Recital Pro "  // don't forget the trailing space character!
     let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
     let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
     let emulatedInputFilename = "wedding"   // without extension, assumed to be .mid
@@ -50,9 +52,9 @@ class DisplayViewController: NSViewController {
     
     func connectToDevice() {
         
-        let alesisDevice = MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!
+        device = MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == deviceName })!
         
-        try! MIKMIDIDeviceManager.shared.connect(alesisDevice) { (_, commands) in
+        try! MIKMIDIDeviceManager.shared.connect(device) { (_, commands) in
             print("received commands from device: \(commands)")
             self.onCommands(commands)
         }
@@ -108,11 +110,10 @@ extension DisplayViewController: MIKMIDICommandScheduler {
     func scheduleMIDICommands(_ commands: [MIKMIDICommand]) {
         
         print("received commands from sequencer: \(commands)")
-        
         onCommands(commands)
         
         if sendEmulatedInputToDevice {
-            try! MIKMIDIDeviceManager.shared.send(commands, to: MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!.entities.first!.destinations.first!)
+            try! MIKMIDIDeviceManager.shared.send(commands, to: device.entities.first!.destinations.first!)
         }
     }
 }
