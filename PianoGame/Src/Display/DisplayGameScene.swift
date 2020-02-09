@@ -14,6 +14,7 @@ class DisplayGameScene: SKScene {
     let displaySpeed: CGFloat = 100    // points per second
     
     var allNotesPlayed: [(date: Date, note: UInt)] = []
+    let patternAnalysisInterval = TimeInterval(3)
     
     
     override func didMove(to view: SKView) {
@@ -71,6 +72,9 @@ class DisplayGameScene: SKScene {
             
             allNotesPlayed.append((date: Date(), note: note))
             print("allNotesPlayed: \(allNotesPlayed)")
+            
+            let notesForPatternAnalysis = allNotesPlayed.filter { return DateInterval(start: $0.date, end: Date()).duration < patternAnalysisInterval }
+            print("notesForPatternAnalysis: \(notesForPatternAnalysis)")
         }
     }
 }
