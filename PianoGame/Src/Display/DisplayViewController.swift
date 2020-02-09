@@ -26,24 +26,42 @@ class DisplayViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let skView = view as! SKView
+        initScene()
+        connectToDevice()
+        
+        if synthInputCommands {
+            synth = MIKMIDISynthesizer()
+        }
+        
+        if useEmulatedInput {
+            startEmulatedInput()
+        }
+    }
+    
+    
+    func initScene() {
         
         scene = DisplayGameScene()
         scene.scaleMode = .resizeFill
         
-        skView.presentScene(scene)
-        
+        (view as! SKView).presentScene(scene)
+    }
+    
+    
+    func connectToDevice() {
         
         let alesisDevice = MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == "Alesis Recital Pro " })!
         
         try! MIKMIDIDeviceManager.shared.connect(alesisDevice) { (_, commands) in
-                
-            print("commands from device: \(commands)")
-            
+            print("received commands from device: \(commands)")
             self.onCommands(commands)
         }
+    }
+    
+    
+    func startEmulatedInput() {
         
-        let url = Bundle.main.url(forResource: "emulatedInputFilename", withExtension: "mid")!
+        let url = Bundle.main.url(forResource: emulatedInputFilename, withExtension: "mid")!
         
         let sequence = try! MIKMIDISequence(fileAt: url)
         print("MIDI sequence has \(sequence.tracks.count) track(s)")
@@ -53,11 +71,7 @@ class DisplayViewController: NSViewController {
         sequencer.shouldCreateSynthsIfNeeded = false
         sequence.tracks.forEach { sequencer.setCommandScheduler(self, for: $0) }
 
-        if useEmulatedInput {
-            sequencer.startPlayback(atTimeStamp: emulatedInputStartPlaybackTime)
-        }
-        
-        synth = MIKMIDISynthesizer()
+        sequencer.startPlayback(atTimeStamp: emulatedInputStartPlaybackTime)
     }
     
     
@@ -71,22 +85,14 @@ class DisplayViewController: NSViewController {
         var off: Set<UInt> = []
         
         commands.forEach { command in
-            
-            print("now: \(Date()) - command timestamp: \(command.timestamp)")
-            
             if let noteOnCommand = command as? MIKMIDINoteOnCommand {
-                
                 if noteOnCommand.velocity > 0 {
-                    
                     on.insert(noteOnCommand.note)
-                
                 } else {
-                    
                     off.insert(noteOnCommand.note)
                 }
             }
             else if let noteOffCommand = command as? MIKMIDINoteOffCommand {
-                    
                 off.insert(noteOffCommand.note)
             }
         }
@@ -101,7 +107,7 @@ extension DisplayViewController: MIKMIDICommandScheduler {
     
     func scheduleMIDICommands(_ commands: [MIKMIDICommand]) {
         
-        print("commands from sequencer: \(commands)")
+        print("received commands from sequencer: \(commands)")
         
         onCommands(commands)
         
