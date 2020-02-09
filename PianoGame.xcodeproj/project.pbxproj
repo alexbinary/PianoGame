@@ -25,6 +25,7 @@
 		29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D4023EB8721009E71F2 /* DisplayGameScene.swift */; };
 		299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */; };
 		299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
+		29C198D323EF712C007950DE /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -105,6 +106,7 @@
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
 		299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizViewController.swift; sourceTree = "<group>"; };
 		299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizGameScene.swift; sourceTree = "<group>"; };
+		29C198CF23EF712C007950DE /* wedding.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = wedding.mid; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
 		29D7DF3723E771A400760A8D /* SpikesNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpikesNode.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				2945345123EA16E700F92152 /* sample.mid */,
+				29C198CF23EF712C007950DE /* wedding.mid */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2945345223EA16E700F92152 /* sample.mid in Resources */,
+				29C198D323EF712C007950DE /* wedding.mid in Resources */,
 				29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */,
 				29F7524A23E6DBA700CC776C /* Main.storyboard in Resources */,
 			);

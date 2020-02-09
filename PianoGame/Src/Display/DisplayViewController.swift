@@ -15,6 +15,8 @@ class DisplayViewController: NSViewController {
     // game parameters
     let useComputerSound = false     // false to use native device sound, true to let the app generate the sounds
     let useEmulatedInput = true     // false to use device input, true to emulate device input from a MIDI file
+    let emulatedInputFilename = "wedding"   // without extension, assumed to be .mid
+    let emulatedInputStartPlaybackTime: MusicTimeStamp = 0
     
     // control flags derived from game parameters
     var synthInputCommands: Bool { return useComputerSound }
@@ -41,7 +43,7 @@ class DisplayViewController: NSViewController {
             self.onCommands(commands)
         }
         
-        let url = Bundle.main.url(forResource: "sample", withExtension: "mid")!
+        let url = Bundle.main.url(forResource: "emulatedInputFilename", withExtension: "mid")!
         
         let sequence = try! MIKMIDISequence(fileAt: url)
         print("MIDI sequence has \(sequence.tracks.count) track(s)")
@@ -49,12 +51,10 @@ class DisplayViewController: NSViewController {
         
         let sequencer = MIKMIDISequencer(sequence: sequence)
         sequencer.shouldCreateSynthsIfNeeded = false
-        sequencer.setCommandScheduler(self, for: sequence.tracks[1])
-        sequencer.setCommandScheduler(self, for: sequence.tracks[2])
-        
+        sequence.tracks.forEach { sequencer.setCommandScheduler(self, for: $0) }
+
         if useEmulatedInput {
-            sequencer.startPlayback()
-//            sequencer.startPlayback(atTimeStamp: MusicTimeStamp(9))
+            sequencer.startPlayback(atTimeStamp: emulatedInputStartPlaybackTime)
         }
         
         synth = MIKMIDISynthesizer()
