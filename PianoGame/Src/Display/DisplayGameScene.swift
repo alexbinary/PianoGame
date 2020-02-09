@@ -8,7 +8,10 @@ class DisplayGameScene: SKScene {
     
     var defaultCamera: SKCameraNode!
     
-    var currentNotePosition: CGFloat = 0.0
+    var referencePosition: CGFloat = 0.0
+    var dateStart: Date!
+    
+    let displaySpeed: CGFloat = 100    // points per second
     
     
     override func didMove(to view: SKView) {
@@ -16,6 +19,18 @@ class DisplayGameScene: SKScene {
         defaultCamera = SKCameraNode()
         self.addChild(defaultCamera)
         self.camera = defaultCamera
+        
+        dateStart = Date()
+    }
+    
+    
+    override func didFinishUpdate() {
+        
+        let timeIntervalSinceStart = DateInterval(start: dateStart, end: Date()).duration
+        let distanceToReferencePoint = CGFloat(timeIntervalSinceStart) * displaySpeed
+        let position = referencePosition + distanceToReferencePoint
+        
+        defaultCamera.position = CGPoint(x: position, y: 0)
     }
     
     
@@ -29,15 +44,13 @@ class DisplayGameScene: SKScene {
     
     func onNotesGoingOn(_ notes: Set<UInt>) {
         
+        let timeIntervalSinceStart = DateInterval(start: dateStart, end: Date()).duration
+        let distanceToReferencePoint = CGFloat(timeIntervalSinceStart) * displaySpeed
+        let position = referencePosition + distanceToReferencePoint
+        
         let labelNode = SKLabelNode()
-        
         labelNode.text =  [UInt](notes).sorted().map { String(describing: Note.fromNoteCode($0)).uppercased() } .joined(separator: " ")
-        
-        labelNode.position = CGPoint(x: currentNotePosition, y: 0)
-        
-        defaultCamera.position = labelNode.position
-        
-        currentNotePosition += 100
+        labelNode.position = CGPoint(x: position, y: 0)
         
         addChild(labelNode)
     }
