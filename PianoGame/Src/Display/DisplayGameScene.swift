@@ -181,7 +181,7 @@ extension Note: CustomStringConvertible {
             .d: "D",
             .d_sharp: "D#",
             .e: "E",
-            .f: "F#",
+            .f: "F",
             .f_sharp: "F#",
             .g: "G",
             .g_sharp: "G#",
