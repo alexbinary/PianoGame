@@ -3,23 +3,6 @@ import Foundation
 import SpriteKit
 
 
-enum Note : CaseIterable {
-    
-    case c
-    case c_sharp
-    case d
-    case d_sharp
-    case e
-    case f
-    case f_sharp
-    case g
-    case g_sharp
-    case a
-    case a_sharp
-    case b
-}
-
-
 class QuizGameScene: SKScene {
     
     

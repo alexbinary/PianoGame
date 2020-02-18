@@ -10,7 +10,7 @@ class IntervalDisplayScene: SKScene {
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
     var activeNoteCodes: Set<UInt> = []
-    var activeNotes: Set<Note> { return Set<Note>(activeNoteCodes.map { Note.fromNoteCode($0) }) }
+    var activeNotes: Set<Note> { return Set<Note>(activeNoteCodes.map { Note(fromNoteCode: $0) }) }
     
     
     override func didMove(to view: SKView) {
@@ -120,26 +120,5 @@ class IntervalDisplayScene: SKScene {
         intervalLengthLabel.position = CGPoint(x: 0, y: position - intervalLengthLabel.calculateAccumulatedFrame().height/2 - 10)
         intervalLengthLabel.fontSize *= 0.8
         self.addChild(intervalLengthLabel)
-    }
-}
-
-
-enum Interval: CaseIterable {
-    
-    case P1
-    case m2
-    case M2
-    case m3
-    case M3
-    case P4
-    case A4
-    case P5
-    case m6
-    case M6
-    case m7
-    case M7
-    
-    init(from semitones: UInt) {
-        self = Interval.allCases[Int(semitones % 12)]
     }
 }

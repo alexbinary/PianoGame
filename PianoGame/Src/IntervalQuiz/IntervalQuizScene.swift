@@ -49,7 +49,7 @@ class IntervalQuizScene: SKScene {
     
     func onNoteOn(_ code: UInt) {
         
-        if Note.fromNoteCode(code) == expectedNote {
+        if Note(fromNoteCode: code) == expectedNote {
             
             expectedNotePlayed = true
             self.redraw()

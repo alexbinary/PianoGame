@@ -63,7 +63,7 @@ class DisplayGameScene: SKScene {
         let noteCodeFractionnalCenteredScaled = noteCodeFractionnalCentered * scaleFactor    // [-h/2; +h/2]
         
         let labelNode = SKLabelNode()
-        labelNode.text =  String(describing: Note.fromNoteCode(note)).uppercased()
+        labelNode.text =  String(describing: Note(fromNoteCode: note)).uppercased()
         labelNode.position = CGPoint(x: position, y: CGFloat(noteCodeFractionnalCenteredScaled))
         
         addChild(labelNode)
@@ -151,45 +151,5 @@ class DisplayGameScene: SKScene {
             previousNote = note
             previousNoteDate = Date()
         }
-    }
-}
-
-
-extension Note {
-    
-    
-    static func fromNoteCode(_ code: UInt) -> Note {
-        
-        let originalNoteCode = Int(code)
-        let C4NoteCode = 60
-        let noteCodeRelativeToC4 = originalNoteCode - C4NoteCode    // align code on the 4th octave
-        let finalNoteCode = noteCodeRelativeToC4 + 5*12 // add as many octaves as needed to guarantee the code is always positive while staying properly aligned on the octaves
-        
-        return Note.allCases[finalNoteCode % Note.allCases.count]
-    }
-}
-
-
-extension Note: CustomStringConvertible {
-    
-    
-    var description: String {
-        
-        let mapping: [Note: String] = [
-            .c: "C",
-            .c_sharp: "C#",
-            .d: "D",
-            .d_sharp: "D#",
-            .e: "E",
-            .f: "F",
-            .f_sharp: "F#",
-            .g: "G",
-            .g_sharp: "G#",
-            .a: "A",
-            .a_sharp: "A#",
-            .b: "B",
-        ]
-        
-        return mapping[self]!
     }
 }
