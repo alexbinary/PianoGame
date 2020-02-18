@@ -9,7 +9,7 @@ class GenericViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = IntervalDisplayScene()
+        let scene = IntervalQuizScene()
         scene.scaleMode = .resizeFill
         
         (view as! SKView).presentScene(scene)

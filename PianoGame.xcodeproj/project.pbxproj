@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
 		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
 		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2945345223EA16E700F92152 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
@@ -93,6 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
 		2950286023FC1B6B00073C4E /* GenericViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */,
+			);
+			path = IntervalQuiz;
+			sourceTree = "<group>";
+		};
 		2945344223EA0AB200F92152 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +288,7 @@
 				29F7524823E6DBA700CC776C /* Main.storyboard */,
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
 				2950286023FC1B6B00073C4E /* GenericViewController.swift */,
+				2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */,
 				2950285C23FC1B4800073C4E /* IntervalDisplay */,
 				298E410B23EEC6920064288E /* DefaultGame */,
 				299F7AB223EB88B2008E6F56 /* SimpleQuiz */,
@@ -443,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */,
 				29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */,
 				296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */,
 				2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */,
