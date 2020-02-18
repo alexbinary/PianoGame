@@ -40,7 +40,11 @@ class IntervalQuizScene: SKScene {
                 if let noteOnCommand = command as? MIKMIDINoteOnCommand {
                     if noteOnCommand.velocity > 0 {
                         self.onNoteOn(noteOnCommand.note)
+                    } else {
+                        self.onNoteOff(noteOnCommand.note)
                     }
+                } else if let noteOffCommand = command as? MIKMIDINoteOffCommand {
+                    self.onNoteOff(noteOffCommand.note)
                 }
             }
         }
@@ -53,12 +57,16 @@ class IntervalQuizScene: SKScene {
             
             expectedNotePlayed = true
             self.redraw()
+        }
+    }
+    
+    
+    func onNoteOff(_ code: UInt) {
+        
+        if Note(fromNoteCode: code) == expectedNote, expectedNotePlayed {
             
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                
-                self.pickExercise()
-                self.redraw()
-            }
+            self.pickExercise()
+            self.redraw()
         }
     }
     
