@@ -10,6 +10,8 @@
 		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
 		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2945345223EA16E700F92152 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
+		2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286023FC1B6B00073C4E /* GenericViewController.swift */; };
+		2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */; };
 		2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8F23EB320300A7D97B /* SceneDelegate.swift */; };
@@ -26,6 +28,8 @@
 		299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */; };
 		299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C198D323EF712C007950DE /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
+		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
+		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
 		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
 		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
 		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
@@ -91,6 +95,8 @@
 /* Begin PBXFileReference section */
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
+		2950286023FC1B6B00073C4E /* GenericViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericViewController.swift; sourceTree = "<group>"; };
+		2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDisplayScene.swift; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameScene.swift; sourceTree = "<group>"; };
 		296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame_iPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296B1B8D23EB320300A7D97B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +167,14 @@
 				29C198CF23EF712C007950DE /* wedding.mid */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2950285C23FC1B4800073C4E /* IntervalDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */,
+			);
+			path = IntervalDisplay;
 			sourceTree = "<group>";
 		};
 		296B1B8C23EB320300A7D97B /* PianoGame_iPad */ = {
@@ -263,6 +277,8 @@
 			children = (
 				29F7524823E6DBA700CC776C /* Main.storyboard */,
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
+				2950286023FC1B6B00073C4E /* GenericViewController.swift */,
+				2950285C23FC1B4800073C4E /* IntervalDisplay */,
 				298E410B23EEC6920064288E /* DefaultGame */,
 				299F7AB223EB88B2008E6F56 /* SimpleQuiz */,
 				29818D3A23EB86EE009E71F2 /* Display */,
@@ -415,8 +431,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */,
 				296B1B9223EB320300A7D97B /* ViewController.swift in Sources */,
 				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
+				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
 				296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,9 +445,11 @@
 			files = (
 				29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */,
 				296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */,
+				2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */,
 				296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */,
 				299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */,
 				29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */,
+				2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */,
 				299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,

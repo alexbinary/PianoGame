@@ -1,5 +1,6 @@
 
 import UIKit
+import SpriteKit
 import MIKMIDI
 
 
@@ -9,7 +10,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        print(MIKMIDIDeviceManager.shared.availableDevices)
+        let skView = view as! SKView
+        
+        let scene = SimpleQuizGameScene()
+        
+        scene.scaleMode = .resizeFill
+        
+        skView.presentScene(scene)
     }
 }
 
