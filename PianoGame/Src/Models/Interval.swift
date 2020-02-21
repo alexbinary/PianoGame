@@ -21,4 +21,7 @@ enum Interval: CaseIterable {
         
         self = Interval.allCases[Int(semitones % 12)]
     }
+    
+    
+    var lengthInSemitones: UInt { return UInt(Interval.allCases.firstIndex(of: self)!) }
 }

@@ -26,6 +26,12 @@ enum Note : CaseIterable {
         
         self = Note.allCases[finalNoteCode % Note.allCases.count]
     }
+    
+    
+    mutating func adding(_ interval: Interval) -> Note {
+        
+        return Note.allCases[(Note.allCases.firstIndex(of: self)! + Int(interval.lengthInSemitones)) % 12]
+    }
 }
 
 
