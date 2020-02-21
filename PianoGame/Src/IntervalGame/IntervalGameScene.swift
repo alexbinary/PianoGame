@@ -239,6 +239,9 @@ class IntervalGameScene: SKScene {
     var numberOfCorrectAnswersSinceLastWrongAnswer: UInt = 0
     var gameCompleted = false
     
+    let sideColumnRelativeWidth: Percent = 30%
+    let topAreaRelativeHeight: Percent = 30%
+    
     
     override func didMove(to view: SKView) {
         
@@ -293,7 +296,7 @@ class IntervalGameScene: SKScene {
             
             if self.currentSessionProgress >= 100% {
             
-                guard let currentSessionIndex = currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
+                guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
                 
                 for (note, pointsByInterval) in sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval {
                     for (interval, points) in pointsByInterval {
@@ -319,7 +322,7 @@ class IntervalGameScene: SKScene {
             
             if self.currentSessionProgress >= 100% {
                 
-                guard let currentSessionIndex = currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
+                guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
                 
                 if currentSessionIndex == sessions.count - 1 {
 
@@ -359,7 +362,7 @@ class IntervalGameScene: SKScene {
     
     func loadNextQuestion() {
         
-        guard let currentSessionIndex = currentSessionIndex else { fatalError("Tying to load question while no session is active.") }
+        guard let currentSessionIndex = self.currentSessionIndex else { fatalError("Trying to load question while no session is active.") }
         
         self.currentQuestionNote = sessions[currentSessionIndex].notesAndIntervalsSubjects.keys.randomElement()
         self.currentQuestionInterval = sessions[currentSessionIndex].notesAndIntervalsSubjects[currentQuestionNote!]!.randomElement()
@@ -378,7 +381,7 @@ class IntervalGameScene: SKScene {
     
     func computeNextSessionProgress() {
         
-        guard let currentSessionIndex = currentSessionIndex else { fatalError("Tying to compute next session progress while no session is active.") }
+        guard let currentSessionIndex = self.currentSessionIndex else { fatalError("Trying to compute next session progress while no session is active.") }
         
         self.nextSessionProgress = min(100%, self.currentSessionProgress + sessions[currentSessionIndex].nominalProgress * Double(self.currentActualMultiplier))
     }
@@ -386,21 +389,95 @@ class IntervalGameScene: SKScene {
     
     func redraw() {
         
-        print("===== Redraw")
+        self.removeAllChildren()
         
-        print("gameCompleted: \(self.gameCompleted)")
+        if self.gameCompleted {
+            
+            let label = SKLabelNode(text: "You have completed the training!")
+            self.addChild(label)
+            
+            return
+        }
         
-        print("currentQuestionNote: \(self.currentQuestionNote)")
-        print("currentQuestionInterval: \(self.currentQuestionInterval)")
-        print("currentQuestionSolutionNote: \(self.currentQuestionSolutionNote)")
-        print("currentQuestionSolutionNoteGiven: \(self.currentQuestionSolutionNoteGiven)")
+        guard
+             let currentQuestionNote = self.currentQuestionNote
+            ,let currentQuestionSolutionNote = self.currentQuestionSolutionNote
+            ,let currentQuestionInterval = self.currentQuestionInterval
+        else { return }
         
-        print("currentSessionProgress: \(self.currentSessionProgress)")
-        print("nextSessionProgress: \(self.nextSessionProgress)")
+        // define UI main areas
         
-        print("currentActualMultiplier: \(self.currentActualMultiplier)")
-        print("currentDisplayedMultiplier: \(self.currentDisplayedMultiplier)")
+        let sideColumnRootNode = ContainerNode(withSize: CGSize(width: self.frame.width * CGFloat(self.sideColumnRelativeWidth.fraction), height: self.frame.height))
+        sideColumnRootNode.position = CGPoint(x: self.frame.width/2.0 - sideColumnRootNode.size.width/2.0, y: 0)
+        self.addChild(sideColumnRootNode)
         
-        print("obtainedMasteryPointsByNoteAndInterval: \(self.obtainedMasteryPointsByNoteAndInterval)")
+        let mainAreaRootNode = ContainerNode(withSize: CGSize(width: self.frame.width - sideColumnRootNode.size.width, height: self.frame.height))
+        mainAreaRootNode.position = CGPoint(x: -self.frame.width/2.0 + mainAreaRootNode.size.width/2.0, y: 0)
+        self.addChild(mainAreaRootNode)
+        
+        let topMainAreaRootNode = ContainerNode(withSize: CGSize(width: mainAreaRootNode.size.width, height: mainAreaRootNode.size.height * CGFloat(self.topAreaRelativeHeight.fraction)))
+        topMainAreaRootNode.position = CGPoint(x: 0, y: mainAreaRootNode.size.height/2.0 - topMainAreaRootNode.size.height/2.0)
+        mainAreaRootNode.addChild(topMainAreaRootNode)
+        
+        let bottomMainAreaRootNode = ContainerNode(withSize: CGSize(width: mainAreaRootNode.size.width, height: mainAreaRootNode.size.height - topMainAreaRootNode.size.height))
+        bottomMainAreaRootNode.position = CGPoint(x: 0, y: -mainAreaRootNode.size.height/2.0 + bottomMainAreaRootNode.size.height/2.0)
+        mainAreaRootNode.addChild(bottomMainAreaRootNode)
+        
+        // draw question
+        
+        let questionNoteLabel = SKLabelNode(text: currentQuestionNote.description.uppercased())
+        questionNoteLabel.position = CGPoint(x: -(bottomMainAreaRootNode.size.width/2.0)*2.0/3.0, y: 0)
+        bottomMainAreaRootNode.addChild(questionNoteLabel)
+        
+        let solutionNoteLabel = SKLabelNode(text: self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?")
+        solutionNoteLabel.position = CGPoint(x: (bottomMainAreaRootNode.size.width/2.0)*2.0/3.0, y: 0)
+        bottomMainAreaRootNode.addChild(solutionNoteLabel)
+        
+        let questionIntervalNameLabel = SKLabelNode(text: String(describing: currentQuestionInterval))
+        questionIntervalNameLabel.position = CGPoint(x: 0, y: questionIntervalNameLabel.calculateAccumulatedFrame().height/2.0 + 10)
+        bottomMainAreaRootNode.addChild(questionIntervalNameLabel)
+        
+        let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T")
+        questionIntervalLengthLabel.fontSize *= 0.8
+        questionIntervalLengthLabel.position = CGPoint(x: 0, y: -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10)
+        bottomMainAreaRootNode.addChild(questionIntervalLengthLabel)
+        
+        // draw session progress
+        
+        self.drawProgressBar(parent: topMainAreaRootNode, position: CGPoint(x: 0, y: 0), width: topMainAreaRootNode.size.width * 0.9, height: 10, value: self.currentSessionProgress, markerValue: self.nextSessionProgress)
+    }
+    
+    
+    func drawProgressBar(parent: ContainerNode, position: CGPoint, width: CGFloat, height: CGFloat, value: Percent, markerValue: Percent) {
+        
+        let mainRectNode = SKShapeNode(rectOf: CGSize(width: width, height: height))
+        mainRectNode.position = position
+        parent.addChild(mainRectNode)
+        
+        let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
+        fillRectNode.position = CGPoint(x: -width/2.0 + fillRectNode.frame.width/2.0, y: 0)
+        parent.addChild(fillRectNode)
+        
+        let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
+        markerNode.position = CGPoint(x: -width/2.0 + width * CGFloat(markerValue.fraction), y: 0)
+        parent.addChild(markerNode)
+    }
+}
+
+
+class ContainerNode: SKNode {
+    
+    let size: CGSize
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        self.size = CGSize.zero
+        super.init(coder: aDecoder)
+    }
+    
+    init(withSize size: CGSize) {
+        
+        self.size = size
+        super.init()
     }
 }
