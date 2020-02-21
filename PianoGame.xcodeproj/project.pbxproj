@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286023FC1B6B00073C4E /* GenericViewController.swift */; };
 		2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */; };
 		295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B83A224000DAE00993564 /* IntervalGameScene.swift */; };
+		295B83A6240013D500993564 /* Percent in Frameworks */ = {isa = PBXBuildFile; productRef = 295B83A5240013D500993564 /* Percent */; };
 		2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8F23EB320300A7D97B /* SceneDelegate.swift */; };
@@ -150,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				295B83A6240013D500993564 /* Percent in Frameworks */,
 				29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */,
 				2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */,
 			);
@@ -367,6 +369,9 @@
 			dependencies = (
 			);
 			name = PianoGame;
+			packageProductDependencies = (
+				295B83A5240013D500993564 /* Percent */,
+			);
 			productName = PianoGame;
 			productReference = 29F7523F23E6DBA600CC776C /* PianoGame.app */;
 			productType = "com.apple.product-type.application";
@@ -398,6 +403,9 @@
 				Base,
 			);
 			mainGroup = 29F7523623E6DBA500CC776C;
+			packageReferences = (
+				295B83A4240013D500993564 /* XCRemoteSwiftPackageReference "Percentage" */,
+			);
 			productRefGroup = 29F7524023E6DBA600CC776C /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -758,6 +766,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		295B83A4240013D500993564 /* XCRemoteSwiftPackageReference "Percentage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Percentage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		295B83A5240013D500993564 /* Percent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 295B83A4240013D500993564 /* XCRemoteSwiftPackageReference "Percentage" */;
+			productName = Percent;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29F7523723E6DBA600CC776C /* Project object */;
 }

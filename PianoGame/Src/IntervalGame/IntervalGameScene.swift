@@ -2,13 +2,14 @@
 import Foundation
 import SpriteKit
 import MIKMIDI
+import Percent
 
 
 struct Session {
     
     let notesAndIntervalsSubjects: [Note: [Interval]]
     let grantedMasterPointsByNoteAndInterval: [Note: [Interval: UInt]]
-    let nominalProgress: Float  // should be in ]0;1[
+    let nominalProgress: Percent
 }
 
 
