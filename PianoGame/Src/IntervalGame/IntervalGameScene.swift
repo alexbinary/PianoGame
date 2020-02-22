@@ -242,6 +242,9 @@ class IntervalGameScene: SKScene {
     let sideColumnRelativeWidth: Percent = 30%
     let topAreaRelativeHeight: Percent = 30%
     
+    let sessionProgressBarRelativeWidth: Percent = 90%
+    let sessionProgressBarHeight: CGFloat = 10
+    
     
     override func didMove(to view: SKView) {
         
@@ -444,7 +447,17 @@ class IntervalGameScene: SKScene {
         
         // draw session progress
         
-        self.drawProgressBar(parent: topMainAreaRootNode, position: CGPoint(x: 0, y: 0), width: topMainAreaRootNode.size.width * 0.9, height: 10, value: self.currentSessionProgress, markerValue: self.nextSessionProgress)
+        let sessionProgressBarWidth = topMainAreaRootNode.size.width * CGFloat(sessionProgressBarRelativeWidth.fraction)
+        self.drawProgressBar(parent: topMainAreaRootNode, position: CGPoint(x: 0, y: 0), width: sessionProgressBarWidth, height: self.sessionProgressBarHeight, value: self.currentSessionProgress, markerValue: self.nextSessionProgress)
+        
+        // draw multiplier
+        
+        if let currentDisplayedMultiplier = self.currentDisplayedMultiplier {
+        
+            let multiplierLabel = SKLabelNode(text: "x\(currentDisplayedMultiplier)")
+            multiplierLabel.position = CGPoint(x: -sessionProgressBarWidth/2.0 + sessionProgressBarWidth * CGFloat(currentSessionProgress.fraction) , y: sessionProgressBarHeight/2.0 + multiplierLabel.calculateAccumulatedFrame().height/2.0 + 10)
+            topMainAreaRootNode.addChild(multiplierLabel)
+        }
     }
     
     
