@@ -415,51 +415,56 @@ class IntervalGameScene: SKScene {
         self.addChild(sideColumnRootNode)
         
         let mainAreaRootNode = ContainerNode(withSize: CGSize(width: self.frame.width - sideColumnRootNode.size.width, height: self.frame.height))
-        mainAreaRootNode.position = CGPoint(x: -self.frame.width/2.0 + mainAreaRootNode.size.width/2.0, y: 0)
+        let x = -self.frame.width/2.0 + mainAreaRootNode.size.width/2.0
+        mainAreaRootNode.position = CGPoint(x: x, y: 0)
         self.addChild(mainAreaRootNode)
         
         let topMainAreaRootNode = ContainerNode(withSize: CGSize(width: mainAreaRootNode.size.width, height: mainAreaRootNode.size.height * CGFloat(self.topAreaRelativeHeight.fraction)))
         topMainAreaRootNode.position = CGPoint(x: 0, y: mainAreaRootNode.size.height/2.0 - topMainAreaRootNode.size.height/2.0)
         mainAreaRootNode.addChild(topMainAreaRootNode)
-        
+
         let bottomMainAreaRootNode = ContainerNode(withSize: CGSize(width: mainAreaRootNode.size.width, height: mainAreaRootNode.size.height - topMainAreaRootNode.size.height))
-        bottomMainAreaRootNode.position = CGPoint(x: 0, y: -mainAreaRootNode.size.height/2.0 + bottomMainAreaRootNode.size.height/2.0)
+        let y = -mainAreaRootNode.size.height/2.0 + bottomMainAreaRootNode.size.height/2.0
+        bottomMainAreaRootNode.position = CGPoint(x: 0, y: y)
         mainAreaRootNode.addChild(bottomMainAreaRootNode)
-        
+
         // draw question
-        
+
         let questionNoteLabel = SKLabelNode(text: currentQuestionNote.description.uppercased())
-        questionNoteLabel.position = CGPoint(x: -(bottomMainAreaRootNode.size.width/2.0)*2.0/3.0, y: 0)
+        let referenceWidth = bottomMainAreaRootNode.size.width/2.0
+        let x2 = -referenceWidth*2.0/3.0
+        questionNoteLabel.position = CGPoint(x: x2, y: 0)
         bottomMainAreaRootNode.addChild(questionNoteLabel)
-        
+
         let solutionNoteLabel = SKLabelNode(text: self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?")
-        solutionNoteLabel.position = CGPoint(x: (bottomMainAreaRootNode.size.width/2.0)*2.0/3.0, y: 0)
+        let x3 = referenceWidth*2.0/3.0
+        solutionNoteLabel.position = CGPoint(x: x3, y: 0)
         bottomMainAreaRootNode.addChild(solutionNoteLabel)
-        
+
         let questionIntervalNameLabel = SKLabelNode(text: String(describing: currentQuestionInterval))
         questionIntervalNameLabel.position = CGPoint(x: 0, y: questionIntervalNameLabel.calculateAccumulatedFrame().height/2.0 + 10)
         bottomMainAreaRootNode.addChild(questionIntervalNameLabel)
-        
+
         let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T")
         questionIntervalLengthLabel.fontSize *= 0.8
-        questionIntervalLengthLabel.position = CGPoint(x: 0, y: -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10)
+        let y2 = -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10
+        questionIntervalLengthLabel.position = CGPoint(x: 0, y: y2)
         bottomMainAreaRootNode.addChild(questionIntervalLengthLabel)
-        
+
         // draw session progress
-        
+
         let sessionProgressBarWidth = topMainAreaRootNode.size.width * CGFloat(sessionProgressBarRelativeWidth.fraction)
         self.drawProgressBar(parent: topMainAreaRootNode, position: CGPoint(x: 0, y: 0), width: sessionProgressBarWidth, height: self.sessionProgressBarHeight, value: self.currentSessionProgress, markerValue: self.nextSessionProgress)
-        
+
         // draw multiplier
-        
+
         if let currentDisplayedMultiplier = self.currentDisplayedMultiplier {
-        
+
             let multiplierLabel = SKLabelNode(text: "x\(currentDisplayedMultiplier)")
             multiplierLabel.position = CGPoint(x: -sessionProgressBarWidth/2.0 + sessionProgressBarWidth * CGFloat(currentSessionProgress.fraction) , y: sessionProgressBarHeight/2.0 + multiplierLabel.calculateAccumulatedFrame().height/2.0 + 10)
             topMainAreaRootNode.addChild(multiplierLabel)
         }
     }
-    
     
     func drawProgressBar(parent: ContainerNode, position: CGPoint, width: CGFloat, height: CGFloat, value: Percent, markerValue: Percent) {
         
@@ -468,9 +473,10 @@ class IntervalGameScene: SKScene {
         parent.addChild(mainRectNode)
         
         let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
-        fillRectNode.position = CGPoint(x: -width/2.0 + fillRectNode.frame.width/2.0, y: 0)
+        let x = -width/2.0 + fillRectNode.frame.width/2.0
+        fillRectNode.position = CGPoint(x: x, y: 0)
         parent.addChild(fillRectNode)
-        
+
         let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
         markerNode.position = CGPoint(x: -width/2.0 + width * CGFloat(markerValue.fraction), y: 0)
         parent.addChild(markerNode)
