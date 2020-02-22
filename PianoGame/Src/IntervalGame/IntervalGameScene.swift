@@ -18,7 +18,7 @@ class IntervalGameScene: SKScene {
     
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
-    let requiredMasterPointsByNoteAndInterval: [Note: [Interval: UInt]] = [
+    let requiredMasteryPointsByNoteAndInterval: [Note: [Interval: UInt]] = [
         .c: [
             .P1: 1,
             .m2: 1,
@@ -300,14 +300,7 @@ class IntervalGameScene: SKScene {
             if self.currentSessionProgress >= 100% {
             
                 guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
-                
-                for (note, pointsByInterval) in sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval {
-                    for (interval, points) in pointsByInterval {
-
-                        self.obtainedMasteryPointsByNoteAndInterval[note] = self.obtainedMasteryPointsByNoteAndInterval[note] ?? [Interval: UInt]()
-                        self.obtainedMasteryPointsByNoteAndInterval[note]![interval] = (self.obtainedMasteryPointsByNoteAndInterval[note]![interval] ?? 0) + points
-                    }
-                }
+                self.obtainedMasteryPointsByNoteAndInterval = self.addMasteryPoints(self.obtainedMasteryPointsByNoteAndInterval, sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval)
             }
         }
         
@@ -390,6 +383,22 @@ class IntervalGameScene: SKScene {
     }
     
     
+    func addMasteryPoints(_ lhs: [Note: [Interval: UInt]], _ rhs: [Note: [Interval: UInt]]) -> [Note: [Interval: UInt]] {
+        
+        var result = lhs
+        
+        for (note, pointsByInterval) in rhs {
+            for (interval, points) in pointsByInterval {
+
+                result[note] = result[note] ?? [Interval: UInt]()
+                result[note]![interval] = (result[note]![interval] ?? 0) + points
+            }
+        }
+        
+        return result
+    }
+    
+    
     func redraw() {
         
         self.removeAllChildren()
@@ -406,6 +415,7 @@ class IntervalGameScene: SKScene {
              let currentQuestionNote = self.currentQuestionNote
             ,let currentQuestionSolutionNote = self.currentQuestionSolutionNote
             ,let currentQuestionInterval = self.currentQuestionInterval
+            ,let currentSessionIndex = self.currentSessionIndex
         else { return }
         
         // define UI main areas
@@ -434,21 +444,29 @@ class IntervalGameScene: SKScene {
         let referenceWidth = bottomMainAreaRootNode.size.width/2.0
         let x2 = -referenceWidth*2.0/3.0
         questionNoteLabel.position = CGPoint(x: x2, y: 0)
+        questionNoteLabel.verticalAlignmentMode = .center
+        questionNoteLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(questionNoteLabel)
 
         let solutionNoteLabel = SKLabelNode(text: self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?")
         let x3 = referenceWidth*2.0/3.0
         solutionNoteLabel.position = CGPoint(x: x3, y: 0)
+        solutionNoteLabel.verticalAlignmentMode = .center
+        solutionNoteLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(solutionNoteLabel)
 
         let questionIntervalNameLabel = SKLabelNode(text: String(describing: currentQuestionInterval))
         questionIntervalNameLabel.position = CGPoint(x: 0, y: questionIntervalNameLabel.calculateAccumulatedFrame().height/2.0 + 10)
+        questionIntervalNameLabel.verticalAlignmentMode = .center
+        questionIntervalNameLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(questionIntervalNameLabel)
 
         let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T")
         questionIntervalLengthLabel.fontSize *= 0.8
         let y2 = -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10
         questionIntervalLengthLabel.position = CGPoint(x: 0, y: y2)
+        questionIntervalLengthLabel.verticalAlignmentMode = .center
+        questionIntervalLengthLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(questionIntervalLengthLabel)
 
         // draw session progress
@@ -461,25 +479,173 @@ class IntervalGameScene: SKScene {
         if let currentDisplayedMultiplier = self.currentDisplayedMultiplier {
 
             let multiplierLabel = SKLabelNode(text: "x\(currentDisplayedMultiplier)")
-            multiplierLabel.position = CGPoint(x: -sessionProgressBarWidth/2.0 + sessionProgressBarWidth * CGFloat(currentSessionProgress.fraction) , y: sessionProgressBarHeight/2.0 + multiplierLabel.calculateAccumulatedFrame().height/2.0 + 10)
+            multiplierLabel.position = CGPoint(x: -sessionProgressBarWidth/2.0 + sessionProgressBarWidth * CGFloat(currentSessionProgress.fraction) , y: sessionProgressBarHeight/2.0 + 10)
+            multiplierLabel.verticalAlignmentMode = .bottom
+            multiplierLabel.horizontalAlignmentMode = .center
             topMainAreaRootNode.addChild(multiplierLabel)
+        }
+        
+        // compute next obtained points
+        
+        let nextObtainedMasteryPointsByNoteAndInterval = self.addMasteryPoints(self.obtainedMasteryPointsByNoteAndInterval, sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval)
+        
+        // compute global progress
+        
+        var totalRequiredMasteryPointsForEveryNoteAndInterval: UInt = 0
+        
+        for (_/*note*/, pointsByInterval) in self.requiredMasteryPointsByNoteAndInterval {
+            for (_/*interval*/, points) in pointsByInterval {
+                
+                totalRequiredMasteryPointsForEveryNoteAndInterval += points
+            }
+        }
+        
+        var totalObtainedMasteryPointsForEveryNoteAndInterval: UInt = 0
+        
+        for (_/*note*/, pointsByInterval) in self.obtainedMasteryPointsByNoteAndInterval {
+            for (_/*interval*/, points) in pointsByInterval {
+                
+                totalObtainedMasteryPointsForEveryNoteAndInterval += points
+            }
+        }
+        
+        var nextTotalObtainedMasteryPointsForEveryNoteAndInterval: UInt = 0
+        
+        for (_/*note*/, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+            for (_/*interval*/, points) in pointsByInterval {
+                
+                nextTotalObtainedMasteryPointsForEveryNoteAndInterval += points
+            }
+        }
+        
+        let globalProgress = Percent(fraction: Double(totalObtainedMasteryPointsForEveryNoteAndInterval) / Double(totalRequiredMasteryPointsForEveryNoteAndInterval))
+        let nextGlobalProgress = Percent(fraction: Double(nextTotalObtainedMasteryPointsForEveryNoteAndInterval) / Double(totalRequiredMasteryPointsForEveryNoteAndInterval))
+        
+        // compute progress by note
+        
+        var totalRequiredMasteryPointsByNote: [Note: UInt] = [:]
+        
+        for (note, pointsByInterval) in self.requiredMasteryPointsByNoteAndInterval {
+            totalRequiredMasteryPointsByNote[note] = pointsByInterval.values.reduce(0, +)
+        }
+        
+        var totalObtainedMasteryPointsByNote: [Note: UInt] = [:]
+        
+        for (note, pointsByInterval) in self.obtainedMasteryPointsByNoteAndInterval {
+            totalObtainedMasteryPointsByNote[note] = pointsByInterval.values.reduce(0, +)
+        }
+        
+        var nextTotalObtainedMasteryPointsByNote: [Note: UInt] = [:]
+        
+        for (note, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+            nextTotalObtainedMasteryPointsByNote[note] = pointsByInterval.values.reduce(0, +)
+        }
+        
+        var overallProgressByNote: [Note: Percent] = [:]
+        
+        for (note, totalRequiredMasteryPoints) in totalRequiredMasteryPointsByNote {
+            overallProgressByNote[note] = Percent(fraction: Double(totalObtainedMasteryPointsByNote[note] ?? 0) / Double(totalRequiredMasteryPoints))
+        }
+        
+        var nextOverallProgressByNote: [Note: Percent] = [:]
+        
+        for (note, totalRequiredMasteryPoints) in totalRequiredMasteryPointsByNote {
+            nextOverallProgressByNote[note] = Percent(fraction: Double(nextTotalObtainedMasteryPointsByNote[note] ?? 0) / Double(totalRequiredMasteryPoints))
+        }
+        
+        // compute progress by interval
+        
+        var totalRequiredMasteryPointsByInterval: [Interval: UInt] = [:]
+        
+        for (_/*note*/, pointsByInterval) in self.requiredMasteryPointsByNoteAndInterval {
+            for (interval, points) in pointsByInterval {
+                
+                totalRequiredMasteryPointsByInterval[interval] = (totalRequiredMasteryPointsByInterval[interval] ?? 0) + points
+            }
+        }
+        
+        var totalObtainedMasteryPointsByInterval: [Interval: UInt] = [:]
+        
+        for (_/*note*/, pointsByInterval) in self.obtainedMasteryPointsByNoteAndInterval {
+            for (interval, points) in pointsByInterval {
+                
+                totalObtainedMasteryPointsByInterval[interval] = (totalObtainedMasteryPointsByInterval[interval] ?? 0) + points
+            }
+        }
+        
+        var nextTotalObtainedMasteryPointsByInterval: [Interval: UInt] = [:]
+        
+        for (_/*note*/, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+            for (interval, points) in pointsByInterval {
+                
+                nextTotalObtainedMasteryPointsByInterval[interval] = (nextTotalObtainedMasteryPointsByInterval[interval] ?? 0) + points
+            }
+        }
+        
+        var overallProgressByInterval: [Interval: Percent] = [:]
+        
+        for (interval, totalRequiredMasteryPoints) in totalRequiredMasteryPointsByInterval {
+            overallProgressByInterval[interval] = Percent(fraction: Double(totalObtainedMasteryPointsByInterval[interval] ?? 0) / Double(totalRequiredMasteryPoints))
+        }
+        
+        var nextOverallProgressByInterval: [Interval: Percent] = [:]
+        
+        for (interval, totalRequiredMasteryPoints) in totalRequiredMasteryPointsByInterval {
+            nextOverallProgressByInterval[interval] = Percent(fraction: Double(nextTotalObtainedMasteryPointsByInterval[interval] ?? 0) / Double(totalRequiredMasteryPoints))
+        }
+        
+        // build progress bars list
+        
+        var progressBarsList: [(label: String, value: Percent, nextValue: Percent?)] = []
+        
+        progressBarsList.append((label: "All", value: globalProgress, nextValue: nextGlobalProgress))
+        
+        for note in Note.allCases {
+            if let progress = overallProgressByNote[note] {
+                progressBarsList.append((label: note.description.uppercased(), value: progress, nextValue: nextOverallProgressByNote[note]))
+            }
+        }
+        
+        for interval in Interval.allCases {
+            if let progress = overallProgressByInterval[interval] {
+                progressBarsList.append((label: String(describing: interval), value: progress, nextValue: nextOverallProgressByInterval[interval]))
+            }
+        }
+        
+        // draw progress bars
+        
+        for k in 1...progressBarsList.count {
+            
+            let yk = sideColumnRootNode.size.height/2.0 - CGFloat(k)*sideColumnRootNode.size.height/CGFloat(progressBarsList.count+1)
+            let w = sideColumnRootNode.size.width/2.0*0.9
+            
+            let labelNode = SKLabelNode(text: progressBarsList[k-1].label)
+            labelNode.position = CGPoint(x: -60, y: yk)
+            labelNode.verticalAlignmentMode = .center
+            labelNode.horizontalAlignmentMode = .left
+            sideColumnRootNode.addChild(labelNode)
+            
+            self.drawProgressBar(parent: sideColumnRootNode, position: CGPoint(x: w/2.0 + 10, y: yk), width: w, height: 5, value: progressBarsList[k-1].value, markerValue: progressBarsList[k-1].nextValue)
         }
     }
     
-    func drawProgressBar(parent: ContainerNode, position: CGPoint, width: CGFloat, height: CGFloat, value: Percent, markerValue: Percent) {
+    func drawProgressBar(parent: ContainerNode, position: CGPoint, width: CGFloat, height: CGFloat, value: Percent, markerValue: Percent?) {
         
         let mainRectNode = SKShapeNode(rectOf: CGSize(width: width, height: height))
         mainRectNode.position = position
         parent.addChild(mainRectNode)
         
         let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
-        let x = -width/2.0 + fillRectNode.frame.width/2.0
-        fillRectNode.position = CGPoint(x: x, y: 0)
+        let x = position.x - width/2.0 + fillRectNode.frame.width/2.0
+        fillRectNode.position = CGPoint(x: x, y: position.y)
         parent.addChild(fillRectNode)
 
-        let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
-        markerNode.position = CGPoint(x: -width/2.0 + width * CGFloat(markerValue.fraction), y: 0)
-        parent.addChild(markerNode)
+        if let markerValue = markerValue {
+
+            let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
+            markerNode.position = CGPoint(x: position.x - width/2.0 + width * CGFloat(markerValue.fraction), y: position.y)
+            parent.addChild(markerNode)
+        }
     }
 }
 
