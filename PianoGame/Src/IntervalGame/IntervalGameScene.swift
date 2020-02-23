@@ -306,6 +306,13 @@ class IntervalGameScene: SKScene {
                 self.obtainedMasteryPointsByNoteAndInterval = self.nextObtainedMasteryPointsByNoteAndInterval
                 self.currentDisplayedMultiplier = nil
                 
+                guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
+                
+                if currentSessionIndex == sessions.count - 1 {
+
+                    self.gameCompleted = true
+                }
+                
             } else {
         
                 self.computeMultiplier()
@@ -325,13 +332,7 @@ class IntervalGameScene: SKScene {
             
             if self.currentSessionProgress >= 100% {
                 
-                guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
-                
-                if currentSessionIndex == sessions.count - 1 {
-
-                    self.gameCompleted = true
-                    
-                } else {
+                if !self.gameCompleted {
 
                     self.loadNextSession()
                     self.loadNextQuestion()
@@ -418,19 +419,10 @@ class IntervalGameScene: SKScene {
         
         self.removeAllChildren()
         
-        if self.gameCompleted {
-            
-            let label = SKLabelNode(text: "You have completed the training!")
-            self.addChild(label)
-            
-            return
-        }
-        
         guard
              let currentQuestionNote = self.currentQuestionNote
             ,let currentQuestionSolutionNote = self.currentQuestionSolutionNote
             ,let currentQuestionInterval = self.currentQuestionInterval
-            ,let currentSessionIndex = self.currentSessionIndex
         else { return }
         
         // define UI main areas
@@ -637,6 +629,15 @@ class IntervalGameScene: SKScene {
             sideColumnRootNode.addChild(labelNode)
             
             self.drawProgressBar(parent: sideColumnRootNode, position: CGPoint(x: w/2.0 + 10, y: yk), width: w, height: 5, value: progressBarsList[k-1].value, markerValue: progressBarsList[k-1].nextValue)
+        }
+        
+        // end screen
+        
+        if self.gameCompleted {
+            
+            let label = SKLabelNode(text: "You have completed the training!")
+            label.fontSize *= 2
+            self.addChild(label)
         }
     }
     
