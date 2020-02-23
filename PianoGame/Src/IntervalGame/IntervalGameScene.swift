@@ -779,7 +779,7 @@ class IntervalGameScene: SKScene {
         if let markerValue = markerValue {
 
             let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
-            markerNode.strokeColor = self.dynamicForegroundColor
+            markerNode.strokeColor = NSColor.systemRed
             markerNode.position = CGPoint(x: position.x - width/2.0 + width * CGFloat(markerValue.fraction), y: position.y)
             parent.addChild(markerNode)
         }
