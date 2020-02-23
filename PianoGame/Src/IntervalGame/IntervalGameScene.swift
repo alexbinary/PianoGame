@@ -194,33 +194,127 @@ class IntervalGameScene: SKScene {
     let sessions: [Session] = [
         Session(
             notesAndIntervalsSubjects: [
-                .c: [ .P1 ],
-                .c_sharp: [ .P1 ]
+                .c:       [ .P1 ],
+                .c_sharp: [ .P1 ],
+                .d:       [ .P1 ],
+                .d_sharp: [ .P1 ],
+                .e:       [ .P1 ],
+                .f:       [ .P1 ],
+                .f_sharp: [ .P1 ],
+                .g:       [ .P1 ],
+                .g_sharp: [ .P1 ],
+                .a:       [ .P1 ],
+                .a_sharp: [ .P1 ],
+                .b:       [ .P1 ],
             ],
             grantedMasteryPointsByNoteAndInterval: [
-                .c: [
-                    .P1: 1
-                ],
-                .c_sharp: [
-                    .P1: 1
-                ]
+                .c:       [ .P1: 1 ],
+                .c_sharp: [ .P1: 1 ],
+                .d:       [ .P1: 1 ],
+                .d_sharp: [ .P1: 1 ],
+                .e:       [ .P1: 1 ],
+                .f:       [ .P1: 1 ],
+                .f_sharp: [ .P1: 1 ],
+                .g:       [ .P1: 1 ],
+                .g_sharp: [ .P1: 1 ],
+                .a:       [ .P1: 1 ],
+                .a_sharp: [ .P1: 1 ],
+                .b:       [ .P1: 1 ],
             ],
-            nominalProgress: 10%
+            nominalProgress: Percent(fraction: 1.0/(12.0*2.0))
         ),
         Session(
             notesAndIntervalsSubjects: [
-                .c: [ .m2 ],
-                .c_sharp: [ .m2 ]
+                .c:       [ .m2 ],
+                .c_sharp: [ .m2 ],
+                .d:       [ .m2 ],
+                .d_sharp: [ .m2 ],
+                .e:       [ .m2 ],
+                .f:       [ .m2 ],
+                .f_sharp: [ .m2 ],
+                .g:       [ .m2 ],
+                .g_sharp: [ .m2 ],
+                .a:       [ .m2 ],
+                .a_sharp: [ .m2 ],
+                .b:       [ .m2 ],
             ],
             grantedMasteryPointsByNoteAndInterval: [
-                .c: [
-                    .m2: 1
-                ],
-                .c_sharp: [
-                    .m2: 1
-                ]
+                .c:       [ .m2: 1 ],
+                .c_sharp: [ .m2: 1 ],
+                .d:       [ .m2: 1 ],
+                .d_sharp: [ .m2: 1 ],
+                .e:       [ .m2: 1 ],
+                .f:       [ .m2: 1 ],
+                .f_sharp: [ .m2: 1 ],
+                .g:       [ .m2: 1 ],
+                .g_sharp: [ .m2: 1 ],
+                .a:       [ .m2: 1 ],
+                .a_sharp: [ .m2: 1 ],
+                .b:       [ .m2: 1 ],
             ],
-            nominalProgress: 10%
+            nominalProgress: Percent(fraction: 1.0/(12.0*3.0))
+        ),
+        Session(
+            notesAndIntervalsSubjects: [
+                .c:       [ .M2 ],
+                .c_sharp: [ .M2 ],
+                .d:       [ .M2 ],
+                .d_sharp: [ .M2 ],
+                .e:       [ .M2 ],
+                .f:       [ .M2 ],
+                .f_sharp: [ .M2 ],
+                .g:       [ .M2 ],
+                .g_sharp: [ .M2 ],
+                .a:       [ .M2 ],
+                .a_sharp: [ .M2 ],
+                .b:       [ .M2 ],
+            ],
+            grantedMasteryPointsByNoteAndInterval: [
+                .c:       [ .M2: 1 ],
+                .c_sharp: [ .M2: 1 ],
+                .d:       [ .M2: 1 ],
+                .d_sharp: [ .M2: 1 ],
+                .e:       [ .M2: 1 ],
+                .f:       [ .M2: 1 ],
+                .f_sharp: [ .M2: 1 ],
+                .g:       [ .M2: 1 ],
+                .g_sharp: [ .M2: 1 ],
+                .a:       [ .M2: 1 ],
+                .a_sharp: [ .M2: 1 ],
+                .b:       [ .M2: 1 ],
+            ],
+            nominalProgress: Percent(fraction: 1.0/(12.0*3.0))
+        ),
+        Session(
+            notesAndIntervalsSubjects: [
+                .c:       [ .m2, .M2 ],
+                .c_sharp: [ .m2, .M2 ],
+                .d:       [ .m2, .M2 ],
+                .d_sharp: [ .m2, .M2 ],
+                .e:       [ .m2, .M2 ],
+                .f:       [ .m2, .M2 ],
+                .f_sharp: [ .m2, .M2 ],
+                .g:       [ .m2, .M2 ],
+                .g_sharp: [ .m2, .M2 ],
+                .a:       [ .m2, .M2 ],
+                .a_sharp: [ .m2, .M2 ],
+                .b:       [ .m2, .M2 ],
+            ],
+            grantedMasteryPointsByNoteAndInterval: [
+                .c:       [ .m2: 1, .M2: 1 ],
+                .c_sharp: [ .m2: 1, .M2: 1 ],
+                .d:       [ .m2: 1, .M2: 1 ],
+                .d_sharp: [ .m2: 1, .M2: 1 ],
+                .e:       [ .m2: 1, .M2: 1 ],
+                .f:       [ .m2: 1, .M2: 1 ],
+                .f_sharp: [ .m2: 1, .M2: 1 ],
+                .g:       [ .m2: 1, .M2: 1 ],
+                .g_sharp: [ .m2: 1, .M2: 1 ],
+                .a:       [ .m2: 1, .M2: 1 ],
+                .a_sharp: [ .m2: 1, .M2: 1 ],
+                .b:       [ .m2: 1, .M2: 1 ],
+            ],
+            nominalProgress: Percent(fraction: 1.0/(24.0*4.0))
         )
     ]
     var currentSessionIndex: Int? = nil
