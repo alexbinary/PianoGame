@@ -189,6 +189,7 @@ class IntervalGameScene: SKScene {
         ]
     ]
     var obtainedMasteryPointsByNoteAndInterval: [Note: [Interval: UInt]] = [:]   // non existent key means 0 points
+    var nextObtainedMasteryPointsByNoteAndInterval: [Note: [Interval: UInt]] = [:]   // non existent key means no next value
     
     let sessions: [Session] = [
         Session(
@@ -291,6 +292,9 @@ class IntervalGameScene: SKScene {
             
             self.numberOfCorrectAnswersSinceLastWrongAnswer = 0
             
+            self.computeMultiplier()
+            self.computeNextSessionProgress()
+            
         } else {
             
             self.numberOfCorrectAnswersSinceLastWrongAnswer += 1
@@ -299,13 +303,16 @@ class IntervalGameScene: SKScene {
             
             if self.currentSessionProgress >= 100% {
             
-                guard let currentSessionIndex = self.currentSessionIndex else { fatalError("A session was expected to be active but was not.") }
-                self.obtainedMasteryPointsByNoteAndInterval = self.addMasteryPoints(self.obtainedMasteryPointsByNoteAndInterval, sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval)
+                self.obtainedMasteryPointsByNoteAndInterval = self.nextObtainedMasteryPointsByNoteAndInterval
+                self.currentDisplayedMultiplier = nil
+                
+            } else {
+        
+                self.computeMultiplier()
+                self.computeNextSessionProgress()
             }
         }
         
-        self.computeMultiplier()
-        self.computeNextSessionProgress()
         self.redraw()
     }
     
@@ -348,6 +355,8 @@ class IntervalGameScene: SKScene {
             self.currentSessionIndex! += 1
         }
         
+        self.computeNextObtainedMasteryPoints()
+        
         self.currentSessionProgress = 0%
         self.numberOfCorrectAnswersSinceLastWrongAnswer = 0
         
@@ -365,6 +374,12 @@ class IntervalGameScene: SKScene {
         
         self.currentQuestionSolutionNote = self.currentQuestionNote!.adding(self.currentQuestionInterval!)
         self.currentQuestionSolutionNoteGiven = false
+    }
+    
+    
+    func computeNextObtainedMasteryPoints() {
+        
+        self.nextObtainedMasteryPointsByNoteAndInterval = self.addMasteryPoints(self.obtainedMasteryPointsByNoteAndInterval, sessions[self.currentSessionIndex!].grantedMasteryPointsByNoteAndInterval)
     }
     
     
@@ -485,10 +500,6 @@ class IntervalGameScene: SKScene {
             topMainAreaRootNode.addChild(multiplierLabel)
         }
         
-        // compute next obtained points
-        
-        let nextObtainedMasteryPointsByNoteAndInterval = self.addMasteryPoints(self.obtainedMasteryPointsByNoteAndInterval, sessions[currentSessionIndex].grantedMasteryPointsByNoteAndInterval)
-        
         // compute global progress
         
         var totalRequiredMasteryPointsForEveryNoteAndInterval: UInt = 0
@@ -511,7 +522,7 @@ class IntervalGameScene: SKScene {
         
         var nextTotalObtainedMasteryPointsForEveryNoteAndInterval: UInt = 0
         
-        for (_/*note*/, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+        for (_/*note*/, pointsByInterval) in self.nextObtainedMasteryPointsByNoteAndInterval {
             for (_/*interval*/, points) in pointsByInterval {
                 
                 nextTotalObtainedMasteryPointsForEveryNoteAndInterval += points
@@ -537,7 +548,7 @@ class IntervalGameScene: SKScene {
         
         var nextTotalObtainedMasteryPointsByNote: [Note: UInt] = [:]
         
-        for (note, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+        for (note, pointsByInterval) in self.nextObtainedMasteryPointsByNoteAndInterval {
             nextTotalObtainedMasteryPointsByNote[note] = pointsByInterval.values.reduce(0, +)
         }
         
@@ -575,7 +586,7 @@ class IntervalGameScene: SKScene {
         
         var nextTotalObtainedMasteryPointsByInterval: [Interval: UInt] = [:]
         
-        for (_/*note*/, pointsByInterval) in nextObtainedMasteryPointsByNoteAndInterval {
+        for (_/*note*/, pointsByInterval) in self.nextObtainedMasteryPointsByNoteAndInterval {
             for (interval, points) in pointsByInterval {
                 
                 nextTotalObtainedMasteryPointsByInterval[interval] = (nextTotalObtainedMasteryPointsByInterval[interval] ?? 0) + points
