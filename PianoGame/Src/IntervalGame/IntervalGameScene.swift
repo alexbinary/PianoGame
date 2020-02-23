@@ -770,17 +770,20 @@ class IntervalGameScene: SKScene {
         parent.addChild(mainRectNode)
         
         let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
-        fillRectNode.strokeColor = self.dynamicForegroundColor
-        fillRectNode.fillColor = self.dynamicForegroundColor
+        fillRectNode.lineWidth = 0
+        fillRectNode.fillColor = NSColor.systemGreen
         let x = position.x - width/2.0 + fillRectNode.frame.width/2.0
         fillRectNode.position = CGPoint(x: x, y: position.y)
+        fillRectNode.zPosition = -1
         parent.addChild(fillRectNode)
-
+        
         if let markerValue = markerValue {
 
             let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
-            markerNode.strokeColor = NSColor.systemRed
+            markerNode.fillColor = NSColor.systemRed
+            markerNode.lineWidth = 0
             markerNode.position = CGPoint(x: position.x - width/2.0 + width * CGFloat(markerValue.fraction), y: position.y)
+            markerNode.zPosition = -1
             parent.addChild(markerNode)
         }
     }
