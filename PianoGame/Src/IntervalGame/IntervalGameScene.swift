@@ -771,6 +771,7 @@ class IntervalGameScene: SKScene {
         
         let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
         fillRectNode.strokeColor = self.dynamicForegroundColor
+        fillRectNode.fillColor = self.dynamicForegroundColor
         let x = position.x - width/2.0 + fillRectNode.frame.width/2.0
         fillRectNode.position = CGPoint(x: x, y: position.y)
         parent.addChild(fillRectNode)
