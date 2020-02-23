@@ -340,6 +340,14 @@ class IntervalGameScene: SKScene {
     let sessionProgressBarRelativeWidth: Percent = 90%
     let sessionProgressBarHeight: CGFloat = 10
     
+    let backgroundColorLight = NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
+    let backgroundColorDark = NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1)
+    var dynamicBackgroundColor: NSColor!
+    
+    let foregroundColorLight = NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1)
+    let foregroundColorDark = NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
+    var dynamicForegroundColor: NSColor!
+    
     
     override func didMove(to view: SKView) {
         
@@ -347,12 +355,24 @@ class IntervalGameScene: SKScene {
         self.connectToMIDIDevice()
         self.loadNextSession()
         self.loadNextQuestion()
+        
+        self.updateColorScheme(darkModeEnabled: false)
         self.redraw()
     }
     
     
     override func didChangeSize(_ oldSize: CGSize) {
         
+        self.redraw()
+    }
+    
+    
+    func updateColorScheme(darkModeEnabled: Bool) {
+        
+        self.dynamicBackgroundColor = darkModeEnabled ? self.backgroundColorDark : self.backgroundColorLight
+        self.dynamicForegroundColor = darkModeEnabled ? self.foregroundColorDark : self.foregroundColorLight
+        
+        self.backgroundColor = self.dynamicBackgroundColor
         self.redraw()
     }
     
@@ -542,6 +562,7 @@ class IntervalGameScene: SKScene {
         // draw question
 
         let questionNoteLabel = SKLabelNode(text: currentQuestionNote.description.uppercased())
+        questionNoteLabel.fontColor = self.dynamicForegroundColor
         let referenceWidth = bottomMainAreaRootNode.size.width/2.0
         let x2 = -referenceWidth*2.0/3.0
         questionNoteLabel.position = CGPoint(x: x2, y: 0)
@@ -550,6 +571,7 @@ class IntervalGameScene: SKScene {
         bottomMainAreaRootNode.addChild(questionNoteLabel)
 
         let solutionNoteLabel = SKLabelNode(text: self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?")
+        solutionNoteLabel.fontColor = self.dynamicForegroundColor
         let x3 = referenceWidth*2.0/3.0
         solutionNoteLabel.position = CGPoint(x: x3, y: 0)
         solutionNoteLabel.verticalAlignmentMode = .center
@@ -557,12 +579,14 @@ class IntervalGameScene: SKScene {
         bottomMainAreaRootNode.addChild(solutionNoteLabel)
 
         let questionIntervalNameLabel = SKLabelNode(text: String(describing: currentQuestionInterval))
+        questionIntervalNameLabel.fontColor = self.dynamicForegroundColor
         questionIntervalNameLabel.position = CGPoint(x: 0, y: questionIntervalNameLabel.calculateAccumulatedFrame().height/2.0 + 10)
         questionIntervalNameLabel.verticalAlignmentMode = .center
         questionIntervalNameLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(questionIntervalNameLabel)
 
         let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T")
+        questionIntervalLengthLabel.fontColor = self.dynamicForegroundColor
         questionIntervalLengthLabel.fontSize *= 0.8
         let y2 = -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10
         questionIntervalLengthLabel.position = CGPoint(x: 0, y: y2)
@@ -580,6 +604,7 @@ class IntervalGameScene: SKScene {
         if let currentDisplayedMultiplier = self.currentDisplayedMultiplier {
 
             let multiplierLabel = SKLabelNode(text: "x\(currentDisplayedMultiplier)")
+            multiplierLabel.fontColor = self.dynamicForegroundColor
             multiplierLabel.position = CGPoint(x: -sessionProgressBarWidth/2.0 + sessionProgressBarWidth * CGFloat(currentSessionProgress.fraction) , y: sessionProgressBarHeight/2.0 + 10)
             multiplierLabel.verticalAlignmentMode = .bottom
             multiplierLabel.horizontalAlignmentMode = .center
@@ -717,6 +742,7 @@ class IntervalGameScene: SKScene {
             let w = sideColumnRootNode.size.width/2.0*0.9
             
             let labelNode = SKLabelNode(text: progressBarsList[k-1].label)
+            labelNode.fontColor = self.dynamicForegroundColor
             labelNode.position = CGPoint(x: -60, y: yk)
             labelNode.verticalAlignmentMode = .center
             labelNode.horizontalAlignmentMode = .left
@@ -730,6 +756,7 @@ class IntervalGameScene: SKScene {
         if self.gameCompleted {
             
             let label = SKLabelNode(text: "You have completed the training!")
+            label.fontColor = self.dynamicForegroundColor
             label.fontSize *= 2
             self.addChild(label)
         }
@@ -738,10 +765,12 @@ class IntervalGameScene: SKScene {
     func drawProgressBar(parent: ContainerNode, position: CGPoint, width: CGFloat, height: CGFloat, value: Percent, markerValue: Percent?) {
         
         let mainRectNode = SKShapeNode(rectOf: CGSize(width: width, height: height))
+        mainRectNode.strokeColor = self.dynamicForegroundColor
         mainRectNode.position = position
         parent.addChild(mainRectNode)
         
         let fillRectNode = SKShapeNode(rectOf: CGSize(width: width * CGFloat(value.fraction), height: height))
+        fillRectNode.strokeColor = self.dynamicForegroundColor
         let x = position.x - width/2.0 + fillRectNode.frame.width/2.0
         fillRectNode.position = CGPoint(x: x, y: position.y)
         parent.addChild(fillRectNode)
@@ -749,6 +778,7 @@ class IntervalGameScene: SKScene {
         if let markerValue = markerValue {
 
             let markerNode = SKShapeNode(rectOf: CGSize(width: 1, height: height))
+            markerNode.strokeColor = self.dynamicForegroundColor
             markerNode.position = CGPoint(x: position.x - width/2.0 + width * CGFloat(markerValue.fraction), y: position.y)
             parent.addChild(markerNode)
         }
