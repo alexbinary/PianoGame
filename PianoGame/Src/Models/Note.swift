@@ -57,4 +57,7 @@ extension Note: CustomStringConvertible {
         
         return mapping[self]!
     }
+    
+    
+    var isSharp: Bool { return self.description.contains("#") }
 }

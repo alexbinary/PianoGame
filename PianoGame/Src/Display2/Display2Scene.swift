@@ -54,10 +54,13 @@ class Display2Scene: SKScene {
         let step = self.frame.width / CGFloat(noteCodeSpan + 2)
         let referencePoint = -self.frame.width/2.0
         
-        let x = referencePoint + CGFloat(noteCodeFromZero + 1) * step
+        let note = Note(fromNoteCode: code)
         
-        let labelNode = SKLabelNode(text: Note(fromNoteCode: code).description.uppercased())
-        labelNode.position = CGPoint(x: x, y: 0)
+        let x = referencePoint + CGFloat(noteCodeFromZero + 1) * step
+        let y = CGFloat(note.isSharp ? 50 : 0)
+        
+        let labelNode = SKLabelNode(text: note.description.uppercased())
+        labelNode.position = CGPoint(x: x, y: y)
         addChild(labelNode)
         
         let scaleUpAction = SKAction.scale(to: CGFloat(2*Double(velocity)/128.0), duration: 0.1)
