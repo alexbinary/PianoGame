@@ -64,15 +64,13 @@ class Display2Scene: SKScene {
         addChild(labelNode)
         
         let scaleUpAction = SKAction.scale(to: CGFloat(2*Double(velocity)/128.0), duration: 0.1)
-        let scaleDownAction = SKAction.scale(to: 0, duration: 10*Double(velocity)/128.0*100)
+        let scaleDownAction = SKAction.scale(to: 0, duration: 10*Double(velocity)/128.0)
         let fadeOutAction = SKAction.fadeOut(withDuration: 10*Double(velocity)/128.0)
         
         labelNode.setScale(0)
         labelNode.run(SKAction.sequence([scaleUpAction, SKAction.group([scaleDownAction, fadeOutAction])]))
         
         self.nodesByNote[code] = labelNode
-        
-        print(self.nodesByNote)
     }
     
     
@@ -80,10 +78,11 @@ class Display2Scene: SKScene {
         
         if let node = self.nodesByNote[code] {
             
-            self.removeChildren(in: [node])
-            self.nodesByNote[code] = nil
-            
-            print(self.nodesByNote)
+            let scaleDownAction = SKAction.scale(to: 0, duration: 0.05)
+            node.run(scaleDownAction, completion: {
+                self.removeChildren(in: [node])
+                self.nodesByNote[code] = nil
+            })
         }
     }
 }
