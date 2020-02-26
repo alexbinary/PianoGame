@@ -59,6 +59,8 @@ class Display2Scene: SKScene {
         let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
         let noteCodeFromZero: UInt = code - minimumNoteCode
         
+        let velocityFactor: Double = Double(velocity)/128.0
+        
         let note = Note(fromNoteCode: code)
         let labelNode = SKLabelNode(text: note.description.uppercased())
         
@@ -72,31 +74,30 @@ class Display2Scene: SKScene {
         // general animation settings
         
         let appearDuration: Double = 0.1
-        let fadeOutDuration: Double = 10
+        let fadeOutDuration: Double = 10 * velocityFactor
         let disappearDuration: Double = 0.05
         
         // animate scale
         
-        let velocityFactor: Double = Double(velocity)/128.0
-        let scaleUpAmplitude: CGFloat = 10
+        let scaleUpAmplitude: CGFloat = 10 * CGFloat(velocityFactor)
         
-        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude * CGFloat(velocityFactor), duration: appearDuration)
-        let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration * velocityFactor)
+        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration)
         let disappearScaleAction = SKAction.scale(to: 0, duration: disappearDuration)
         
         // animate fadeout
         
-        let fadeOutFadeAction = SKAction.fadeOut(withDuration: fadeOutDuration * velocityFactor)
+        let fadeOutFadeAction = SKAction.fadeOut(withDuration: fadeOutDuration)
         
         // animate jiggle
         
         let jiggleDuration: Double = 0.02
-        let jiggleAmplitude: CGFloat = .pi/24.0
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor)
         let jiggleCount = 5
         
         let jiggleAction = SKAction.repeat(SKAction.sequence([
             SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
-            SKAction.rotate(byAngle: -2.0*jiggleAmplitude, duration: 2 * jiggleDuration),
+            SKAction.rotate(byAngle: -2.0 * jiggleAmplitude, duration: 2 * jiggleDuration),
             SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
         ]), count: jiggleCount)
         
