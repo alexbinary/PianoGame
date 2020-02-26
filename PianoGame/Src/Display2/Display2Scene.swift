@@ -8,13 +8,20 @@ import MIKMIDI
 typealias NoteCode = UInt
 
 
+struct NoteData {
+    
+    let node: SKNode
+    let disappearAction: SKAction
+}
+
+
 class Display2Scene: SKScene {
     
     
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
     
-    var nodesByNote: [NoteCode: SKNode] = [:]
+    var noteDataByNote: [NoteCode: NoteData] = [:]
     
     
     override func didMove(to view: SKView) {
@@ -49,39 +56,80 @@ class Display2Scene: SKScene {
         
         let minimumNoteCode: UInt = 21
         let maximumNoteCode: UInt = 107
-        let noteCodeSpan = maximumNoteCode - minimumNoteCode
-        let noteCodeFromZero = code - minimumNoteCode
-        let step = self.frame.width / CGFloat(noteCodeSpan + 2)
-        let referencePoint = -self.frame.width/2.0
+        let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
+        let noteCodeFromZero: UInt = code - minimumNoteCode
         
         let note = Note(fromNoteCode: code)
-        
-        let x = referencePoint + CGFloat(noteCodeFromZero + 1) * step
-        let y = CGFloat(note.isSharp ? 50 : 0)
-        
         let labelNode = SKLabelNode(text: note.description.uppercased())
-        labelNode.position = CGPoint(x: x, y: y)
-        addChild(labelNode)
         
-        let scaleUpAction = SKAction.scale(to: CGFloat(2*Double(velocity)/128.0), duration: 0.1)
-        let scaleDownAction = SKAction.scale(to: 0, duration: 10*Double(velocity)/128.0)
-        let fadeOutAction = SKAction.fadeOut(withDuration: 10*Double(velocity)/128.0)
+        let horizontalStep: CGFloat = self.frame.width / CGFloat(noteCodeSpan + 2)
+        let verticalDispatch: CGFloat = 100
+        
+        labelNode.position = CGPoint(
+            x: -self.frame.width/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep,
+            y: verticalDispatch * CGFloat(note.isSharp ? 1 : -1))
+        
+        // general animation settings
+        
+        let appearDuration: Double = 0.1
+        let fadeOutDuration: Double = 10
+        let disappearDuration: Double = 0.05
+        
+        // animate scale
+        
+        let velocityFactor: Double = Double(velocity)/128.0
+        let scaleUpAmplitude: CGFloat = 10
+        
+        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude * CGFloat(velocityFactor), duration: appearDuration)
+        let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration * velocityFactor)
+        let disappearScaleAction = SKAction.scale(to: 0, duration: disappearDuration)
+        
+        // animate fadeout
+        
+        let fadeOutFadeAction = SKAction.fadeOut(withDuration: fadeOutDuration * velocityFactor)
+        
+        // animate jiggle
+        
+        let jiggleDuration: Double = 0.02
+        let jiggleAmplitude: CGFloat = .pi/24.0
+        let jiggleCount = 5
+        
+        let jiggleAction = SKAction.repeat(SKAction.sequence([
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+            SKAction.rotate(byAngle: -2.0*jiggleAmplitude, duration: 2 * jiggleDuration),
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+        ]), count: jiggleCount)
+        
+        // compose final animation
+        
+        let appearAndFadeOutAction = SKAction.group([
+            SKAction.sequence([
+                appearScaleAction,
+                SKAction.group([fadeOutScaleAction, fadeOutFadeAction])
+            ]),
+            jiggleAction
+        ])
+        let disappearAction = disappearScaleAction
+        
+        // setup an animate
         
         labelNode.setScale(0)
-        labelNode.run(SKAction.sequence([scaleUpAction, SKAction.group([scaleDownAction, fadeOutAction])]))
         
-        self.nodesByNote[code] = labelNode
+        addChild(labelNode)
+        labelNode.run(appearAndFadeOutAction)
+        
+        // register data for teardown
+        
+        self.noteDataByNote[code] = NoteData(node: labelNode, disappearAction: disappearAction)
     }
     
     
     func onNoteOff(_ code: UInt) {
         
-        if let node = self.nodesByNote[code] {
-            
-            let scaleDownAction = SKAction.scale(to: 0, duration: 0.05)
-            node.run(scaleDownAction, completion: {
-                self.removeChildren(in: [node])
-                self.nodesByNote[code] = nil
+        if let data = self.noteDataByNote[code] {
+            data.node.run(data.disappearAction, completion: {
+                self.removeChildren(in: [data.node])
+                self.noteDataByNote[code] = nil
             })
         }
     }
