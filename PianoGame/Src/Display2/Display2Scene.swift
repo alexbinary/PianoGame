@@ -47,7 +47,17 @@ class Display2Scene: SKScene {
     
     func onNoteOn(note code: UInt, velocity: UInt) {
         
+        let minimumNoteCode: UInt = 21
+        let maximumNoteCode: UInt = 107
+        let noteCodeSpan = maximumNoteCode - minimumNoteCode
+        let noteCodeFromZero = code - minimumNoteCode
+        let step = self.frame.width / CGFloat(noteCodeSpan + 2)
+        let referencePoint = -self.frame.width/2.0
+        
+        let x = referencePoint + CGFloat(noteCodeFromZero + 1) * step
+        
         let labelNode = SKLabelNode(text: Note(fromNoteCode: code).description.uppercased())
+        labelNode.position = CGPoint(x: x, y: 0)
         addChild(labelNode)
         
         let scaleUpAction = SKAction.scale(to: CGFloat(2*Double(velocity)/128.0), duration: 0.1)
