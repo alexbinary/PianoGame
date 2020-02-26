@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
 		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
 		2929AB3923FC915200AC18C1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
 		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
@@ -98,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2921E30524071B4800119589 /* Display2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display2Scene.swift; sourceTree = "<group>"; };
 		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
 		2929AB3823FC915200AC18C1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2921E30124071B0100119589 /* Display2 */ = {
+			isa = PBXGroup;
+			children = (
+				2921E30524071B4800119589 /* Display2Scene.swift */,
+			);
+			path = Display2;
+			sourceTree = "<group>";
+		};
 		2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +324,7 @@
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
 				2950286023FC1B6B00073C4E /* GenericViewController.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				2921E30124071B0100119589 /* Display2 */,
 				295B839E24000D8900993564 /* IntervalGame */,
 				2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */,
 				2950285C23FC1B4800073C4E /* IntervalDisplay */,
@@ -497,6 +508,7 @@
 				2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */,
 				299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */,
 				2929AB3923FC915200AC18C1 /* Note.swift in Sources */,
+				2921E30624071B4800119589 /* Display2Scene.swift in Sources */,
 				29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
