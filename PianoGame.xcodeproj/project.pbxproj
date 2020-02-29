@@ -45,6 +45,7 @@
 		29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725B240A6176004DD36F /* TypesAliases.swift */; };
 		29DF725E240A6687004DD36F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
 		29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
+		29E87DCE240A88C500A0BA0A /* PhysicsDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */; };
 		29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524223E6DBA600CC776C /* AppDelegate.swift */; };
 		29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524423E6DBA600CC776C /* DefaultViewController.swift */; };
 		29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
@@ -136,6 +137,7 @@
 		29DF725B240A6176004DD36F /* TypesAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesAliases.swift; sourceTree = "<group>"; };
 		29DF725D240A6687004DD36F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		29E7DDDE23FC91F900D15166 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
+		29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsDisplayScene.swift; sourceTree = "<group>"; };
 		29F7523F23E6DBA600CC776C /* PianoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7524223E6DBA600CC776C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29F7524423E6DBA600CC776C /* DefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,14 @@
 			path = IntervalQuizDisplay2;
 			sourceTree = "<group>";
 		};
+		29E87DC9240A88A700A0BA0A /* PhysicsDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */,
+			);
+			path = PhysicsDisplay;
+			sourceTree = "<group>";
+		};
 		29F7523623E6DBA500CC776C = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +350,7 @@
 				29DF725B240A6176004DD36F /* TypesAliases.swift */,
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				29E87DC9240A88A700A0BA0A /* PhysicsDisplay */,
 				29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */,
 				2921E30124071B0100119589 /* Display2 */,
 				295B839E24000D8900993564 /* IntervalGame */,
@@ -528,6 +539,7 @@
 				2921E30624071B4800119589 /* Display2Scene.swift in Sources */,
 				29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */,
 				29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */,
+				29E87DCE240A88C500A0BA0A /* PhysicsDisplayScene.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
