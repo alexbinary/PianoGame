@@ -32,6 +32,16 @@ class PhysicsDisplayScene: SKScene {
     var disruptiveNode: SKShapeNode!
     
     
+    struct SpringSystem {
+        
+        let anchorNode: SKNode!
+        let jointNode: SKNode!
+        let springJoint: SKPhysicsJointSpring
+    }
+    
+    var springSystems: [SpringSystem] = []
+    
+    
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -80,6 +90,18 @@ class PhysicsDisplayScene: SKScene {
     }
     
     
+    override func mouseDown(with event: NSEvent) {
+        
+//        self.createSpringSystem(at: CGPoint(x: 25, y: 325))
+        
+        if let system = springSystems.randomElement() {
+            
+            self.removeChildren(in: [system.anchorNode, system.jointNode])
+            self.physicsWorld.remove(system.springJoint)
+        }
+    }
+    
+    
     func createElements() {
          
         let radius: CGFloat = 25
@@ -89,12 +111,12 @@ class PhysicsDisplayScene: SKScene {
         edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
         edgeLoopNode.physicsBody?.isDynamic = false
         edgeLoopNode.physicsBody?.friction = 0
-        edgeLoopNode.position = CGPoint(x: -800, y: 275)
+        edgeLoopNode.position = CGPoint(x: -800, y: 300)
         
         self.addChild(edgeLoopNode)
         
         for x in stride(from: -20, through: 20, by: 5) {
-            self.createSpringSystem(at: CGPoint(x: x, y: 300))
+            self.createSpringSystem(at: CGPoint(x: x, y: 325))
         }
     }
     
@@ -137,5 +159,11 @@ class PhysicsDisplayScene: SKScene {
         spring.damping = 0.2
          
         self.physicsWorld.add(spring)
+        
+        jointNode.setScale(0)
+        
+        jointNode.run(SKAction.scale(to: 1, duration: 1))
+        
+        springSystems.append(SpringSystem(anchorNode: anchorNode, jointNode: jointNode, springJoint: spring))
     }
 }
