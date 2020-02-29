@@ -145,8 +145,8 @@ class PhysicsDisplayScene: SKScene {
                                                      anchorA: springAnchorNode.position,
                                                      anchorB: labelNode.position)
          
-        springJoint.frequency = 0.5
-        springJoint.damping = 0.2
+        springJoint.frequency = 1
+        springJoint.damping = 5
         
         // general animation settings
         
