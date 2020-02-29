@@ -128,7 +128,7 @@ class PhysicsDisplayScene: SKScene {
          
         // configure spring system
         
-        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: labelNode.calculateAccumulatedFrame().size.height/2.0)
+        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: labelNode.calculateAccumulatedFrame().size.width/2.0)
         labelNode.physicsBody?.allowsRotation = false
         labelNode.physicsBody?.categoryBitMask = 2
         labelNode.physicsBody?.collisionBitMask = 2
