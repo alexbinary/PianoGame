@@ -29,7 +29,7 @@ class PhysicsDisplayScene: SKScene {
     var colorPalette: ColorPalette?
     
     
-    var anchorNode: SKSpriteNode!
+    var disruptiveNode: SKSpriteNode!
     
     
     override func didMove(to view: SKView) {
@@ -61,7 +61,19 @@ class PhysicsDisplayScene: SKScene {
     
     override func mouseDragged(with event: NSEvent) {
         
-        anchorNode.position = event.location(in: self)
+        if disruptiveNode == nil {
+        
+            let size = CGSize(width: 50, height: 50)
+            
+            disruptiveNode = SKSpriteNode(color: .yellow,
+                                          size: size)
+            disruptiveNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+            disruptiveNode.physicsBody?.isDynamic = false
+            
+            self.addChild(disruptiveNode)
+        }
+        
+        disruptiveNode.position = event.location(in: self)
     }
     
     
@@ -69,7 +81,7 @@ class PhysicsDisplayScene: SKScene {
         
         let size = CGSize(width: 50, height: 50)
          
-        anchorNode = SKSpriteNode(color: .red,
+        let anchorNode = SKSpriteNode(color: .red,
                                   size: size)
         let jointNode = SKSpriteNode(color: .blue,
                                        size: size)
@@ -79,6 +91,7 @@ class PhysicsDisplayScene: SKScene {
         anchorNode.position = CGPoint(x: 250, y: 300)
          
         jointNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+        jointNode.physicsBody?.allowsRotation = false
         jointNode.position = CGPoint(x: 250, y: 200)
          
         self.addChild(anchorNode)
@@ -93,5 +106,6 @@ class PhysicsDisplayScene: SKScene {
         spring.damping = 0.2
          
         self.physicsWorld.add(spring)
+        self.physicsWorld.gravity = .zero
     }
 }
