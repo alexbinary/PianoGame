@@ -24,10 +24,36 @@ class IntervalQuizDisplay2Scene: SKScene {
     var questionIntervalLengthLabel: SKLabelNode? = nil
     
     
+    struct ColorPalette {
+        
+        let backgroundColor: NSColor
+        let foregroundColor: NSColor
+    }
+    
+    let colorPaletteDefault = ColorPalette(
+        
+        backgroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
+        foregroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1)
+    )
+    
+    let colorPaletteDarkMode = ColorPalette(
+        
+        backgroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1),
+        foregroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
+    )
+    
+    var colorPalette: ColorPalette?
+    
+    
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
         self.connectToMIDIDevice()
+        
+        self.configureColorPalette()
+        self.initStaticUI()
+        
         self.loadNextQuestion()
         self.updateQuestionUI()
     }
@@ -86,6 +112,55 @@ class IntervalQuizDisplay2Scene: SKScene {
     }
     
     
+    func configureColorPalette() {
+        
+        self.colorPalette = self.view?.effectiveAppearance.name == NSAppearance.Name.darkAqua ? self.colorPaletteDarkMode : self.colorPaletteDefault
+    }
+    
+    
+    func initStaticUI() {
+        
+        guard let colorPalette = self.colorPalette else {
+            fatalError("Attempted to use color palette but it was not defined.")
+        }
+        
+        self.backgroundColor = colorPalette.backgroundColor
+        
+        let questionRootPosition = CGPoint(x: 0, y: -self.size.height + self.size.height/3.0)
+        let sceneHalfWidth = self.size.width/2.0
+        let horizontalSpread = sceneHalfWidth*2.0/3.0
+            
+        self.questionNoteLabel = SKLabelNode()
+        self.questionNoteLabel?.fontColor = colorPalette.foregroundColor
+        self.questionNoteLabel!.verticalAlignmentMode = .center
+        self.questionNoteLabel!.horizontalAlignmentMode = .center
+        self.questionNoteLabel!.position = questionRootPosition + CGPoint(x: -horizontalSpread, y: 0)
+        self.addChild(self.questionNoteLabel!)
+        
+        self.solutionNoteLabel = SKLabelNode()
+        self.solutionNoteLabel?.fontColor = colorPalette.foregroundColor
+        self.solutionNoteLabel!.verticalAlignmentMode = .center
+        self.solutionNoteLabel!.horizontalAlignmentMode = .center
+        self.solutionNoteLabel!.position = questionRootPosition + CGPoint(x: +horizontalSpread, y: 0)
+        self.addChild(self.solutionNoteLabel!)
+        
+        self.questionIntervalNameLabel = SKLabelNode()
+        self.questionIntervalNameLabel?.fontColor = colorPalette.foregroundColor
+        self.questionIntervalNameLabel!.verticalAlignmentMode = .center
+        self.questionIntervalNameLabel!.horizontalAlignmentMode = .center
+        self.questionIntervalNameLabel!.position = questionRootPosition + CGPoint(x: 0, y: +20)
+        self.addChild(self.questionIntervalNameLabel!)
+        
+        self.questionIntervalLengthLabel = SKLabelNode()
+        self.questionIntervalLengthLabel?.fontColor = colorPalette.foregroundColor
+        self.questionIntervalLengthLabel!.fontSize *= 0.8
+        self.questionIntervalLengthLabel!.verticalAlignmentMode = .center
+        self.questionIntervalLengthLabel!.horizontalAlignmentMode = .center
+        self.questionIntervalLengthLabel!.position = questionRootPosition + CGPoint(x: 0, y: -20)
+        self.addChild(self.questionIntervalLengthLabel!)
+    }
+    
+    
     func updateQuestionUI() {
         
         guard
@@ -94,53 +169,11 @@ class IntervalQuizDisplay2Scene: SKScene {
             ,let currentQuestionSolutionNote = self.currentQuestionSolutionNote
         else { fatalError("Attempting to update question UI while some data have no value.") }
         
-        let questionRootPosition = CGPoint(x: 0, y: -self.size.height + self.size.height/3.0)
-        let sceneHalfWidth = self.size.width/2.0
-        let horizontalSpread = sceneHalfWidth*2.0/3.0
-        
-        if self.questionNoteLabel == nil {
-            
-            self.questionNoteLabel = SKLabelNode()
-            self.questionNoteLabel!.verticalAlignmentMode = .center
-            self.questionNoteLabel!.horizontalAlignmentMode = .center
-            self.questionNoteLabel!.position = questionRootPosition + CGPoint(x: -horizontalSpread, y: 0)
-            self.addChild(self.questionNoteLabel!)
-        }
-        
         self.questionNoteLabel!.text = currentQuestionNote.description.uppercased()
         
-        if self.solutionNoteLabel == nil {
-            
-            self.solutionNoteLabel = SKLabelNode()
-            self.solutionNoteLabel!.verticalAlignmentMode = .center
-            self.solutionNoteLabel!.horizontalAlignmentMode = .center
-            self.solutionNoteLabel!.position = questionRootPosition + CGPoint(x: +horizontalSpread, y: 0)
-            self.addChild(self.solutionNoteLabel!)
-        }
+        self.questionIntervalNameLabel!.text = String(describing: currentQuestionInterval)
+        self.questionIntervalLengthLabel!.text = "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T"
         
         self.solutionNoteLabel!.text = self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?"
-
-        if self.questionIntervalNameLabel == nil {
-            
-            self.questionIntervalNameLabel = SKLabelNode()
-            self.questionIntervalNameLabel!.verticalAlignmentMode = .center
-            self.questionIntervalNameLabel!.horizontalAlignmentMode = .center
-            self.addChild(self.questionIntervalNameLabel!)
-        }
-        
-        self.questionIntervalNameLabel!.text = String(describing: currentQuestionInterval)
-        self.questionIntervalNameLabel!.position = questionRootPosition + CGPoint(x: 0, y: self.questionIntervalNameLabel!.calculateAccumulatedFrame().height/2.0 + 10)
-
-        if self.questionIntervalLengthLabel == nil {
-            
-            self.questionIntervalLengthLabel = SKLabelNode()
-            self.questionIntervalLengthLabel!.fontSize *= 0.8
-            self.questionIntervalLengthLabel!.verticalAlignmentMode = .center
-            self.questionIntervalLengthLabel!.horizontalAlignmentMode = .center
-            self.addChild(self.questionIntervalLengthLabel!)
-        }
-        
-        self.questionIntervalLengthLabel!.text = "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T"
-        self.questionIntervalLengthLabel!.position = questionRootPosition + CGPoint(x: 0, y: -self.questionIntervalLengthLabel!.calculateAccumulatedFrame().height/2.0 - 10)
     }
 }
