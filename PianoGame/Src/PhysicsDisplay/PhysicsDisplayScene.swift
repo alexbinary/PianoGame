@@ -88,11 +88,11 @@ class PhysicsDisplayScene: SKScene {
          
         anchorNode.physicsBody = SKPhysicsBody(rectangleOf: size)
         anchorNode.physicsBody?.isDynamic = false
-        anchorNode.position = CGPoint(x: 250, y: 300)
+        anchorNode.position = CGPoint(x: 0, y: 300)
          
         jointNode.physicsBody = SKPhysicsBody(rectangleOf: size)
         jointNode.physicsBody?.allowsRotation = false
-        jointNode.position = CGPoint(x: 250, y: 200)
+        jointNode.position = CGPoint(x: 0, y: 300)
          
         self.addChild(anchorNode)
         self.addChild(jointNode)
@@ -101,6 +101,8 @@ class PhysicsDisplayScene: SKScene {
                                                 bodyB: jointNode.physicsBody!,
                                                 anchorA: anchorNode.position,
                                                 anchorB: jointNode.position)
+        
+        jointNode.position = CGPoint(x: 250, y: 300)
          
         spring.frequency = 0.5
         spring.damping = 0.2
