@@ -29,7 +29,7 @@ class PhysicsDisplayScene: SKScene {
     var colorPalette: ColorPalette?
     
     
-    var disruptiveNode: SKSpriteNode!
+    var disruptiveNode: SKShapeNode!
     
     
     override func didMove(to view: SKView) {
@@ -37,7 +37,7 @@ class PhysicsDisplayScene: SKScene {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         self.configureColorPalette()
-        self.initStaticUI()
+        self.initScene()
         
         self.createElements()
     }
@@ -49,13 +49,15 @@ class PhysicsDisplayScene: SKScene {
     }
     
     
-    func initStaticUI() {
+    func initScene() {
         
         guard let colorPalette = self.colorPalette else {
             fatalError("Attempted to use color palette but it was not defined.")
         }
         
         self.backgroundColor = colorPalette.backgroundColor
+        
+        self.physicsWorld.gravity = .zero
     }
     
     
@@ -63,12 +65,13 @@ class PhysicsDisplayScene: SKScene {
         
         if disruptiveNode == nil {
         
-            let size = CGSize(width: 50, height: 50)
+            let radius: CGFloat = 25
             
-            disruptiveNode = SKSpriteNode(color: .yellow,
-                                          size: size)
-            disruptiveNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+            disruptiveNode = SKShapeNode(circleOfRadius: radius)
+            disruptiveNode.fillColor = .yellow
+            disruptiveNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
             disruptiveNode.physicsBody?.isDynamic = false
+            disruptiveNode.physicsBody?.friction = 0
             
             self.addChild(disruptiveNode)
         }
@@ -79,23 +82,34 @@ class PhysicsDisplayScene: SKScene {
     
     func createElements() {
         
-        let size = CGSize(width: 50, height: 50)
+        let radius: CGFloat = 25
          
-        let anchorNode = SKSpriteNode(color: .red,
-                                  size: size)
-        let jointNode = SKSpriteNode(color: .blue,
-                                       size: size)
+        let anchorNode = SKShapeNode(circleOfRadius: radius)
+        anchorNode.fillColor = .red
+        
+        let jointNode = SKShapeNode(circleOfRadius: radius)
+        jointNode.fillColor = .blue
          
-        anchorNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+        anchorNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
         anchorNode.physicsBody?.isDynamic = false
+        anchorNode.physicsBody?.friction = 0
         anchorNode.position = CGPoint(x: 0, y: 300)
          
-        jointNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+        jointNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
         jointNode.physicsBody?.allowsRotation = false
+        jointNode.physicsBody?.friction = 0
         jointNode.position = CGPoint(x: 0, y: 300)
          
+        let edgeLoopSize = CGSize(width: 1600, height: radius * 2)
+        let edgeLoopNode = SKNode()
+        edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
+        edgeLoopNode.physicsBody?.isDynamic = false
+        edgeLoopNode.physicsBody?.friction = 0
+        edgeLoopNode.position = CGPoint(x: -800, y: 275)
+        
         self.addChild(anchorNode)
         self.addChild(jointNode)
+        self.addChild(edgeLoopNode)
          
         let spring = SKPhysicsJointSpring.joint(withBodyA: anchorNode.physicsBody!,
                                                 bodyB: jointNode.physicsBody!,
@@ -108,6 +122,5 @@ class PhysicsDisplayScene: SKScene {
         spring.damping = 0.2
          
         self.physicsWorld.add(spring)
-        self.physicsWorld.gravity = .zero
     }
 }
