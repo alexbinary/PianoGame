@@ -32,14 +32,18 @@ class PhysicsDisplayScene: SKScene {
     var colorPalette: ColorPalette?
     
     
-    struct SpringSystem {
+    let baseline: CGFloat = 0
+    
+    
+    struct NoteAvatar {
         
-        let anchorNode: SKNode!
-        let jointNode: SKNode!
+        let springAnchorNode: SKNode!
+        let labelNode: SKNode!
         let springJoint: SKPhysicsJointSpring
+        let disappearAction: SKAction
     }
     
-    var springSystemsByNote: [NoteCode: SpringSystem] = [:]
+    var noteAvatarsByNote: [NoteCode: NoteAvatar] = [:]
     
     
     override func didMove(to view: SKView) {
@@ -50,8 +54,6 @@ class PhysicsDisplayScene: SKScene {
         
         self.configureColorPalette()
         self.initScene()
-        
-        self.createElements()
     }
     
     
@@ -103,86 +105,121 @@ class PhysicsDisplayScene: SKScene {
         let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
         let noteCodeFromZero: UInt = noteCode - minimumNoteCode
         
+        let velocityMaxValue: Double = 128.0
+        let velocityFactor: Double = Double(velocity)/velocityMaxValue
+        
+        let note = Note(fromNoteCode: noteCode)
+        
+        // create label
+        
+        guard let colorPalette = self.colorPalette else {
+            fatalError("Attempted to use color palette but it was not defined.")
+        }
+        
+        let labelNode = SKLabelNode(text: note.description.uppercased())
+        labelNode.fontColor = colorPalette.foregroundColor
+        labelNode.verticalAlignmentMode = .center
+        labelNode.horizontalAlignmentMode = .center
+        
         let horizontalStep: CGFloat = self.frame.width / CGFloat(noteCodeSpan + 2)
         let xPosition = -self.frame.width/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep
-            
-        springSystemsByNote[noteCode] = self.createSpringSystem(at: CGPoint(x: xPosition, y: 300))
+        
+        labelNode.position = CGPoint(x: xPosition, y: baseline + 5)
+         
+        // configure spring system
+        
+        labelNode.physicsBody = SKPhysicsBody(circleOfRadius: labelNode.calculateAccumulatedFrame().size.height/2.0)
+        labelNode.physicsBody?.allowsRotation = false
+        labelNode.physicsBody?.categoryBitMask = 2
+        labelNode.physicsBody?.collisionBitMask = 2
+        
+        let springAnchorNode = SKShapeNode(circleOfRadius: 0)
+        springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+        springAnchorNode.physicsBody?.isDynamic = false
+        springAnchorNode.physicsBody?.categoryBitMask = 1
+        springAnchorNode.physicsBody?.collisionBitMask = 1
+        springAnchorNode.position = labelNode.position
+        
+        let springJoint = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
+                                                     bodyB: labelNode.physicsBody!,
+                                                     anchorA: springAnchorNode.position,
+                                                     anchorB: labelNode.position)
+         
+        springJoint.frequency = 0.5
+        springJoint.damping = 0.2
+        
+        // general animation settings
+        
+        let appearDuration: Double = 0.1
+        let fadeOutDuration: Double = 10 * velocityFactor
+        let disappearDuration: Double = 0.05
+        
+        // animate scale
+        
+        let scaleUpAmplitude: CGFloat = 10 * CGFloat(velocityFactor)
+        
+        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration)
+        let disappearScaleAction = SKAction.scale(to: 0, duration: disappearDuration)
+        
+        // animate fadeout
+        
+        let fadeOutFadeAction = SKAction.fadeOut(withDuration: fadeOutDuration)
+        
+        // animate jiggle
+        
+        let jiggleDuration: Double = 0.02
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor)
+        let jiggleCount = 5
+        
+        let jiggleAction = SKAction.repeat(SKAction.sequence([
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+            SKAction.rotate(byAngle: -2.0 * jiggleAmplitude, duration: 2 * jiggleDuration),
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+        ]), count: jiggleCount)
+        
+        // compose final animation
+        
+        let appearAndFadeOutAction = SKAction.group([
+            SKAction.sequence([
+                appearScaleAction,
+                SKAction.group([fadeOutScaleAction, fadeOutFadeAction])
+            ]),
+            jiggleAction
+        ])
+        let disappearAction = disappearScaleAction
+        
+        // setup an animate
+        
+        labelNode.setScale(0)
+        
+        self.addChild(labelNode)
+        self.addChild(springAnchorNode)
+        
+        self.physicsWorld.add(springJoint)
+        
+        labelNode.run(appearAndFadeOutAction)
+        
+        // register data for teardown
+        
+        noteAvatarsByNote[noteCode] = NoteAvatar(springAnchorNode: springAnchorNode,
+                                                labelNode: labelNode,
+                                                springJoint: springJoint,
+                                                disappearAction: disappearAction)
     }
     
     
     func onNoteOff(noteCode: NoteCode) {
         
-        if let system = springSystemsByNote[noteCode] {
+        if let avatar = noteAvatarsByNote[noteCode] {
             
-            springSystemsByNote.removeValue(forKey: noteCode)
+            noteAvatarsByNote.removeValue(forKey: noteCode)
             
-            system.jointNode.run(SKAction.scale(to: 0, duration: 1), completion: {
+            avatar.labelNode.run(avatar.disappearAction, completion: {
                 
-                self.removeChildren(in: [system.anchorNode, system.jointNode])
-                self.physicsWorld.remove(system.springJoint)
+                self.removeChildren(in: [avatar.springAnchorNode, avatar.labelNode])
+                self.physicsWorld.remove(avatar.springJoint)
             })
         }
-    }
-    
-    
-    func createElements() {
-         
-        let radius: CGFloat = 25
-        
-        let edgeLoopSize = CGSize(width: 100000, height: radius * 2)
-        let edgeLoopNode = SKNode()
-        edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
-        edgeLoopNode.physicsBody?.isDynamic = false
-        edgeLoopNode.physicsBody?.friction = 0
-        edgeLoopNode.position = CGPoint(x: -edgeLoopSize.width/2, y: 275)
-        
-        self.addChild(edgeLoopNode)
-    }
-    
-    
-    func createSpringSystem(at position: CGPoint) -> SpringSystem {
-        
-        let radius: CGFloat = 25
-         
-        let anchorNode = SKShapeNode(circleOfRadius: 1)
-        anchorNode.fillColor = .red
-        anchorNode.strokeColor = .red
-        
-        let jointNode = SKShapeNode(circleOfRadius: radius)
-        jointNode.fillColor = .blue
-         
-        anchorNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
-        anchorNode.physicsBody?.isDynamic = false
-        anchorNode.physicsBody?.friction = 0
-        anchorNode.physicsBody?.categoryBitMask = 1
-        anchorNode.physicsBody?.collisionBitMask = 1
-        anchorNode.position = position + CGPoint(x: 0, y: -25)
-        anchorNode.zPosition = -1
-         
-        jointNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
-        jointNode.physicsBody?.allowsRotation = false
-        jointNode.physicsBody?.friction = 0
-        jointNode.physicsBody?.categoryBitMask = 2
-        jointNode.physicsBody?.collisionBitMask = 2
-        jointNode.position = anchorNode.position
-        
-        self.addChild(anchorNode)
-        self.addChild(jointNode)
-        
-        let spring = SKPhysicsJointSpring.joint(withBodyA: anchorNode.physicsBody!,
-                                                bodyB: jointNode.physicsBody!,
-                                                anchorA: anchorNode.position,
-                                                anchorB: jointNode.position)
-         
-        spring.frequency = 0.5
-        spring.damping = 0.2
-         
-        self.physicsWorld.add(spring)
-        
-        jointNode.setScale(0)
-        
-        jointNode.run(SKAction.scale(to: 1, duration: 1))
-        
-        return SpringSystem(anchorNode: anchorNode, jointNode: jointNode, springJoint: spring)
     }
 }
