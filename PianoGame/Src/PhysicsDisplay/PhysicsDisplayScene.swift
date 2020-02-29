@@ -92,12 +92,17 @@ class PhysicsDisplayScene: SKScene {
     
     override func mouseDown(with event: NSEvent) {
         
-//        self.createSpringSystem(at: CGPoint(x: 25, y: 325))
+        self.createSpringSystem(at: CGPoint(x: (-Int(self.size.width/2.0)...Int(self.size.width/2.0)).randomElement()!, y: 300))
+    }
+    
+    
+    override func rightMouseDown(with event: NSEvent) {
         
-        if let system = springSystems.randomElement() {
-            
-            self.removeChildren(in: [system.anchorNode, system.jointNode])
-            self.physicsWorld.remove(system.springJoint)
+        if let index = springSystems.indices.randomElement() {
+
+            self.removeChildren(in: [springSystems[index].anchorNode, springSystems[index].jointNode])
+            self.physicsWorld.remove(springSystems[index].springJoint)
+            springSystems.remove(at: index)
         }
     }
     
@@ -111,13 +116,9 @@ class PhysicsDisplayScene: SKScene {
         edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
         edgeLoopNode.physicsBody?.isDynamic = false
         edgeLoopNode.physicsBody?.friction = 0
-        edgeLoopNode.position = CGPoint(x: -800, y: 300)
+        edgeLoopNode.position = CGPoint(x: -800, y: 275)
         
         self.addChild(edgeLoopNode)
-        
-        for x in stride(from: -20, through: 20, by: 5) {
-            self.createSpringSystem(at: CGPoint(x: x, y: 325))
-        }
     }
     
     
@@ -137,7 +138,7 @@ class PhysicsDisplayScene: SKScene {
         anchorNode.physicsBody?.friction = 0
         anchorNode.physicsBody?.categoryBitMask = 1
         anchorNode.physicsBody?.collisionBitMask = 1
-        anchorNode.position = position
+        anchorNode.position = position + CGPoint(x: 0, y: -25)
         anchorNode.zPosition = -1
          
         jointNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
@@ -145,7 +146,7 @@ class PhysicsDisplayScene: SKScene {
         jointNode.physicsBody?.friction = 0
         jointNode.physicsBody?.categoryBitMask = 2
         jointNode.physicsBody?.collisionBitMask = 2
-        jointNode.position = position
+        jointNode.position = anchorNode.position
         
         self.addChild(anchorNode)
         self.addChild(jointNode)
