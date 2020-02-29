@@ -100,9 +100,14 @@ class PhysicsDisplayScene: SKScene {
         
         if let index = springSystems.indices.randomElement() {
 
-            self.removeChildren(in: [springSystems[index].anchorNode, springSystems[index].jointNode])
-            self.physicsWorld.remove(springSystems[index].springJoint)
+            let system = springSystems[index]
             springSystems.remove(at: index)
+            
+            system.jointNode.run(SKAction.scale(to: 0, duration: 1), completion: {
+                
+                self.removeChildren(in: [system.anchorNode, system.jointNode])
+                self.physicsWorld.remove(system.springJoint)
+            })
         }
     }
     
