@@ -18,6 +18,6 @@ class GenericViewController: NSViewController {
     
     override func viewWillLayout() {
         
-//        ((view as! SKView).scene as!IntervalGameScene).updateColorScheme(darkModeEnabled: view.effectiveAppearance.name == NSAppearance.Name.darkAqua)
+        ((view as! SKView).scene as? IntervalGameScene)?.updateColorScheme(darkModeEnabled: view.effectiveAppearance.name == NSAppearance.Name.darkAqua)
     }
 }
