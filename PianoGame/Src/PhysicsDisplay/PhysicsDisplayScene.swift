@@ -8,6 +8,9 @@ import MIKMIDI
 class PhysicsDisplayScene: SKScene {
     
     
+    let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
+    
+    
     struct ColorPalette {
         
         let backgroundColor: NSColor
@@ -29,9 +32,6 @@ class PhysicsDisplayScene: SKScene {
     var colorPalette: ColorPalette?
     
     
-    var disruptiveNode: SKShapeNode!
-    
-    
     struct SpringSystem {
         
         let anchorNode: SKNode!
@@ -39,12 +39,14 @@ class PhysicsDisplayScene: SKScene {
         let springJoint: SKPhysicsJointSpring
     }
     
-    var springSystems: [SpringSystem] = []
+    var springSystemsByNote: [NoteCode: SpringSystem] = [:]
     
     
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        self.connectToMIDIDevice()
         
         self.configureColorPalette()
         self.initScene()
@@ -71,37 +73,48 @@ class PhysicsDisplayScene: SKScene {
     }
     
     
-    override func mouseDragged(with event: NSEvent) {
+    func connectToMIDIDevice() {
         
-        if disruptiveNode == nil {
-        
-            let radius: CGFloat = 25
-            
-            disruptiveNode = SKShapeNode(circleOfRadius: radius)
-            disruptiveNode.fillColor = .yellow
-            disruptiveNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
-            disruptiveNode.physicsBody?.isDynamic = false
-            disruptiveNode.physicsBody?.friction = 0
-            
-            self.addChild(disruptiveNode)
+        guard let device = MIKMIDIDeviceManager.shared.availableDevices.first(where: { $0.displayName == self.MIDIDeviceName }) else {
+            fatalError("MIDI device \"\(self.MIDIDeviceName)\" not found. Is it turned on?")
         }
         
-        disruptiveNode.position = event.location(in: self)
+        try! MIKMIDIDeviceManager.shared.connect(device) { (_, commands) in
+            commands.forEach { command in
+                
+                if let noteOnCommand = command as? MIKMIDINoteOnCommand {
+                    if noteOnCommand.velocity > 0 {
+                        self.onNoteOn(noteCode: noteOnCommand.note, velocity: noteOnCommand.velocity)
+                    } else {
+                        self.onNoteOff(noteCode: noteOnCommand.note)
+                    }
+                } else if let noteOffCommand = command as? MIKMIDINoteOffCommand {
+                    self.onNoteOff(noteCode: noteOffCommand.note)
+                }
+            }
+        }
     }
     
     
-    override func mouseDown(with event: NSEvent) {
+    func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
-        self.createSpringSystem(at: CGPoint(x: (-Int(self.size.width/2.0)...Int(self.size.width/2.0)).randomElement()!, y: 300))
+        let minimumNoteCode: UInt = 21
+        let maximumNoteCode: UInt = 107
+        let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
+        let noteCodeFromZero: UInt = noteCode - minimumNoteCode
+        
+        let horizontalStep: CGFloat = self.frame.width / CGFloat(noteCodeSpan + 2)
+        let xPosition = -self.frame.width/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep
+            
+        springSystemsByNote[noteCode] = self.createSpringSystem(at: CGPoint(x: xPosition, y: 300))
     }
     
     
-    override func rightMouseDown(with event: NSEvent) {
+    func onNoteOff(noteCode: NoteCode) {
         
-        if let index = springSystems.indices.randomElement() {
-
-            let system = springSystems[index]
-            springSystems.remove(at: index)
+        if let system = springSystemsByNote[noteCode] {
+            
+            springSystemsByNote.removeValue(forKey: noteCode)
             
             system.jointNode.run(SKAction.scale(to: 0, duration: 1), completion: {
                 
@@ -127,7 +140,7 @@ class PhysicsDisplayScene: SKScene {
     }
     
     
-    func createSpringSystem(at position: CGPoint) {
+    func createSpringSystem(at position: CGPoint) -> SpringSystem {
         
         let radius: CGFloat = 25
          
@@ -170,6 +183,6 @@ class PhysicsDisplayScene: SKScene {
         
         jointNode.run(SKAction.scale(to: 1, duration: 1))
         
-        springSystems.append(SpringSystem(anchorNode: anchorNode, jointNode: jointNode, springJoint: spring))
+        return SpringSystem(anchorNode: anchorNode, jointNode: jointNode, springJoint: spring)
     }
 }
