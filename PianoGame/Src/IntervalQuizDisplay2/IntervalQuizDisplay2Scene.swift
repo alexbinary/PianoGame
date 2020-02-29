@@ -5,6 +5,13 @@ import MIKMIDI
 
 
 
+struct NoteDisplayData {
+    
+    let node: SKNode
+    let disappearAction: SKAction
+}
+
+
 class IntervalQuizDisplay2Scene: SKScene {
     
     
@@ -22,6 +29,9 @@ class IntervalQuizDisplay2Scene: SKScene {
     var solutionNoteLabel: SKLabelNode? = nil
     var questionIntervalNameLabel: SKLabelNode? = nil
     var questionIntervalLengthLabel: SKLabelNode? = nil
+    
+    
+    var noteDisplayDataByNote: [NoteCode: NoteDisplayData] = [:]
     
     
     struct ColorPalette {
@@ -84,6 +94,86 @@ class IntervalQuizDisplay2Scene: SKScene {
     
     func onNoteOn(note code: NoteCode, velocity: Velocity) {
         
+        // --- display
+        
+        guard let colorPalette = self.colorPalette else {
+            fatalError("Attempted to use color palette but it was not defined.")
+        }
+        
+        let displayRootPosition = CGPoint(x: 0, y: -self.size.height/2.0 + self.size.height*2.0/3.0)
+        
+        let minimumNoteCode: UInt = 21
+        let maximumNoteCode: UInt = 107
+        let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
+        let noteCodeFromZero: UInt = code - minimumNoteCode
+        
+        let velocityFactor: Double = Double(velocity)/128.0
+        
+        let note = Note(fromNoteCode: code)
+        let labelNode = SKLabelNode(text: note.description.uppercased())
+        labelNode.fontColor = colorPalette.foregroundColor
+        
+        let horizontalStep: CGFloat = self.size.width / CGFloat(noteCodeSpan + 2)
+        let verticalDispatch: CGFloat = 0
+        
+        labelNode.position = displayRootPosition + CGPoint(
+            x: -self.size.width/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep,
+            y: verticalDispatch * CGFloat(note.isSharp ? 1 : -1))
+        
+        // general animation settings
+        
+        let appearDuration: Double = 0.1
+        let fadeOutDuration: Double = 10 * velocityFactor
+        let disappearDuration: Double = 0.05
+        
+        // animate scale
+        
+        let scaleUpAmplitude: CGFloat = 10 * CGFloat(velocityFactor)
+        
+        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration)
+        let disappearScaleAction = SKAction.scale(to: 0, duration: disappearDuration)
+        
+        // animate fadeout
+        
+        let fadeOutFadeAction = SKAction.fadeOut(withDuration: fadeOutDuration)
+        
+        // animate jiggle
+        
+        let jiggleDuration: Double = 0.02
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor)
+        let jiggleCount = 5
+        
+        let jiggleAction = SKAction.repeat(SKAction.sequence([
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+            SKAction.rotate(byAngle: -2.0 * jiggleAmplitude, duration: 2 * jiggleDuration),
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+        ]), count: jiggleCount)
+        
+        // compose final animation
+        
+        let appearAndFadeOutAction = SKAction.group([
+            SKAction.sequence([
+                appearScaleAction,
+                SKAction.group([fadeOutScaleAction, fadeOutFadeAction])
+            ]),
+            jiggleAction
+        ])
+        let disappearAction = disappearScaleAction
+        
+        // setup an animate
+        
+        labelNode.setScale(0)
+        
+        addChild(labelNode)
+        labelNode.run(appearAndFadeOutAction)
+        
+        // register data for teardown
+        
+        self.noteDisplayDataByNote[code] = NoteDisplayData(node: labelNode, disappearAction: disappearAction)
+        
+        // --- game logic
+        
         if Note(fromNoteCode: code) == self.currentQuestionSolutionNote {
             
             self.currentQuestionSolutionNoteGiven = true
@@ -93,6 +183,17 @@ class IntervalQuizDisplay2Scene: SKScene {
     
     
     func onNoteOff(_ code: UInt) {
+        
+        // --- display
+        
+        if let data = self.noteDisplayDataByNote[code] {
+            data.node.run(data.disappearAction, completion: {
+                self.removeChildren(in: [data.node])
+                self.noteDisplayDataByNote[code] = nil
+            })
+        }
+        
+        // --- game logic
         
         if Note(fromNoteCode: code) == currentQuestionSolutionNote, self.currentQuestionSolutionNoteGiven {
             
