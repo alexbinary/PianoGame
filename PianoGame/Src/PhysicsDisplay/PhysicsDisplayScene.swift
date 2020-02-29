@@ -111,12 +111,12 @@ class PhysicsDisplayScene: SKScene {
          
         let radius: CGFloat = 25
         
-        let edgeLoopSize = CGSize(width: 1600, height: radius * 2)
+        let edgeLoopSize = CGSize(width: 100000, height: radius * 2)
         let edgeLoopNode = SKNode()
         edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
         edgeLoopNode.physicsBody?.isDynamic = false
         edgeLoopNode.physicsBody?.friction = 0
-        edgeLoopNode.position = CGPoint(x: -800, y: 275)
+        edgeLoopNode.position = CGPoint(x: -edgeLoopSize.width/2, y: 275)
         
         self.addChild(edgeLoopNode)
     }
