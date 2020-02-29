@@ -81,25 +81,9 @@ class PhysicsDisplayScene: SKScene {
     
     
     func createElements() {
-        
+         
         let radius: CGFloat = 25
-         
-        let anchorNode = SKShapeNode(circleOfRadius: radius)
-        anchorNode.fillColor = .red
         
-        let jointNode = SKShapeNode(circleOfRadius: radius)
-        jointNode.fillColor = .blue
-         
-        anchorNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
-        anchorNode.physicsBody?.isDynamic = false
-        anchorNode.physicsBody?.friction = 0
-        anchorNode.position = CGPoint(x: 0, y: 300)
-         
-        jointNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
-        jointNode.physicsBody?.allowsRotation = false
-        jointNode.physicsBody?.friction = 0
-        jointNode.position = CGPoint(x: 0, y: 300)
-         
         let edgeLoopSize = CGSize(width: 1600, height: radius * 2)
         let edgeLoopNode = SKNode()
         edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: CGPath(rect: CGRect(origin: .zero, size: edgeLoopSize), transform: nil))
@@ -107,16 +91,47 @@ class PhysicsDisplayScene: SKScene {
         edgeLoopNode.physicsBody?.friction = 0
         edgeLoopNode.position = CGPoint(x: -800, y: 275)
         
+        self.addChild(edgeLoopNode)
+        
+        for x in stride(from: -20, through: 20, by: 5) {
+            self.createSpringSystem(at: CGPoint(x: x, y: 300))
+        }
+    }
+    
+    
+    func createSpringSystem(at position: CGPoint) {
+        
+        let radius: CGFloat = 25
+         
+        let anchorNode = SKShapeNode(circleOfRadius: 1)
+        anchorNode.fillColor = .red
+        anchorNode.strokeColor = .red
+        
+        let jointNode = SKShapeNode(circleOfRadius: radius)
+        jointNode.fillColor = .blue
+         
+        anchorNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        anchorNode.physicsBody?.isDynamic = false
+        anchorNode.physicsBody?.friction = 0
+        anchorNode.physicsBody?.categoryBitMask = 1
+        anchorNode.physicsBody?.collisionBitMask = 1
+        anchorNode.position = position
+        anchorNode.zPosition = -1
+         
+        jointNode.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        jointNode.physicsBody?.allowsRotation = false
+        jointNode.physicsBody?.friction = 0
+        jointNode.physicsBody?.categoryBitMask = 2
+        jointNode.physicsBody?.collisionBitMask = 2
+        jointNode.position = position
+        
         self.addChild(anchorNode)
         self.addChild(jointNode)
-        self.addChild(edgeLoopNode)
-         
+        
         let spring = SKPhysicsJointSpring.joint(withBodyA: anchorNode.physicsBody!,
                                                 bodyB: jointNode.physicsBody!,
                                                 anchorA: anchorNode.position,
                                                 anchorB: jointNode.position)
-        
-        jointNode.position = CGPoint(x: 250, y: 300)
          
         spring.frequency = 0.5
         spring.damping = 0.2
