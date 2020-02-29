@@ -95,13 +95,15 @@ class IntervalQuizDisplay2Scene: SKScene {
         else { fatalError("Attempting to update question UI while some data have no value.") }
         
         let questionRootPosition = CGPoint(x: 0, y: -self.size.height + self.size.height/3.0)
+        let sceneHalfWidth = self.size.width/2.0
+        let horizontalSpread = sceneHalfWidth*2.0/3.0
         
         if self.questionNoteLabel == nil {
             
             self.questionNoteLabel = SKLabelNode()
             self.questionNoteLabel!.verticalAlignmentMode = .center
             self.questionNoteLabel!.horizontalAlignmentMode = .center
-            self.questionNoteLabel!.position = questionRootPosition + CGPoint(x: -self.size.width/2.0*2.0/3.0, y: 0)
+            self.questionNoteLabel!.position = questionRootPosition + CGPoint(x: -horizontalSpread, y: 0)
             self.addChild(self.questionNoteLabel!)
         }
         
@@ -112,7 +114,7 @@ class IntervalQuizDisplay2Scene: SKScene {
             self.solutionNoteLabel = SKLabelNode()
             self.solutionNoteLabel!.verticalAlignmentMode = .center
             self.solutionNoteLabel!.horizontalAlignmentMode = .center
-            self.solutionNoteLabel!.position = questionRootPosition + CGPoint(x: self.size.width/2.0*2.0/3.0, y: 0)
+            self.solutionNoteLabel!.position = questionRootPosition + CGPoint(x: +horizontalSpread, y: 0)
             self.addChild(self.solutionNoteLabel!)
         }
         
