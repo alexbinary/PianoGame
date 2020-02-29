@@ -126,7 +126,7 @@ class IntervalQuizDisplay2Scene: SKScene {
         
         self.backgroundColor = colorPalette.backgroundColor
         
-        let questionRootPosition = CGPoint(x: 0, y: -self.size.height + self.size.height/3.0)
+        let questionRootPosition = CGPoint(x: 0, y: -self.size.height/2.0 + self.size.height/3.0)
         let sceneHalfWidth = self.size.width/2.0
         let horizontalSpread = sceneHalfWidth*2.0/3.0
             
