@@ -41,6 +41,9 @@
 		29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */; };
 		29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */; };
 		29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3D23E7751F00760A8D /* ScaleNode.swift */; };
+		29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF7259240A614D004DD36F /* IntervalQuizDisplay2Scene.swift */; };
+		29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725B240A6176004DD36F /* TypesAliases.swift */; };
+		29DF725E240A6687004DD36F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
 		29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
 		29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524223E6DBA600CC776C /* AppDelegate.swift */; };
 		29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524423E6DBA600CC776C /* DefaultViewController.swift */; };
@@ -129,6 +132,9 @@
 		29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRectanglePhysicsNode.swift; sourceTree = "<group>"; };
 		29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleTextNode.swift; sourceTree = "<group>"; };
 		29D7DF3D23E7751F00760A8D /* ScaleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleNode.swift; sourceTree = "<group>"; };
+		29DF7259240A614D004DD36F /* IntervalQuizDisplay2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizDisplay2Scene.swift; sourceTree = "<group>"; };
+		29DF725B240A6176004DD36F /* TypesAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesAliases.swift; sourceTree = "<group>"; };
+		29DF725D240A6687004DD36F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		29E7DDDE23FC91F900D15166 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		29F7523F23E6DBA600CC776C /* PianoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7524223E6DBA600CC776C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +292,14 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */ = {
+			isa = PBXGroup;
+			children = (
+				29DF7259240A614D004DD36F /* IntervalQuizDisplay2Scene.swift */,
+			);
+			path = IntervalQuizDisplay2;
+			sourceTree = "<group>";
+		};
 		29F7523623E6DBA500CC776C = {
 			isa = PBXGroup;
 			children = (
@@ -323,7 +337,10 @@
 				29F7524823E6DBA700CC776C /* Main.storyboard */,
 				29F7524223E6DBA600CC776C /* AppDelegate.swift */,
 				2950286023FC1B6B00073C4E /* GenericViewController.swift */,
+				29DF725B240A6176004DD36F /* TypesAliases.swift */,
+				29DF725D240A6687004DD36F /* Operators.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */,
 				2921E30124071B0100119589 /* Display2 */,
 				295B839E24000D8900993564 /* IntervalGame */,
 				2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */,
@@ -510,6 +527,7 @@
 				2929AB3923FC915200AC18C1 /* Note.swift in Sources */,
 				2921E30624071B4800119589 /* Display2Scene.swift in Sources */,
 				29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */,
+				29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
@@ -517,6 +535,8 @@
 				29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */,
 				29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */,
 				295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */,
+				29DF725E240A6687004DD36F /* Operators.swift in Sources */,
+				29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */,
 				29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */,
 				29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */,
 				29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */,

@@ -5,9 +5,6 @@ import MIKMIDI
 
 
 
-typealias NoteCode = UInt
-
-
 struct NoteData {
     
     let node: SKNode
