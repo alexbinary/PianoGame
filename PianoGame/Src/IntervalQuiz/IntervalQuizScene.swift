@@ -97,7 +97,7 @@ class IntervalQuizScene: SKScene {
         expectedNoteLabel.position = CGPoint(x: +2 * (self.frame.width/2)/3, y: 0)
         self.addChild(expectedNoteLabel)
         
-        let intervalNameLabel = SKLabelNode(text: String(describing: Interval(from: intervalLength)))
+        let intervalNameLabel = SKLabelNode(text: String(describing: Interval(fromHalfSteps: intervalLength)))
         intervalNameLabel.position = CGPoint(x: 0, y: +intervalNameLabel.calculateAccumulatedFrame().height/2 + 10)
         self.addChild(intervalNameLabel)
         

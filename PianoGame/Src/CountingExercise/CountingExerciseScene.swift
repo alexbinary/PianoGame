@@ -5,14 +5,16 @@ import MIKMIDI
 
 
 
-class IntervalQuizPhysicsDisplayScene: SKScene {
+class CountingExerciseScene: SKScene {
     
     
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
     
+    var currentIntervalRangeInHalfSteps: ClosedRange<UInt> = 1...1
+    
     var currentQuestionNote: Note! = nil
-    var currentQuestionInterval: Interval! = nil
+    var currentQuestionIntervalLengthInHalfSteps: UInt! = nil
     
     var currentQuestionSolutionNote: Note! = nil
     var currentQuestionSolutionNoteGiven = false
@@ -20,7 +22,6 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
     
     var questionNoteLabel: SKLabelNode! = nil
     var solutionNotePlaceholderNode: SKNode! = nil
-    var questionIntervalNameLabel: SKLabelNode! = nil
     var questionIntervalLengthLabel: SKLabelNode! = nil
     
     
@@ -127,21 +128,13 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         self.solutionNotePlaceholderNode.position = questionRootPosition + CGPoint(x: +horizontalSpread, y: 0)
         self.addChild(self.solutionNotePlaceholderNode)
         
-        self.questionIntervalNameLabel = SKLabelNode()
-        self.questionIntervalNameLabel.fontSize *= textScale
-        self.questionIntervalNameLabel.fontColor = colorPalette.foregroundColor
-        self.questionIntervalNameLabel.verticalAlignmentMode = .center
-        self.questionIntervalNameLabel.horizontalAlignmentMode = .center
-        self.questionIntervalNameLabel.position = questionRootPosition + CGPoint(x: 0, y: +20 * textScale)
-        self.addChild(self.questionIntervalNameLabel)
-        
         self.questionIntervalLengthLabel = SKLabelNode()
         self.questionIntervalLengthLabel.fontSize *= textScale
         self.questionIntervalLengthLabel.fontColor = colorPalette.foregroundColor
         self.questionIntervalLengthLabel.fontSize *= 0.8
         self.questionIntervalLengthLabel.verticalAlignmentMode = .center
         self.questionIntervalLengthLabel.horizontalAlignmentMode = .center
-        self.questionIntervalLengthLabel.position = questionRootPosition + CGPoint(x: 0, y: -20 * textScale)
+        self.questionIntervalLengthLabel.position = questionRootPosition + CGPoint(x: 0, y: 0)
         self.addChild(self.questionIntervalLengthLabel)
     }
     
@@ -150,21 +143,20 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         
         guard
              let currentQuestionNote = self.currentQuestionNote
-            ,let currentQuestionInterval = self.currentQuestionInterval
+            ,let currentQuestionIntervalLengthInHalfSteps = self.currentQuestionIntervalLengthInHalfSteps
         else { fatalError("Attempting to update question UI while some data have no value.") }
         
         self.questionNoteLabel.text = currentQuestionNote.description.uppercased()
-        self.questionIntervalNameLabel.text = String(describing: currentQuestionInterval)
-        self.questionIntervalLengthLabel.text = "\(Double(currentQuestionInterval.lengthInHalfSteps)/2.0)T"
+        self.questionIntervalLengthLabel.text = "\(Double(currentQuestionIntervalLengthInHalfSteps)/2.0)T"
     }
     
     
     func loadNextQuestion() {
         
         self.currentQuestionNote = Note.allCases.randomElement()
-        self.currentQuestionInterval = Interval.allCases.randomElement()
+        self.currentQuestionIntervalLengthInHalfSteps = self.currentIntervalRangeInHalfSteps.randomElement()!
         
-        self.currentQuestionSolutionNote = self.currentQuestionNote.adding(self.currentQuestionInterval)
+        self.currentQuestionSolutionNote = self.currentQuestionNote.addingHalfSteps(self.currentQuestionIntervalLengthInHalfSteps)
         self.currentQuestionSolutionNoteGiven = false
     }
     

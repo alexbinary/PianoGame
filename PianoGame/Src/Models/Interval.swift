@@ -17,11 +17,11 @@ enum Interval: CaseIterable {
     case M7
 
     
-    init(from semitones: UInt) {
+    init(fromHalfSteps halfSteps: UInt) {
         
-        self = Interval.allCases[Int(semitones % 12)]
+        self = Interval.allCases[Int(halfSteps % 12)]
     }
     
     
-    var lengthInSemitones: UInt { return UInt(Interval.allCases.firstIndex(of: self)!) }
+    var lengthInHalfSteps: UInt { return UInt(Interval.allCases.firstIndex(of: self)!) }
 }

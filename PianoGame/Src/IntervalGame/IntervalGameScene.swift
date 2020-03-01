@@ -585,7 +585,7 @@ class IntervalGameScene: SKScene {
         questionIntervalNameLabel.horizontalAlignmentMode = .center
         bottomMainAreaRootNode.addChild(questionIntervalNameLabel)
 
-        let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T")
+        let questionIntervalLengthLabel = SKLabelNode(text: "\(Double(currentQuestionInterval.lengthInHalfSteps)/2.0)T")
         questionIntervalLengthLabel.fontColor = self.dynamicForegroundColor
         questionIntervalLengthLabel.fontSize *= 0.8
         let y2 = -questionIntervalLengthLabel.calculateAccumulatedFrame().height/2.0 - 10

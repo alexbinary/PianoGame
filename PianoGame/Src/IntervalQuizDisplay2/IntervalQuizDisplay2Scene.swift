@@ -273,7 +273,7 @@ class IntervalQuizDisplay2Scene: SKScene {
         self.questionNoteLabel!.text = currentQuestionNote.description.uppercased()
         
         self.questionIntervalNameLabel!.text = String(describing: currentQuestionInterval)
-        self.questionIntervalLengthLabel!.text = "\(Double(currentQuestionInterval.lengthInSemitones)/2.0)T"
+        self.questionIntervalLengthLabel!.text = "\(Double(currentQuestionInterval.lengthInHalfSteps)/2.0)T"
         
         self.solutionNoteLabel!.text = self.currentQuestionSolutionNoteGiven ? currentQuestionSolutionNote.description.uppercased() : "?"
     }

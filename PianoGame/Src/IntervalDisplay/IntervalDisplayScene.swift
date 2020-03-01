@@ -84,7 +84,7 @@ class IntervalDisplayScene: SKScene {
                 let yk = CGFloat(self.frame.height)/2.0 - CGFloat(k) * CGFloat(self.frame.height)/CGFloat(numberOfLines + 1)
                 let intervalNote = orderedNotes[k]
                 let intervalLength = UInt(Note.allCases.firstIndex(of: intervalNote)! - Note.allCases.firstIndex(of: referenceNote)!)
-                let intervalName = String(describing: Interval(from: intervalLength))
+                let intervalName = String(describing: Interval(fromHalfSteps: intervalLength))
                 self.drawIntervalLine(leftNote: referenceNote, rightNote: intervalNote, intervalLength: intervalLength, intervalName: intervalName, position: yk)
             }
         }
