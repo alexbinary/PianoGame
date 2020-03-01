@@ -262,8 +262,8 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         
         // animate jiggle
         
-        let jiggleDuration: Double = 0.02
-        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor)
+        let jiggleDuration: Double = 0.02 * 4
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor) * 0.5
         let jiggleCount = 5
         
         let jiggleAction = SKAction.repeat(SKAction.sequence([
