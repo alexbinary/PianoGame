@@ -110,6 +110,8 @@ class PhysicsDisplayScene: SKScene {
         
         let note = Note(fromNoteCode: noteCode)
         
+        let elevateNote = note == .c
+        
         // create label
         
         guard let colorPalette = self.colorPalette else {
@@ -132,6 +134,15 @@ class PhysicsDisplayScene: SKScene {
         labelNode.physicsBody?.allowsRotation = false
         labelNode.physicsBody?.categoryBitMask = 2
         labelNode.physicsBody?.collisionBitMask = 2
+        
+        var constraints: [SKConstraint] = []
+        if !elevateNote {
+            constraints.append(SKConstraint.positionY(SKRange(constantValue: labelNode.position.y)))
+        }
+        if elevateNote {
+            constraints.append(SKConstraint.positionX(SKRange(constantValue: labelNode.position.x)))
+        }
+        labelNode.constraints = constraints
         
         let springAnchorNode = SKShapeNode(circleOfRadius: 0)
         springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
@@ -197,6 +208,10 @@ class PhysicsDisplayScene: SKScene {
         self.addChild(springAnchorNode)
         
         self.physicsWorld.add(springJoint)
+        
+        if elevateNote {
+            springAnchorNode.position += CGPoint(x: 0, y: +300)
+        }
         
         labelNode.run(appearAndFadeOutAction)
         
