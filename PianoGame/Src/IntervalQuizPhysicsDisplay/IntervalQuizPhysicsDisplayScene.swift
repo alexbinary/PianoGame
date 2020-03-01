@@ -74,6 +74,8 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         
         self.loadNextQuestion()
         self.updateQuestionUI()
+        
+        view.showsPhysics = false
     }
     
     
@@ -92,6 +94,12 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         self.backgroundColor = colorPalette.backgroundColor
         
         self.physicsWorld.gravity = .zero
+        
+        let edgeLoopNode = SKNode()
+        edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        edgeLoopNode.physicsBody?.categoryBitMask = 2
+        edgeLoopNode.physicsBody?.collisionBitMask = 2
+        self.addChild(edgeLoopNode)
     }
     
     
