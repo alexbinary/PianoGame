@@ -9,7 +9,7 @@ class GenericViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = PhysicsDisplayScene(size: CGSize(width: 1600, height: 900))
+        let scene = IntervalQuizPhysicsDisplayScene(size: CGSize(width: 1600, height: 900))
         scene.scaleMode = .aspectFit
         
         (view as! SKView).presentScene(scene)
