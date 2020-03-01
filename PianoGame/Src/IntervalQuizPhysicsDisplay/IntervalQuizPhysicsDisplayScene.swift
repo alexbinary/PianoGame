@@ -211,7 +211,17 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         labelNode.fontColor = noteFontColor
         labelNode.verticalAlignmentMode = .center
         labelNode.horizontalAlignmentMode = .center
-        labelNode.position = noteSpawnPosition
+        
+        let minimumNoteCode: UInt = 21
+        let maximumNoteCode: UInt = 107
+        let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
+        let noteCodeFromZero: UInt = noteCode - minimumNoteCode
+        
+        let horizontalSpan = CGFloat(noteCodeSpan)  // so that each note has at least its own pixel
+        let horizontalStep: CGFloat = horizontalSpan / CGFloat(noteCodeSpan + 2)
+        let xPosition = -horizontalSpan/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep
+        
+        labelNode.position = noteSpawnPosition + CGPoint(x: xPosition, y: 0)
          
         // configure spring system
         
