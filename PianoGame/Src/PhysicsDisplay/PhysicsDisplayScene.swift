@@ -15,18 +15,24 @@ class PhysicsDisplayScene: SKScene {
         
         let backgroundColor: NSColor
         let foregroundColor: NSColor
+        let correctColor: NSColor
+        let incorrectColor: NSColor
     }
     
     let colorPaletteDefault = ColorPalette(
         
         backgroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
-        foregroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1)
+        foregroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1),
+        correctColor: .systemGreen,
+        incorrectColor: .systemRed
     )
     
     let colorPaletteDarkMode = ColorPalette(
         
         backgroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1),
-        foregroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
+        foregroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
+        correctColor: .systemGreen,
+        incorrectColor: .systemRed
     )
     
     var colorPalette: ColorPalette?
@@ -119,7 +125,8 @@ class PhysicsDisplayScene: SKScene {
         }
         
         let labelNode = SKLabelNode(text: note.description.uppercased())
-        labelNode.fontColor = colorPalette.foregroundColor
+        labelNode.fontName = elevateNote ? "HelveticaNeue" : "HelveticaNeue-UltraLight"
+        labelNode.fontColor = elevateNote ? colorPalette.correctColor : colorPalette.incorrectColor
         labelNode.verticalAlignmentMode = .center
         labelNode.horizontalAlignmentMode = .center
         
