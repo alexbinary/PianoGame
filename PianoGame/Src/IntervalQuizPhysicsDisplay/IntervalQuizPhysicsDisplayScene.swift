@@ -222,7 +222,8 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
-        let labelUpscalingFactor: CGFloat = 10 * CGFloat(velocityFactor)
+        let scaleUpAmplitude: CGFloat = 15
+        let labelUpscalingFactor: CGFloat = scaleUpAmplitude * CGFloat(velocityFactor)
         
         let labelNode = SKLabelNode(text: note.description.uppercased())
         labelNode.fontSize *= labelUpscalingFactor
@@ -276,9 +277,7 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         
         // animate scale
         
-        let scaleUpAmplitude: CGFloat = 10 * CGFloat(velocityFactor) / (10 * CGFloat(velocityFactor))
-        
-        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        let appearScaleAction = SKAction.scale(to: 1, duration: appearDuration)
         let fadeOutScaleAction = SKAction.scale(to: 0, duration: fadeOutDuration)
         let disappearScaleAction = SKAction.scale(to: 0, duration: disappearDuration)
         
