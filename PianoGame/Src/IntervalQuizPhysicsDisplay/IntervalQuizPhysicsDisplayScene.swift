@@ -101,7 +101,7 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
             fatalError("Color palette is not defined.")
         }
         
-        let questionRootPosition = CGPoint(x: 0, y: -self.size.height/2.0 + self.size.height/3.0)
+        let questionRootPosition = CGPoint(x: 0, y: 0)
         let sceneHalfWidth = self.size.width/2.0
         let horizontalSpread = sceneHalfWidth*2.0/3.0
             
@@ -187,7 +187,7 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         
         let note = Note(fromNoteCode: noteCode)
         
-        var noteSpawnPosition: CGPoint
+        let noteSpawnPosition: CGPoint = self.solutionNotePlaceholderNode.position
         var noteFontName: String
         var noteFontColor: NSColor
         
@@ -195,25 +195,11 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
             
             self.currentQuestionSolutionNoteGiven = true
             
-            noteSpawnPosition = self.solutionNotePlaceholderNode.position
-            
             noteFontName = "HelveticaNeue"
             noteFontColor = colorPalette.correctColor
             
         } else {
         
-            let displayRootPosition = CGPoint(x: 0, y: -self.size.height/2.0 + self.size.height*2.0/3.0)
-        
-            let minimumNoteCode: UInt = 21
-            let maximumNoteCode: UInt = 107
-            let noteCodeSpan: UInt = maximumNoteCode - minimumNoteCode
-            let noteCodeFromZero: UInt = noteCode - minimumNoteCode
-            
-            let horizontalStep: CGFloat = self.frame.width / CGFloat(noteCodeSpan + 2)
-            let xPosition = -self.frame.width/2.0 + CGFloat(noteCodeFromZero + 1) * horizontalStep
-            
-            noteSpawnPosition = CGPoint(x: xPosition, y: displayRootPosition.y)
-            
             noteFontName = "HelveticaNeue-UltraLight"
             noteFontColor = colorPalette.incorrectColor
         }
