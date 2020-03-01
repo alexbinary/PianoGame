@@ -113,7 +113,10 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         let sceneHalfWidth = self.size.width/2.0
         let horizontalSpread = sceneHalfWidth*2.0/3.0
             
+        let textScale: CGFloat = 5
+        
         self.questionNoteLabel = SKLabelNode()
+        self.questionNoteLabel.fontSize *= textScale
         self.questionNoteLabel.fontColor = colorPalette.foregroundColor
         self.questionNoteLabel.verticalAlignmentMode = .center
         self.questionNoteLabel.horizontalAlignmentMode = .center
@@ -125,18 +128,20 @@ class IntervalQuizPhysicsDisplayScene: SKScene {
         self.addChild(self.solutionNotePlaceholderNode)
         
         self.questionIntervalNameLabel = SKLabelNode()
+        self.questionIntervalNameLabel.fontSize *= textScale
         self.questionIntervalNameLabel.fontColor = colorPalette.foregroundColor
         self.questionIntervalNameLabel.verticalAlignmentMode = .center
         self.questionIntervalNameLabel.horizontalAlignmentMode = .center
-        self.questionIntervalNameLabel.position = questionRootPosition + CGPoint(x: 0, y: +20)
+        self.questionIntervalNameLabel.position = questionRootPosition + CGPoint(x: 0, y: +20 * textScale)
         self.addChild(self.questionIntervalNameLabel)
         
         self.questionIntervalLengthLabel = SKLabelNode()
+        self.questionIntervalLengthLabel.fontSize *= textScale
         self.questionIntervalLengthLabel.fontColor = colorPalette.foregroundColor
         self.questionIntervalLengthLabel.fontSize *= 0.8
         self.questionIntervalLengthLabel.verticalAlignmentMode = .center
         self.questionIntervalLengthLabel.horizontalAlignmentMode = .center
-        self.questionIntervalLengthLabel.position = questionRootPosition + CGPoint(x: 0, y: -20)
+        self.questionIntervalLengthLabel.position = questionRootPosition + CGPoint(x: 0, y: -20 * textScale)
         self.addChild(self.questionIntervalLengthLabel)
     }
     
