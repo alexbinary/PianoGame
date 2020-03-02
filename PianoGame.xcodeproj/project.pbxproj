@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290CCCA3240D097500526404 /* CountingExerciseTimingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */; };
 		291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */; };
 		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
 		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
@@ -105,6 +106,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseTimingScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
 		2921E30524071B4800119589 /* Display2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display2Scene.swift; sourceTree = "<group>"; };
 		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290CCC9E240D095C00526404 /* CountingExerciseTiming */ = {
+			isa = PBXGroup;
+			children = (
+				290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */,
+			);
+			path = CountingExerciseTiming;
+			sourceTree = "<group>";
+		};
 		291BEE43240C2D4A0043217B /* CountingExercise */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +380,7 @@
 				29DF725B240A6176004DD36F /* TypesAliases.swift */,
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				290CCC9E240D095C00526404 /* CountingExerciseTiming */,
 				291BEE43240C2D4A0043217B /* CountingExercise */,
 				29B1CAB0240C13AC00A653AA /* IntervalQuizPhysicsDisplay */,
 				29E87DC9240A88A700A0BA0A /* PhysicsDisplay */,
@@ -567,6 +578,7 @@
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
 				29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */,
+				290CCCA3240D097500526404 /* CountingExerciseTimingScene.swift in Sources */,
 				29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */,
 				29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */,
 				295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */,
