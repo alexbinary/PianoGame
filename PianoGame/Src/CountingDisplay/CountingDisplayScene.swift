@@ -188,9 +188,9 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
-        let note = Note(fromNoteCode: noteCode)
+        let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[note]!
+        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
         
         // general animation settings
         
@@ -202,10 +202,17 @@ class CountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[note] = Animation(scaleTarget: scaleUpAmplitude,
-                                                 animationDuration: appearDuration,
-                                                 scaleInitialValue: nodeDisplayNode.xScale,
-                                                 timeAnimationStart: nil)
+        let playedNoteIndex = Note.allCases.firstIndex(of: playedNote)!
+        
+        for (index, note) in Note.allCases.enumerated() {
+        
+            activeAnimationsByNote[note] = Animation(scaleTarget: 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1),
+                                                     animationDuration: appearDuration,
+                                                     scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
+                                                     timeAnimationStart: nil)
+            
+            if note == playedNote { break }
+        }
 
         // animate jiggle
         
@@ -227,9 +234,9 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOff(noteCode: NoteCode) {
     
-        let note = Note(fromNoteCode: noteCode)
+        let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[note]!
+        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
         
         // general animation settings
         
@@ -237,13 +244,17 @@ class CountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[note] = Animation(scaleTarget: 1,
-                                                 animationDuration: disappearDuration,
-                                                 scaleInitialValue: nodeDisplayNode.xScale,
-                                                 timeAnimationStart: nil)
+        for note in Note.allCases {
         
+            activeAnimationsByNote[note] = Animation(scaleTarget: 1,
+                                                     animationDuration: disappearDuration,
+                                                     scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
+                                                     timeAnimationStart: nil)
+        }
+            
         // stop jiggle
         
         nodeDisplayNode.removeAction(forKey: "jiggle")
+        nodeDisplayNode.zRotation = 0
     }
 }
