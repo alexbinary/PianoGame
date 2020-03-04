@@ -118,7 +118,7 @@ class CountingDisplayScene: SKScene {
                                                          anchorA: springAnchorNode.position,
                                                          anchorB: circleNode.position)
              
-            springJoint.frequency = 1
+            springJoint.frequency = 10
             springJoint.damping = 5
             
             circleNode.addChild(labelNode)
