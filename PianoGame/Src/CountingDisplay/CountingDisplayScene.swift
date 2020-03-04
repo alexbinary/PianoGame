@@ -197,7 +197,7 @@ class CountingDisplayScene: SKScene {
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
-        let scaleUpAmplitude: CGFloat = 2
+        let scaleUpAmplitude: CGFloat = 1.5
         let appearDuration: Double = 0.1
         
         // animate scale
@@ -206,9 +206,19 @@ class CountingDisplayScene: SKScene {
         
         for (index, note) in Note.allCases.enumerated() {
         
-            activeAnimationsByNote[note] = Animation(scaleTarget: 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1),
-                                                     animationDuration: appearDuration,
-                                                     scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
+            let refInitialValue: CGFloat = 1
+            let refTargetValue = scaleUpAmplitude
+            let refDuration = appearDuration
+            
+            let speed = (refTargetValue - refInitialValue) / CGFloat(refDuration)
+            
+            let initialValue = noteDisplayNoteByNote[note]!.xScale
+            let targetValue = 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1) * (note == playedNote ? 2 : 1)
+            let duration = Double(targetValue - initialValue) / Double(speed) * (note == playedNote ? 0.5 : 1)
+            
+            activeAnimationsByNote[note] = Animation(scaleTarget: targetValue,
+                                                     animationDuration: duration,
+                                                     scaleInitialValue: initialValue,
                                                      timeAnimationStart: nil)
             
             if note == playedNote { break }
