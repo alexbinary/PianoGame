@@ -242,6 +242,14 @@ class CountingExerciseTimingScene: SKScene {
             
             self.timerProgressBarNode.removeAction(forKey: self.timerProgressBarNodeScaleActionKey)
             
+            let markerNode = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 1, height: 10))
+            markerNode.strokeColor = .systemRed
+            
+            let xPosition = timerProgressBarNode.xScale * self.size.width
+                
+            markerNode.position = CGPoint(x: -self.size.width/2.0 + xPosition, y: -self.size.height/2.0)
+            self.addChild(markerNode)
+            
             noteFontName = "HelveticaNeue"
             noteFontColor = colorPalette.correctColor
             
