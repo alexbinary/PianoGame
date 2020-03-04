@@ -70,6 +70,14 @@ class CountingDisplayScene: SKScene {
         self.backgroundColor = colorPalette.backgroundColor
         
         self.physicsWorld.gravity = .zero
+        
+//        self.addChild(SKFieldNode.linearGravityField(withVector: vector_float3(-1, 0, 0)))
+//
+//        let edgeLoopNode = SKNode()
+//        edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+//        edgeLoopNode.physicsBody?.categoryBitMask = 2
+//        edgeLoopNode.physicsBody?.collisionBitMask = 2
+//        self.addChild(edgeLoopNode)
     }
     
     
@@ -80,6 +88,8 @@ class CountingDisplayScene: SKScene {
         }
     
         let noteSize: CGFloat = 50
+        
+        var previousCircleNode: SKNode? = nil
         
         for (index, note) in Note.allCases.enumerated() {
         
@@ -92,7 +102,7 @@ class CountingDisplayScene: SKScene {
             circleNode.strokeColor = colorPalette.foregroundColor
             
             let horizontalSpan = noteSize * (12 + 1)
-            let horizontalStep: CGFloat = horizontalSpan / (12.0 + 1)
+            let horizontalStep: CGFloat = horizontalSpan / (12.0 + 1) * 1
             let xPosition = -horizontalSpan/2.0 + CGFloat(index + 1) * horizontalStep
             
             circleNode.position = CGPoint(x: xPosition, y: 0)
@@ -109,29 +119,49 @@ class CountingDisplayScene: SKScene {
                 circleNode.constraints?.append(SKConstraint.positionX(SKRange(constantValue: circleNode.position.x)))
             }
             
-            let springAnchorNode = SKShapeNode(circleOfRadius: 0)
-            springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-            springAnchorNode.physicsBody?.isDynamic = false
-            springAnchorNode.physicsBody?.categoryBitMask = 1
-            springAnchorNode.physicsBody?.collisionBitMask = 1
-            springAnchorNode.position = circleNode.position
-            
-            let springJoint = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
-                                                         bodyB: circleNode.physicsBody!,
-                                                         anchorA: springAnchorNode.position,
-                                                         anchorB: circleNode.position)
-             
-            springJoint.frequency = 10
-            springJoint.damping = 1.5
-            
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
-            self.addChild(springAnchorNode)
-            self.physicsWorld.add(springJoint)
             
-            springAnchorNode.position = CGPoint(x: -horizontalSpan/2.0, y: 0)
+            if let previousCircleNode = previousCircleNode {
+            
+                let springAnchorNode = SKShapeNode(circleOfRadius: 0)
+                springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+                springAnchorNode.physicsBody?.isDynamic = false
+                springAnchorNode.physicsBody?.categoryBitMask = 1
+                springAnchorNode.physicsBody?.collisionBitMask = 1
+                
+                springAnchorNode.position = circleNode.position + CGPoint(x: -horizontalStep/2.0, y: 0)
+                springAnchorNode.constraints = [SKConstraint.positionY(SKRange(constantValue: springAnchorNode.position.y))]
+                
+                self.addChild(springAnchorNode)
+                
+                let springJoint1 = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
+                                                             bodyB: previousCircleNode.physicsBody!,
+                                                             anchorA: springAnchorNode.position,
+                                                             anchorB: previousCircleNode.position)
+
+                springJoint1.frequency = 10
+                springJoint1.damping = 1.5
+
+                let springJoint2 = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
+                                                             bodyB: circleNode.physicsBody!,
+                                                             anchorA: springAnchorNode.position,
+                                                             anchorB: circleNode.position)
+
+                springJoint2.frequency = 10
+                springJoint2.damping = 1.5
+
+                self.physicsWorld.add(springJoint1)
+                self.physicsWorld.add(springJoint2)
+            }
             
             noteDisplayNoteByNote[note] = circleNode
+            
+            previousCircleNode = circleNode
+            
+            if index == 1 {
+//                break
+            }
         }
     }
     
