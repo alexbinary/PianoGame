@@ -105,6 +105,9 @@ class CountingDisplayScene: SKScene {
             circleNode.physicsBody?.collisionBitMask = 2
             
             circleNode.constraints = [SKConstraint.positionY(SKRange(constantValue: circleNode.position.y))]
+            if index == 0 {
+                circleNode.constraints?.append(SKConstraint.positionX(SKRange(constantValue: circleNode.position.x)))
+            }
             
             let springAnchorNode = SKShapeNode(circleOfRadius: 0)
             springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
