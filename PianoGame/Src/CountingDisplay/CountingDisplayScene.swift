@@ -50,8 +50,6 @@ class CountingDisplayScene: SKScene {
         self.configureColorPalette()
         self.initScene()
         self.initStaticUI()
-        
-        view.showsPhysics = true
     }
     
     
@@ -68,20 +66,6 @@ class CountingDisplayScene: SKScene {
         }
         
         self.backgroundColor = colorPalette.backgroundColor
-        
-        self.physicsWorld.gravity = .zero
-        
-//        self.addChild(SKFieldNode.linearGravityField(withVector: vector_float3(-1, 0, 0)))
-        
-        let springField = SKFieldNode.springField()
-        springField.position = CGPoint(x: -self.size.width/2.0, y: 0)
-        self.addChild(springField)
-
-        let edgeLoopNode = SKNode()
-        edgeLoopNode.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        edgeLoopNode.physicsBody?.categoryBitMask = 2
-        edgeLoopNode.physicsBody?.collisionBitMask = 2
-        self.addChild(edgeLoopNode)
     }
     
     
@@ -93,9 +77,7 @@ class CountingDisplayScene: SKScene {
     
         let noteSize: CGFloat = 50
         
-        var previousCircleNode: SKNode? = nil
-        
-        for (index, note) in Note.allCases.enumerated() {
+        for note in Note.allCases {
         
             let labelNode = SKLabelNode(text: note.description.uppercased())
             labelNode.fontColor = colorPalette.foregroundColor
@@ -105,66 +87,80 @@ class CountingDisplayScene: SKScene {
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
             
-            let horizontalSpan = noteSize * (12 + 1)
-            let horizontalStep: CGFloat = horizontalSpan / (12.0 + 1) * 1
-            let xPosition = -horizontalSpan/2.0 + CGFloat(index + 1) * horizontalStep
-            
-            circleNode.position = CGPoint(x: xPosition, y: 0)
-            
-            circleNode.physicsBody = SKPhysicsBody(circleOfRadius: noteSize / 2.0)
-            circleNode.physicsBody?.allowsRotation = false
-            circleNode.physicsBody?.friction = 0
-            circleNode.physicsBody?.restitution = 0
-            circleNode.physicsBody?.categoryBitMask = 2
-            circleNode.physicsBody?.collisionBitMask = 2
-            
-            circleNode.constraints = [SKConstraint.positionY(SKRange(constantValue: circleNode.position.y))]
-            if index == 0 {
-//                circleNode.constraints?.append(SKConstraint.positionX(SKRange(constantValue: circleNode.position.x)))
-            }
-            
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
             
-//            if let previousCircleNode = previousCircleNode {
-//
-//                let springAnchorNode = SKShapeNode(circleOfRadius: 0)
-//                springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-//                springAnchorNode.physicsBody?.isDynamic = false
-//                springAnchorNode.physicsBody?.categoryBitMask = 1
-//                springAnchorNode.physicsBody?.collisionBitMask = 1
-//
-//                springAnchorNode.position = circleNode.position + CGPoint(x: -horizontalStep/2.0, y: 0)
-//                springAnchorNode.constraints = [SKConstraint.positionY(SKRange(constantValue: springAnchorNode.position.y))]
-//
-//                self.addChild(springAnchorNode)
-//
-//                let springJoint1 = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
-//                                                             bodyB: previousCircleNode.physicsBody!,
-//                                                             anchorA: springAnchorNode.position,
-//                                                             anchorB: previousCircleNode.position)
-//
-//                springJoint1.frequency = 10
-//                springJoint1.damping = 1.5
-//
-//                let springJoint2 = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
-//                                                             bodyB: circleNode.physicsBody!,
-//                                                             anchorA: springAnchorNode.position,
-//                                                             anchorB: circleNode.position)
-//
-//                springJoint2.frequency = 10
-//                springJoint2.damping = 1.5
-//
-//                self.physicsWorld.add(springJoint1)
-//                self.physicsWorld.add(springJoint2)
-//            }
-            
             noteDisplayNoteByNote[note] = circleNode
+        }
+        
+        layoutNotes()
+    }
+    
+    
+    func layoutNotes() {
+        
+        let anchorPosition = CGPoint(x: -400, y: 0)
+        
+        var previousNoteNode: SKNode? = nil
+        
+        for note in Note.allCases {
+        
+            let noteNode = noteDisplayNoteByNote[note]!
             
-            previousCircleNode = circleNode
+            if let previousNoteNode = previousNoteNode {
+                
+                noteNode.position = previousNoteNode.position + CGPoint(x: previousNoteNode.frame.width/2.0 + noteNode.frame.width/2.0, y: 0)
+                
+            } else {
             
-            if index == 1 {
-//                break
+                noteNode.position = anchorPosition
+            }
+            
+            previousNoteNode = noteNode
+        }
+    }
+    
+    
+    struct Animation {
+        
+        var scaleTarget: CGFloat = 2
+        var animationDuration: TimeInterval = 2
+        
+        var scaleInitialValue: CGFloat! = nil
+        var timeAnimationStart: TimeInterval! = nil
+    }
+    
+    
+    var activeAnimationsByNote: [Note: Animation] = [:]
+    
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        for note in Note.allCases {
+            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.timeAnimationStart == nil {
+                activeAnimationsByNote[note]!.timeAnimationStart = currentTime
+            }
+        }
+        
+        for note in Note.allCases {
+        
+            if let animation = activeAnimationsByNote[note] {
+            
+                let circleNode = noteDisplayNoteByNote[note]!
+                
+                let elapsedTimeSinceAnimationStart = currentTime - animation.timeAnimationStart
+                let animationProgress = elapsedTimeSinceAnimationStart / animation.animationDuration
+            
+                let totalValueAmplitude = animation.scaleTarget - animation.scaleInitialValue
+                let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
+                
+                circleNode.setScale(finalValue)
+                
+                layoutNotes()
+                
+                if animationProgress >= 1 {
+                     activeAnimationsByNote[note] = nil
+                 }
             }
         }
     }
@@ -195,7 +191,16 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
-        let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
+        let note = Note(fromNoteCode: noteCode)
+        
+        activeAnimationsByNote[note] = Animation(scaleTarget: 2,
+                                                 animationDuration: 2,
+                                                 scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
+                                                 timeAnimationStart: nil)
+        
+        return
+        
+        let nodeDisplayNode = noteDisplayNoteByNote[note]!
         
         // general animation settings
         
@@ -236,6 +241,8 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOff(noteCode: NoteCode) {
     
+        return
+        
         let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
         
         // general animation settings
