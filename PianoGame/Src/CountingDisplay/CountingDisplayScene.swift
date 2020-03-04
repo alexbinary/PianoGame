@@ -86,6 +86,7 @@ class CountingDisplayScene: SKScene {
         
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
+            circleNode.setScale(defaultScaleByNote[note]!)
             
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
@@ -129,6 +130,22 @@ class CountingDisplayScene: SKScene {
     
     
     var activeAnimationsByNote: [Note: Animation] = [:]
+    
+    
+    var defaultScaleByNote: [Note: CGFloat] = [
+        .c: 1,
+        .c_sharp: 0,
+        .d: 1,
+        .d_sharp: 0,
+        .e: 1,
+        .f: 1,
+        .f_sharp: 0,
+        .g: 1,
+        .g_sharp: 0,
+        .a: 1,
+        .a_sharp: 0,
+        .b: 1,
+    ]
     
     
     override func update(_ currentTime: TimeInterval) {
@@ -256,7 +273,7 @@ class CountingDisplayScene: SKScene {
         
         for note in Note.allCases {
         
-            activeAnimationsByNote[note] = Animation(scaleTarget: 1,
+            activeAnimationsByNote[note] = Animation(scaleTarget: defaultScaleByNote[note]!,
                                                      animationDuration: disappearDuration,
                                                      scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
                                                      timeAnimationStart: nil)
