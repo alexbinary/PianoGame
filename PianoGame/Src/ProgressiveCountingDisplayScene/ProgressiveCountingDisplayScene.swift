@@ -219,10 +219,25 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         // animate scale
         
-        let playedNoteIndex = Note.allCases.firstIndex(of: playedNote)!
+        var initialValueByNote: [Note: CGFloat] = [:]
+        var targetValueByNote: [Note: CGFloat] = [:]
+        var animationDurationByNote: [Note: TimeInterval] = [:]
+        
+        var affectedNotes: [Note] = []
         
         for (index, note) in Note.allCases.enumerated() {
+            
+            if defaultScaleByNote[note]! != 0 || note == playedNote {
+                affectedNotes.append(note)
+            }
+            
+            if note == playedNote { break }
+        }
         
+        let playedNoteIndex = affectedNotes.firstIndex(of: playedNote)!
+        
+        for (index, note) in affectedNotes.enumerated() {
+            
             let refInitialValue: CGFloat = noteDisplayNoteByNote[playedNote]!.xScale
             let refTargetValue = scaleUpAmplitude
             let refDuration = appearDuration
@@ -231,14 +246,20 @@ class ProgressiveCountingDisplayScene: SKScene {
             
             let initialValue = noteDisplayNoteByNote[note]!.xScale
             let targetValue = 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1) * (note == playedNote ? 2 : 1)
-            let duration = Double(targetValue - initialValue) / Double(speed) * (note == playedNote ? 0.5 : 1)
+            let duration = Double(targetValue - max(initialValue, 1)) / Double(speed) * (note == playedNote ? 0.5 : 1)
             
-            activeAnimationsByNote[note] = Animation(scaleTarget: targetValue,
-                                                     animationDuration: duration,
-                                                     scaleInitialValue: initialValue,
+            initialValueByNote[note] = initialValue
+            targetValueByNote[note] = targetValue
+            animationDurationByNote[note] = duration
+        }
+        
+    
+        for (index, note) in affectedNotes.enumerated() {
+        
+            activeAnimationsByNote[note] = Animation(scaleTarget: targetValueByNote[note]!,
+                                                     animationDuration: animationDurationByNote[note]!,
+                                                     scaleInitialValue: initialValueByNote[note]!,
                                                      timeAnimationStart: nil)
-            
-            if note == playedNote { break }
         }
 
         // animate jiggle
