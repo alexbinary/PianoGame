@@ -107,15 +107,10 @@ class CountingDisplayScene: SKScene {
         
             let noteNode = noteDisplayNoteByNote[note]!
             
-            if let previousNoteNode = previousNoteNode {
-                
-                noteNode.position = previousNoteNode.position + CGPoint(x: previousNoteNode.frame.width/2.0 + noteNode.frame.width/2.0, y: 0)
-                
-            } else {
+            let refPosition = previousNoteNode?.position ?? anchorPosition
             
-                noteNode.position = anchorPosition
-            }
-            
+            noteNode.position = refPosition + CGPoint(x: (previousNoteNode?.frame.width ?? 0)/2.0  + noteNode.frame.width/2.0, y: 0)
+             
             previousNoteNode = noteNode
         }
     }
@@ -154,8 +149,6 @@ class CountingDisplayScene: SKScene {
                 let totalValueAmplitude = animation.scaleTarget - animation.scaleInitialValue
                 let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
                 
-                print("target value: \(animation.scaleTarget)")
-                print("setting final value: \(finalValue)")
                 circleNode.setScale(finalValue)
                 
                 layoutNotes()
