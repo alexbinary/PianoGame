@@ -51,7 +51,7 @@ class CountingDisplayScene: SKScene {
         self.initScene()
         self.initStaticUI()
         
-        view.showsPhysics = false
+        view.showsPhysics = true
     }
     
     
@@ -128,6 +128,8 @@ class CountingDisplayScene: SKScene {
             self.addChild(circleNode)
             self.addChild(springAnchorNode)
             self.physicsWorld.add(springJoint)
+            
+            springAnchorNode.position = CGPoint(x: -horizontalSpan/2.0, y: 0)
             
             noteDisplayNoteByNote[note] = circleNode
         }
