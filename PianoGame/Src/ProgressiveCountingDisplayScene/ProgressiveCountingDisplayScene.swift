@@ -214,18 +214,21 @@ class ProgressiveCountingDisplayScene: SKScene {
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
-        let scaleUpAmplitude: CGFloat = 1.5
-        let appearDuration: Double = 0.1
+        let baseScale: CGFloat = 1
+        let scaleUpBaseAmplitude: CGFloat = 1.5
+        let scaleUpAmplitudeForPlayedNote: CGFloat = 2
+        
+        let appearDurationForPlayedNote: Double = 0.1
         
         // animate scale
         
-        var initialValueByNote: [Note: CGFloat] = [:]
-        var targetValueByNote: [Note: CGFloat] = [:]
-        var animationDurationByNote: [Note: TimeInterval] = [:]
+        var initialScaleValueByNote: [Note: CGFloat] = [:]
+        var targetScaleValueByNote: [Note: CGFloat] = [:]
+        var scaleAnimationDurationByNote: [Note: TimeInterval] = [:]
         
         var affectedNotes: [Note] = []
         
-        for (index, note) in Note.allCases.enumerated() {
+        for note in Note.allCases {
             
             if defaultScaleByNote[note]! != 0 || note == playedNote {
                 affectedNotes.append(note)
@@ -238,27 +241,24 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for (index, note) in affectedNotes.enumerated() {
             
-            let refInitialValue: CGFloat = noteDisplayNoteByNote[playedNote]!.xScale
-            let refTargetValue = scaleUpAmplitude
-            let refDuration = appearDuration
-            
-            let speed = (refTargetValue - refInitialValue) / CGFloat(refDuration)
-            
-            let initialValue = noteDisplayNoteByNote[note]!.xScale
-            let targetValue = 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1) * (note == playedNote ? 2 : 1)
-            let duration = Double(targetValue - max(initialValue, 1)) / Double(speed) * (note == playedNote ? 0.5 : 1)
-            
-            initialValueByNote[note] = initialValue
-            targetValueByNote[note] = targetValue
-            animationDurationByNote[note] = duration
+            initialScaleValueByNote[note] = noteDisplayNoteByNote[note]!.xScale
+            targetScaleValueByNote[note] = baseScale + (scaleUpBaseAmplitude - baseScale) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1)
         }
         
-    
-        for (index, note) in affectedNotes.enumerated() {
+        let speed = (targetScaleValueByNote[playedNote]! - baseScale) / CGFloat(appearDurationForPlayedNote)
         
-            activeAnimationsByNote[note] = Animation(scaleTarget: targetValueByNote[note]!,
-                                                     animationDuration: animationDurationByNote[note]!,
-                                                     scaleInitialValue: initialValueByNote[note]!,
+        for note in affectedNotes {
+            
+            scaleAnimationDurationByNote[note] = Double(targetScaleValueByNote[note]! - baseScale) / Double(speed)
+        }
+        
+        targetScaleValueByNote[playedNote] = scaleUpAmplitudeForPlayedNote
+        
+        for note in affectedNotes {
+        
+            activeAnimationsByNote[note] = Animation(scaleTarget: targetScaleValueByNote[note]!,
+                                                     animationDuration: scaleAnimationDurationByNote[note]!,
+                                                     scaleInitialValue: initialScaleValueByNote[note]!,
                                                      timeAnimationStart: nil)
         }
 
