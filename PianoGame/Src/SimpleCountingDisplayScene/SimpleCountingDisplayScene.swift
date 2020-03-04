@@ -5,7 +5,7 @@ import MIKMIDI
 
 
 
-class CountingDisplayScene: SKScene {
+class SimpleCountingDisplayScene: SKScene {
     
     
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
@@ -100,6 +100,8 @@ class CountingDisplayScene: SKScene {
     
     func layoutNotes() {
         
+        let noteSize: CGFloat = 50
+        
         let anchorPosition = CGPoint(x: -400, y: 0)
         
         var previousNoteNode: SKNode? = nil
@@ -111,10 +113,22 @@ class CountingDisplayScene: SKScene {
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
             let offset = (previousNoteNode?.frame.width ?? 0)/2.0
-            
+
             noteNode.position = refPosition + CGPoint(x: offset  + noteNode.frame.width/2.0, y: 0)
+            
+//            noteNode.position = refPosition + CGPoint(x: noteSize, y: 0)
              
             previousNoteNode = noteNode
+        }
+        
+        for note in Note.allCases {
+        
+            let noteNode = noteDisplayNoteByNote[note]!
+        
+            if note.isSharp {
+                
+                noteNode.position += CGPoint(x: 0, y: noteSize)
+            }
         }
     }
     
@@ -170,7 +184,7 @@ class CountingDisplayScene: SKScene {
                 
                 circleNode.setScale(finalValue)
                 
-                layoutNotes()
+//                layoutNotes()
                 
                 if animationProgress >= 1 {
                      activeAnimationsByNote[note] = nil
@@ -207,7 +221,7 @@ class CountingDisplayScene: SKScene {
         
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let noteDisplayNode = noteDisplayNoteByNote[playedNote]!
         
         // general animation settings
         
@@ -219,28 +233,11 @@ class CountingDisplayScene: SKScene {
         
         // animate scale
         
-        let playedNoteIndex = Note.allCases.firstIndex(of: playedNote)!
-        
-        for (index, note) in Note.allCases.enumerated() {
-        
-            let refInitialValue: CGFloat = noteDisplayNoteByNote[playedNote]!.xScale
-            let refTargetValue = scaleUpAmplitude
-            let refDuration = appearDuration
-            
-            let speed = (refTargetValue - refInitialValue) / CGFloat(refDuration)
-            
-            let initialValue = noteDisplayNoteByNote[note]!.xScale
-            let targetValue = 1 + (scaleUpAmplitude - 1) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1) * (note == playedNote ? 2 : 1)
-            let duration = Double(targetValue - initialValue) / Double(speed) * (note == playedNote ? 0.5 : 1)
-            
-            activeAnimationsByNote[note] = Animation(scaleTarget: targetValue,
-                                                     animationDuration: duration,
-                                                     scaleInitialValue: initialValue,
-                                                     timeAnimationStart: nil)
-            
-            if note == playedNote { break }
-        }
-
+        activeAnimationsByNote[playedNote] = Animation(scaleTarget: scaleUpAmplitude,
+                                                       animationDuration: appearDuration,
+                                                       scaleInitialValue: noteDisplayNode.xScale,
+                                                       timeAnimationStart: nil)
+         
         // animate jiggle
         
         let jiggleDuration: Double = 0.02 * 4
@@ -255,7 +252,7 @@ class CountingDisplayScene: SKScene {
         
         // setup an animate
         
-        nodeDisplayNode.run(jiggleAction, withKey: "jiggle")
+        noteDisplayNode.run(jiggleAction, withKey: "jiggle")
     }
     
     
@@ -263,7 +260,7 @@ class CountingDisplayScene: SKScene {
     
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let noteDisplayNode = noteDisplayNoteByNote[playedNote]!
         
         // general animation settings
         
@@ -271,17 +268,14 @@ class CountingDisplayScene: SKScene {
         
         // animate scale
         
-        for note in Note.allCases {
-        
-            activeAnimationsByNote[note] = Animation(scaleTarget: defaultScaleByNote[note]!,
-                                                     animationDuration: disappearDuration,
-                                                     scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
-                                                     timeAnimationStart: nil)
-        }
+        activeAnimationsByNote[playedNote] = Animation(scaleTarget: defaultScaleByNote[playedNote]!,
+                                                       animationDuration: disappearDuration,
+                                                       scaleInitialValue: noteDisplayNoteByNote[playedNote]!.xScale,
+                                                       timeAnimationStart: nil)
             
         // stop jiggle
         
-        nodeDisplayNode.removeAction(forKey: "jiggle")
-        nodeDisplayNode.zRotation = 0
+        noteDisplayNode.removeAction(forKey: "jiggle")
+        noteDisplayNode.zRotation = 0
     }
 }
