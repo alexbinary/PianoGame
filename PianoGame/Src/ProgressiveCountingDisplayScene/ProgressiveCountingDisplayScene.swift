@@ -216,7 +216,7 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         let baseScale: CGFloat = 1
         let scaleUpBaseAmplitude: CGFloat = 1.5
-        let scaleUpAmplitudeForPlayedNote: CGFloat = 2
+        let scaleUpAmplitudeForPlayedNote: CGFloat = 1.5
         
         let appearDurationForPlayedNote: Double = 0.1
         
@@ -242,7 +242,9 @@ class ProgressiveCountingDisplayScene: SKScene {
         for (index, note) in affectedNotes.enumerated() {
             
             initialScaleValueByNote[note] = noteDisplayNoteByNote[note]!.xScale
-            targetScaleValueByNote[note] = baseScale + (scaleUpBaseAmplitude - baseScale) * CGFloat(index + 1) / CGFloat(playedNoteIndex + 1)
+            
+            let indexRatio = pow(CGFloat(index + 1) / CGFloat(playedNoteIndex + 1), 2)
+            targetScaleValueByNote[note] = baseScale + (scaleUpBaseAmplitude - baseScale) * indexRatio
         }
         
         let speed = (targetScaleValueByNote[playedNote]! - baseScale) / CGFloat(appearDurationForPlayedNote)
