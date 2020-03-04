@@ -132,20 +132,31 @@ class ProgressiveCountingDisplayScene: SKScene {
     var activeAnimationsByNote: [Note: Animation] = [:]
     
     
-    var defaultScaleByNote: [Note: CGFloat] = [
-        .c: 1,
-        .c_sharp: 0,
-        .d: 1,
-        .d_sharp: 0,
-        .e: 1,
-        .f: 1,
-        .f_sharp: 0,
-        .g: 1,
-        .g_sharp: 0,
-        .a: 1,
-        .a_sharp: 0,
-        .b: 1,
-    ]
+    var defaultScaleByNote: [Note: CGFloat] = {
+       
+        var scaleByNote: [Note: CGFloat] = [
+            .c: 1,
+            .c_sharp: 1,
+            .d: 1,
+            .d_sharp: 1,
+            .e: 1,
+            .f: 1,
+            .f_sharp: 1,
+            .g: 1,
+            .g_sharp: 1,
+            .a: 1,
+            .a_sharp: 1,
+            .b: 1,
+        ]
+        
+        for (note, scale) in scaleByNote {
+            if note.isSharp {
+                scaleByNote[note] = 0.7
+            }
+        }
+        
+        return scaleByNote
+    }()
     
     
     override func update(_ currentTime: TimeInterval) {
@@ -216,15 +227,15 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         let baseScale: CGFloat = 1
         let scaleUpBaseAmplitude: CGFloat = 1.5
-        let scaleUpAmplitudeForPlayedNote: CGFloat = 1.5
+        let scaleUpAmplitudeForPlayedNote: CGFloat = 1.8
         
         let appearDurationForPlayedNote: Double = 0.1
-        
-        // animate scale
         
         var initialScaleValueByNote: [Note: CGFloat] = [:]
         var targetScaleValueByNote: [Note: CGFloat] = [:]
         var scaleAnimationDurationByNote: [Note: TimeInterval] = [:]
+        
+        // filter notes that should be animated
         
         var affectedNotes: [Note] = []
         
@@ -237,6 +248,8 @@ class ProgressiveCountingDisplayScene: SKScene {
             if note == playedNote { break }
         }
         
+        // compute theoritical target scale for each note in an ascending pattern, assuming all notes start with the same size
+        
         let playedNoteIndex = affectedNotes.firstIndex(of: playedNote)!
         
         for (index, note) in affectedNotes.enumerated() {
@@ -244,8 +257,11 @@ class ProgressiveCountingDisplayScene: SKScene {
             initialScaleValueByNote[note] = noteDisplayNoteByNote[note]!.xScale
             
             let indexRatio = pow(CGFloat(index + 1) / CGFloat(playedNoteIndex + 1), 2)
+            
             targetScaleValueByNote[note] = baseScale + (scaleUpBaseAmplitude - baseScale) * indexRatio
         }
+        
+        // compute animation duration of each note with a constant speed equal to the animation speed of the played note
         
         let speed = (targetScaleValueByNote[playedNote]! - baseScale) / CGFloat(appearDurationForPlayedNote)
         
@@ -254,7 +270,20 @@ class ProgressiveCountingDisplayScene: SKScene {
             scaleAnimationDurationByNote[note] = Double(targetScaleValueByNote[note]! - baseScale) / Double(speed)
         }
         
+        // adjust target scale based on the actual default scale of the note
+        
+        for note in affectedNotes {
+            
+            let scaleRatio = targetScaleValueByNote[note]! / baseScale
+            
+            targetScaleValueByNote[note] = defaultScaleByNote[note]! * scaleRatio
+        }
+        
+        // adjust target size of the played note to make it more prominent
+        
         targetScaleValueByNote[playedNote] = scaleUpAmplitudeForPlayedNote
+        
+        // launch animations
         
         for note in affectedNotes {
         
