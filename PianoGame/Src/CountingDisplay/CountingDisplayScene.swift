@@ -109,7 +109,9 @@ class CountingDisplayScene: SKScene {
             
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
-            noteNode.position = refPosition + CGPoint(x: (previousNoteNode?.frame.width ?? 0)/2.0  + noteNode.frame.width/2.0, y: 0)
+            let offset = (previousNoteNode?.frame.width ?? 0)/2.0
+            
+            noteNode.position = refPosition + CGPoint(x: offset  + noteNode.frame.width/2.0, y: 0)
              
             previousNoteNode = noteNode
         }
@@ -204,11 +206,7 @@ class CountingDisplayScene: SKScene {
                                                  animationDuration: appearDuration,
                                                  scaleInitialValue: nodeDisplayNode.xScale,
                                                  timeAnimationStart: nil)
-        
-        return
-        
-        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
-        
+
         // animate jiggle
         
         let jiggleDuration: Double = 0.02 * 4
@@ -221,16 +219,9 @@ class CountingDisplayScene: SKScene {
             SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
         ]), count: jiggleCount)
         
-        // compose final animation
-        
-        let appearAction = SKAction.group([
-            appearScaleAction,
-            jiggleAction
-        ])
-        
         // setup an animate
         
-        nodeDisplayNode.run(appearAction)
+        nodeDisplayNode.run(jiggleAction, withKey: "jiggle")
     }
     
     
@@ -250,17 +241,9 @@ class CountingDisplayScene: SKScene {
                                                  animationDuration: disappearDuration,
                                                  scaleInitialValue: nodeDisplayNode.xScale,
                                                  timeAnimationStart: nil)
-
-        return
         
-        let disappearScaleAction = SKAction.scale(to: 1, duration: disappearDuration)
-
-        // compose final animation
-
-        let disappearAction = disappearScaleAction
-
-        // setup an animate
-
-        nodeDisplayNode.run(disappearAction)
+        // stop jiggle
+        
+        nodeDisplayNode.removeAction(forKey: "jiggle")
     }
 }
