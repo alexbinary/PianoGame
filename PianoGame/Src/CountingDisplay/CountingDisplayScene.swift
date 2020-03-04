@@ -206,7 +206,7 @@ class CountingDisplayScene: SKScene {
         
         for (index, note) in Note.allCases.enumerated() {
         
-            let refInitialValue: CGFloat = 1
+            let refInitialValue: CGFloat = noteDisplayNoteByNote[playedNote]!.xScale
             let refTargetValue = scaleUpAmplitude
             let refDuration = appearDuration
             
