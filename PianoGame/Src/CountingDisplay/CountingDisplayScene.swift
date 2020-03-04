@@ -158,7 +158,40 @@ class CountingDisplayScene: SKScene {
         
         let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
         
-        nodeDisplayNode.setScale(2)
+        // general animation settings
+        
+        let velocityMaxValue: Double = 128.0
+        let velocityFactor: Double = Double(velocity)/velocityMaxValue
+        
+        let scaleUpAmplitude: CGFloat = 2
+        let appearDuration: Double = 0.1
+        
+        // animate scale
+        
+        let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        
+        // animate jiggle
+        
+        let jiggleDuration: Double = 0.02 * 4
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor) * 0.5
+        let jiggleCount = 5
+        
+        let jiggleAction = SKAction.repeat(SKAction.sequence([
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+            SKAction.rotate(byAngle: -2.0 * jiggleAmplitude, duration: 2 * jiggleDuration),
+            SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
+        ]), count: jiggleCount)
+        
+        // compose final animation
+        
+        let appearAction = SKAction.group([
+            appearScaleAction,
+            jiggleAction
+        ])
+        
+        // setup an animate
+        
+        nodeDisplayNode.run(appearAction)
     }
     
     
@@ -166,6 +199,20 @@ class CountingDisplayScene: SKScene {
     
         let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
         
-        nodeDisplayNode.setScale(1)
+        // general animation settings
+        
+        let disappearDuration: Double = 0.05
+        
+        // animate scale
+        
+        let disappearScaleAction = SKAction.scale(to: 1, duration: disappearDuration)
+        
+        // compose final animation
+        
+        let disappearAction = disappearScaleAction
+        
+        // setup an animate
+        
+        nodeDisplayNode.run(disappearAction)
     }
 }
