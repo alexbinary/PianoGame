@@ -149,11 +149,13 @@ class CountingDisplayScene: SKScene {
                 let circleNode = noteDisplayNoteByNote[note]!
                 
                 let elapsedTimeSinceAnimationStart = currentTime - animation.timeAnimationStart
-                let animationProgress = elapsedTimeSinceAnimationStart / animation.animationDuration
+                let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.animationDuration, 0.0, 1.0)
             
                 let totalValueAmplitude = animation.scaleTarget - animation.scaleInitialValue
                 let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
                 
+                print("target value: \(animation.scaleTarget)")
+                print("setting final value: \(finalValue)")
                 circleNode.setScale(finalValue)
                 
                 layoutNotes()
@@ -193,13 +195,6 @@ class CountingDisplayScene: SKScene {
         
         let note = Note(fromNoteCode: noteCode)
         
-        activeAnimationsByNote[note] = Animation(scaleTarget: 2,
-                                                 animationDuration: 2,
-                                                 scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
-                                                 timeAnimationStart: nil)
-        
-        return
-        
         let nodeDisplayNode = noteDisplayNoteByNote[note]!
         
         // general animation settings
@@ -211,6 +206,13 @@ class CountingDisplayScene: SKScene {
         let appearDuration: Double = 0.1
         
         // animate scale
+        
+        activeAnimationsByNote[note] = Animation(scaleTarget: scaleUpAmplitude,
+                                                 animationDuration: appearDuration,
+                                                 scaleInitialValue: nodeDisplayNode.xScale,
+                                                 timeAnimationStart: nil)
+        
+        return
         
         let appearScaleAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
         
@@ -241,9 +243,9 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOff(noteCode: NoteCode) {
     
-        return
+        let note = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
+        let nodeDisplayNode = noteDisplayNoteByNote[note]!
         
         // general animation settings
         
@@ -251,14 +253,21 @@ class CountingDisplayScene: SKScene {
         
         // animate scale
         
+        activeAnimationsByNote[note] = Animation(scaleTarget: 1,
+                                                 animationDuration: disappearDuration,
+                                                 scaleInitialValue: nodeDisplayNode.xScale,
+                                                 timeAnimationStart: nil)
+
+        return
+        
         let disappearScaleAction = SKAction.scale(to: 1, duration: disappearDuration)
-        
+
         // compose final animation
-        
+
         let disappearAction = disappearScaleAction
-        
+
         // setup an animate
-        
+
         nodeDisplayNode.run(disappearAction)
     }
 }
