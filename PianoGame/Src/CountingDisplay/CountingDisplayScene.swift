@@ -38,6 +38,9 @@ class CountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
+    var noteDisplayNoteByNote: [Note: SKNode] = [:]
+    
+    
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -105,6 +108,8 @@ class CountingDisplayScene: SKScene {
             
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
+            
+            noteDisplayNoteByNote[note] = circleNode
         }
     }
     
@@ -134,12 +139,16 @@ class CountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
+        let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
         
+        nodeDisplayNode.setScale(2)
     }
     
     
     func onNoteOff(noteCode: NoteCode) {
     
+        let nodeDisplayNode = noteDisplayNoteByNote[Note(fromNoteCode: noteCode)]!
         
+        nodeDisplayNode.setScale(1)
     }
 }
