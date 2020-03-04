@@ -106,8 +106,25 @@ class CountingDisplayScene: SKScene {
             
             circleNode.constraints = [SKConstraint.positionY(SKRange(constantValue: circleNode.position.y))]
             
+            let springAnchorNode = SKShapeNode(circleOfRadius: 0)
+            springAnchorNode.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+            springAnchorNode.physicsBody?.isDynamic = false
+            springAnchorNode.physicsBody?.categoryBitMask = 1
+            springAnchorNode.physicsBody?.collisionBitMask = 1
+            springAnchorNode.position = circleNode.position
+            
+            let springJoint = SKPhysicsJointSpring.joint(withBodyA: springAnchorNode.physicsBody!,
+                                                         bodyB: circleNode.physicsBody!,
+                                                         anchorA: springAnchorNode.position,
+                                                         anchorB: circleNode.position)
+             
+            springJoint.frequency = 1
+            springJoint.damping = 5
+            
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
+            self.addChild(springAnchorNode)
+            self.physicsWorld.add(springJoint)
             
             noteDisplayNoteByNote[note] = circleNode
         }
