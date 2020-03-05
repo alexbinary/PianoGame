@@ -68,6 +68,90 @@ class ProgressiveCountingDisplayScene: SKScene {
     }()
     
     
+    lazy var noteDisplayStateByNotePlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = {
+        
+        var noteDisplayStateByNotePlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = [:]
+        
+        for playedNote in Note.allCases {
+            
+            var noteDisplayStateByNote = [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]()
+            
+            // general animation settings
+            
+            let referenceScale: CGFloat = 1
+            let scaleUpBaseAmplitude: CGFloat = 1.5
+            let scaleUpAmplitudeForPlayedNote: CGFloat = 1.8
+            
+            let appearDurationForPlayedNote: Double = 0.1
+            
+            // filter notes that should be animated
+            
+            var affectedNotes: [Note] = []
+            
+            for note in Note.allCases {
+                
+                if defaultScaleByNote[note]! != 0 || note == playedNote {
+                    affectedNotes.append(note)
+                }
+                
+                if note == playedNote { break }
+            }
+            
+            // init data structure for affected notes
+            
+            for note in affectedNotes {
+            
+                noteDisplayStateByNote[note] = (targetScaleValue: 0, appearAnimationDuration: 0)
+            }
+            
+            // compute theoritical target scale for each note in an ascending pattern, assuming all notes start with the same size
+            
+            let playedNoteIndex = affectedNotes.firstIndex(of: playedNote)!
+            
+            for (index, note) in affectedNotes.enumerated() {
+                
+                // we want both :
+                // - indexRatio = 1 when index = playedNoteIndex
+                // - indexRatio > 0 when index = 0
+                
+                let indexRatio = CGFloat(index + 1) / CGFloat(playedNoteIndex + 1)
+                
+                let progression = pow(indexRatio, 2)    // make the curve parabolic instead of just linear
+                
+                noteDisplayStateByNote[note]!.targetScaleValue = referenceScale + (scaleUpBaseAmplitude - referenceScale) * progression
+            }
+            
+            // compute animation duration of each note with a constant speed equal to the animation speed of the played note
+            
+            let speed = (noteDisplayStateByNote[playedNote]!.targetScaleValue - referenceScale) / CGFloat(appearDurationForPlayedNote)
+            
+            for note in affectedNotes {
+                
+                noteDisplayStateByNote[note]!.appearAnimationDuration = Double(noteDisplayStateByNote[note]!.targetScaleValue - referenceScale) / Double(speed)
+            }
+            
+            // adjust target scale based on the actual default scale of the note
+            
+            for note in affectedNotes {
+                
+                let scaleRatio = noteDisplayStateByNote[note]!.targetScaleValue / referenceScale
+                
+                noteDisplayStateByNote[note]!.targetScaleValue = defaultScaleByNote[note]! * scaleRatio
+            }
+            
+            // adjust target size of the played note to make it more prominent
+            
+            noteDisplayStateByNote[playedNote]!.targetScaleValue = scaleUpAmplitudeForPlayedNote
+            
+            // register data
+            
+            noteDisplayStateByNotePlayedNote[playedNote] = noteDisplayStateByNote
+        }
+        
+        return noteDisplayStateByNotePlayedNote
+    }()
+    
+    
     struct NoteAnimation {
         
         var targetScaleValue: CGFloat = 2
@@ -79,6 +163,10 @@ class ProgressiveCountingDisplayScene: SKScene {
     
     
     var activeAnimationsByNote: [Note: NoteAnimation] = [:]
+    
+    
+    var activeNoteCodes: Set<NoteCode> = []
+    var activeNotes: Set<Note> { return Set<Note>(activeNoteCodes.map { Note(fromNoteCode: $0) }) }
     
     
     override func didMove(to view: SKView) {
@@ -131,10 +219,10 @@ class ProgressiveCountingDisplayScene: SKScene {
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
             
-            noteDisplayNodeByNote[note] = circleNode
+            self.noteDisplayNodeByNote[note] = circleNode
         }
         
-        layoutNotes()
+        self.layoutNotes()
     }
     
     
@@ -146,7 +234,7 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for note in Note.allCases {
         
-            let noteNode = noteDisplayNodeByNote[note]!
+            let noteNode = self.noteDisplayNodeByNote[note]!
             
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
@@ -159,11 +247,37 @@ class ProgressiveCountingDisplayScene: SKScene {
     }
     
     
+    func computeNotesDisplayStateForActiveNotes(_ activeNotes: Set<Note>) -> [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)] {
+        
+        var noteDisplayStateByNote: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)] = [:]
+        
+        // define base values
+        
+        for (note, defaultScale) in self.defaultScaleByNote {
+            
+            noteDisplayStateByNote[note] = (targetScaleValue: defaultScale, appearAnimationDuration: 0)
+        }
+        
+        // apply values for each active note
+        
+        for note in Note.allCases.reversed() {
+            if activeNotes.contains(note) {
+                
+                for (note, state) in self.noteDisplayStateByNotePlayedNote[note]! {
+                    noteDisplayStateByNote[note] = state
+                }
+            }
+        }
+        
+        return noteDisplayStateByNote
+    }
+    
+    
     override func update(_ currentTime: TimeInterval) {
         
         for note in Note.allCases {
-            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.animationStartTime == nil {
-                activeAnimationsByNote[note]!.animationStartTime = currentTime
+            if self.activeAnimationsByNote[note] != nil, self.activeAnimationsByNote[note]!.animationStartTime == nil {
+                self.activeAnimationsByNote[note]!.animationStartTime = currentTime
             }
         }
         
@@ -173,6 +287,8 @@ class ProgressiveCountingDisplayScene: SKScene {
             
                 let circleNode = noteDisplayNodeByNote[note]!
                 
+                // when animation.animationDuration is short, currentTime can be later than (animation.animationStartTime + animation.animationDuration), hence the clamping
+                
                 let elapsedTimeSinceAnimationStart = currentTime - animation.animationStartTime
                 let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.animationDuration, 0.0, 1.0)
             
@@ -181,10 +297,10 @@ class ProgressiveCountingDisplayScene: SKScene {
                 
                 circleNode.setScale(finalValue)
                 
-                layoutNotes()
+                self.layoutNotes()
                 
                 if animationProgress >= 1 {
-                     activeAnimationsByNote[note] = nil
+                     self.activeAnimationsByNote[note] = nil
                  }
             }
         }
@@ -216,85 +332,29 @@ class ProgressiveCountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
+        self.activeNoteCodes.insert(noteCode)
+        
+        // animate scale progression for relevant notes
+        
+        let noteDisplayStateByNote = computeNotesDisplayStateForActiveNotes(self.activeNotes)
+        
+        for (note, state) in noteDisplayStateByNote {
+            
+            self.activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: state.targetScaleValue,
+                                                              animationDuration: state.appearAnimationDuration,
+                                                              initialScaleValue: self.noteDisplayNodeByNote[note]!.xScale,
+                                                              animationStartTime: nil)
+        }
+        
+        // animate jiggle for played note
+        
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNodeByNote[playedNote]!
-        
-        // general animation settings
+        let nodeDisplayNode = self.noteDisplayNodeByNote[playedNote]!
         
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
-        
-        let baseScale: CGFloat = 1
-        let scaleUpBaseAmplitude: CGFloat = 1.5
-        let scaleUpAmplitudeForPlayedNote: CGFloat = 1.8
-        
-        let appearDurationForPlayedNote: Double = 0.1
-        
-        var initialScaleValueByNote: [Note: CGFloat] = [:]
-        var targetScaleValueByNote: [Note: CGFloat] = [:]
-        var scaleAnimationDurationByNote: [Note: TimeInterval] = [:]
-        
-        // filter notes that should be animated
-        
-        var affectedNotes: [Note] = []
-        
-        for note in Note.allCases {
-            
-            if defaultScaleByNote[note]! != 0 || note == playedNote {
-                affectedNotes.append(note)
-            }
-            
-            if note == playedNote { break }
-        }
-        
-        // compute theoritical target scale for each note in an ascending pattern, assuming all notes start with the same size
-        
-        let playedNoteIndex = affectedNotes.firstIndex(of: playedNote)!
-        
-        for (index, note) in affectedNotes.enumerated() {
-            
-            initialScaleValueByNote[note] = noteDisplayNodeByNote[note]!.xScale
-            
-            let indexRatio = pow(CGFloat(index + 1) / CGFloat(playedNoteIndex + 1), 2)
-            
-            targetScaleValueByNote[note] = baseScale + (scaleUpBaseAmplitude - baseScale) * indexRatio
-        }
-        
-        // compute animation duration of each note with a constant speed equal to the animation speed of the played note
-        
-        let speed = (targetScaleValueByNote[playedNote]! - baseScale) / CGFloat(appearDurationForPlayedNote)
-        
-        for note in affectedNotes {
-            
-            scaleAnimationDurationByNote[note] = Double(targetScaleValueByNote[note]! - baseScale) / Double(speed)
-        }
-        
-        // adjust target scale based on the actual default scale of the note
-        
-        for note in affectedNotes {
-            
-            let scaleRatio = targetScaleValueByNote[note]! / baseScale
-            
-            targetScaleValueByNote[note] = defaultScaleByNote[note]! * scaleRatio
-        }
-        
-        // adjust target size of the played note to make it more prominent
-        
-        targetScaleValueByNote[playedNote] = scaleUpAmplitudeForPlayedNote
-        
-        // launch animations
-        
-        for note in affectedNotes {
-        
-            activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: targetScaleValueByNote[note]!,
-                                                     animationDuration: scaleAnimationDurationByNote[note]!,
-                                                     initialScaleValue: initialScaleValueByNote[note]!,
-                                                     animationStartTime: nil)
-        }
 
-        // animate jiggle
-        
         let jiggleDuration: Double = 0.02 * 4
         let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor) * 0.5
         let jiggleCount = 5
@@ -305,33 +365,33 @@ class ProgressiveCountingDisplayScene: SKScene {
             SKAction.rotate(byAngle: jiggleAmplitude, duration: jiggleDuration),
         ]), count: jiggleCount)
         
-        // setup an animate
-        
         nodeDisplayNode.run(jiggleAction, withKey: "jiggle")
     }
     
     
     func onNoteOff(noteCode: NoteCode) {
     
-        let playedNote = Note(fromNoteCode: noteCode)
+        self.activeNoteCodes.remove(noteCode)
         
-        let nodeDisplayNode = noteDisplayNodeByNote[playedNote]!
-        
-        // general animation settings
+        // animate scale progression for relevant notes
         
         let disappearDuration: Double = 0.05
         
-        // animate scale
+        let noteDisplayStateByNote = computeNotesDisplayStateForActiveNotes(self.activeNotes)
         
-        for note in Note.allCases {
-        
-            activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: defaultScaleByNote[note]!,
-                                                     animationDuration: disappearDuration,
-                                                     initialScaleValue: noteDisplayNodeByNote[note]!.xScale,
-                                                     animationStartTime: nil)
-        }
+        for (note, state) in noteDisplayStateByNote {
             
+            self.activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: state.targetScaleValue,
+                                                              animationDuration: disappearDuration,
+                                                              initialScaleValue: self.noteDisplayNodeByNote[note]!.xScale,
+                                                              animationStartTime: nil)
+        }
+        
         // stop jiggle
+        
+        let playedNote = Note(fromNoteCode: noteCode)
+        
+        let nodeDisplayNode = self.noteDisplayNodeByNote[playedNote]!
         
         nodeDisplayNode.removeAction(forKey: "jiggle")
         nodeDisplayNode.zRotation = 0
