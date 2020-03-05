@@ -38,7 +38,47 @@ class ProgressiveCountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
-    var noteDisplayNoteByNote: [Note: SKNode] = [:]
+    var noteDisplayNodeByNote: [Note: SKNode] = [:]
+    
+    
+    var defaultScaleByNote: [Note: CGFloat] = {
+       
+        var scaleByNote: [Note: CGFloat] = [
+            .c: 1,
+            .c_sharp: 1,
+            .d: 1,
+            .d_sharp: 1,
+            .e: 1,
+            .f: 1,
+            .f_sharp: 1,
+            .g: 1,
+            .g_sharp: 1,
+            .a: 1,
+            .a_sharp: 1,
+            .b: 1,
+        ]
+        
+        for (note, scale) in scaleByNote {
+            if note.isSharp {
+                scaleByNote[note] = 0.7
+            }
+        }
+        
+        return scaleByNote
+    }()
+    
+    
+    struct NoteAnimation {
+        
+        var targetScaleValue: CGFloat = 2
+        var animationDuration: TimeInterval = 2
+        
+        var initialScaleValue: CGFloat! = nil
+        var animationStartTime: TimeInterval! = nil
+    }
+    
+    
+    var activeAnimationsByNote: [Note: NoteAnimation] = [:]
     
     
     override func didMove(to view: SKView) {
@@ -91,7 +131,7 @@ class ProgressiveCountingDisplayScene: SKScene {
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
             
-            noteDisplayNoteByNote[note] = circleNode
+            noteDisplayNodeByNote[note] = circleNode
         }
         
         layoutNotes()
@@ -106,7 +146,7 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for note in Note.allCases {
         
-            let noteNode = noteDisplayNoteByNote[note]!
+            let noteNode = noteDisplayNodeByNote[note]!
             
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
@@ -119,51 +159,11 @@ class ProgressiveCountingDisplayScene: SKScene {
     }
     
     
-    struct Animation {
-        
-        var scaleTarget: CGFloat = 2
-        var animationDuration: TimeInterval = 2
-        
-        var scaleInitialValue: CGFloat! = nil
-        var timeAnimationStart: TimeInterval! = nil
-    }
-    
-    
-    var activeAnimationsByNote: [Note: Animation] = [:]
-    
-    
-    var defaultScaleByNote: [Note: CGFloat] = {
-       
-        var scaleByNote: [Note: CGFloat] = [
-            .c: 1,
-            .c_sharp: 1,
-            .d: 1,
-            .d_sharp: 1,
-            .e: 1,
-            .f: 1,
-            .f_sharp: 1,
-            .g: 1,
-            .g_sharp: 1,
-            .a: 1,
-            .a_sharp: 1,
-            .b: 1,
-        ]
-        
-        for (note, scale) in scaleByNote {
-            if note.isSharp {
-                scaleByNote[note] = 0.7
-            }
-        }
-        
-        return scaleByNote
-    }()
-    
-    
     override func update(_ currentTime: TimeInterval) {
         
         for note in Note.allCases {
-            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.timeAnimationStart == nil {
-                activeAnimationsByNote[note]!.timeAnimationStart = currentTime
+            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.animationStartTime == nil {
+                activeAnimationsByNote[note]!.animationStartTime = currentTime
             }
         }
         
@@ -171,13 +171,13 @@ class ProgressiveCountingDisplayScene: SKScene {
         
             if let animation = activeAnimationsByNote[note] {
             
-                let circleNode = noteDisplayNoteByNote[note]!
+                let circleNode = noteDisplayNodeByNote[note]!
                 
-                let elapsedTimeSinceAnimationStart = currentTime - animation.timeAnimationStart
+                let elapsedTimeSinceAnimationStart = currentTime - animation.animationStartTime
                 let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.animationDuration, 0.0, 1.0)
             
-                let totalValueAmplitude = animation.scaleTarget - animation.scaleInitialValue
-                let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
+                let totalValueAmplitude = animation.targetScaleValue - animation.initialScaleValue
+                let finalValue = animation.initialScaleValue + totalValueAmplitude * CGFloat(animationProgress)
                 
                 circleNode.setScale(finalValue)
                 
@@ -218,7 +218,7 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let nodeDisplayNode = noteDisplayNodeByNote[playedNote]!
         
         // general animation settings
         
@@ -254,7 +254,7 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for (index, note) in affectedNotes.enumerated() {
             
-            initialScaleValueByNote[note] = noteDisplayNoteByNote[note]!.xScale
+            initialScaleValueByNote[note] = noteDisplayNodeByNote[note]!.xScale
             
             let indexRatio = pow(CGFloat(index + 1) / CGFloat(playedNoteIndex + 1), 2)
             
@@ -287,10 +287,10 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for note in affectedNotes {
         
-            activeAnimationsByNote[note] = Animation(scaleTarget: targetScaleValueByNote[note]!,
+            activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: targetScaleValueByNote[note]!,
                                                      animationDuration: scaleAnimationDurationByNote[note]!,
-                                                     scaleInitialValue: initialScaleValueByNote[note]!,
-                                                     timeAnimationStart: nil)
+                                                     initialScaleValue: initialScaleValueByNote[note]!,
+                                                     animationStartTime: nil)
         }
 
         // animate jiggle
@@ -315,7 +315,7 @@ class ProgressiveCountingDisplayScene: SKScene {
     
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let nodeDisplayNode = noteDisplayNodeByNote[playedNote]!
         
         // general animation settings
         
@@ -325,10 +325,10 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         for note in Note.allCases {
         
-            activeAnimationsByNote[note] = Animation(scaleTarget: defaultScaleByNote[note]!,
+            activeAnimationsByNote[note] = NoteAnimation(targetScaleValue: defaultScaleByNote[note]!,
                                                      animationDuration: disappearDuration,
-                                                     scaleInitialValue: noteDisplayNoteByNote[note]!.xScale,
-                                                     timeAnimationStart: nil)
+                                                     initialScaleValue: noteDisplayNodeByNote[note]!.xScale,
+                                                     animationStartTime: nil)
         }
             
         // stop jiggle
