@@ -38,7 +38,7 @@ class ProgressiveCountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
-    var noteDisplayNodeByNote: [Note: SKNode] = [:]
+    var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
     var defaultScaleByNote: [Note: CGFloat] = {
@@ -68,9 +68,9 @@ class ProgressiveCountingDisplayScene: SKScene {
     }()
     
     
-    lazy var noteDisplayStateByNotePlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = {
+    lazy var noteDisplayStateByNoteByPlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = {
         
-        var noteDisplayStateByNotePlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = [:]
+        var noteDisplayStateByNoteByPlayedNote: [Note: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)]] = [:]
         
         for playedNote in Note.allCases {
             
@@ -145,10 +145,10 @@ class ProgressiveCountingDisplayScene: SKScene {
             
             // register data
             
-            noteDisplayStateByNotePlayedNote[playedNote] = noteDisplayStateByNote
+            noteDisplayStateByNoteByPlayedNote[playedNote] = noteDisplayStateByNote
         }
         
-        return noteDisplayStateByNotePlayedNote
+        return noteDisplayStateByNoteByPlayedNote
     }()
     
     
@@ -167,6 +167,9 @@ class ProgressiveCountingDisplayScene: SKScene {
     
     var activeNoteCodes: Set<NoteCode> = []
     var activeNotes: Set<Note> { return Set<Note>(activeNoteCodes.map { Note(fromNoteCode: $0) }) }
+    
+    
+    var expectedNote: Note = Note.allCases.randomElement()!
     
     
     override func didMove(to view: SKView) {
@@ -247,15 +250,19 @@ class ProgressiveCountingDisplayScene: SKScene {
     }
     
     
-    func computeNotesDisplayStateForActiveNotes(_ activeNotes: Set<Note>) -> [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)] {
+    func computeNotesDisplayStateForActiveNotes(_ activeNotes: Set<Note>) -> [Note: (targetScaleValue: CGFloat, targetColor: NSColor, appearAnimationDuration: TimeInterval)] {
         
-        var noteDisplayStateByNote: [Note: (targetScaleValue: CGFloat, appearAnimationDuration: TimeInterval)] = [:]
+        guard let colorPalette = self.colorPalette else {
+            fatalError("Color palette is not defined.")
+        }
+        
+        var noteDisplayStateByNote: [Note: (targetScaleValue: CGFloat, targetColor: NSColor, appearAnimationDuration: TimeInterval)] = [:]
         
         // define base values
         
-        for (note, defaultScale) in self.defaultScaleByNote {
+        for (affectedNote, defaultScale) in self.defaultScaleByNote {
             
-            noteDisplayStateByNote[note] = (targetScaleValue: defaultScale, appearAnimationDuration: 0)
+            noteDisplayStateByNote[affectedNote] = (targetScaleValue: defaultScale, targetColor: .clear, appearAnimationDuration: 0)
         }
         
         // apply values for each active note
@@ -263,8 +270,10 @@ class ProgressiveCountingDisplayScene: SKScene {
         for note in Note.allCases.reversed() {
             if activeNotes.contains(note) {
                 
-                for (note, state) in self.noteDisplayStateByNotePlayedNote[note]! {
-                    noteDisplayStateByNote[note] = state
+                for (affectedNote, state) in self.noteDisplayStateByNoteByPlayedNote[note]! {
+                    noteDisplayStateByNote[affectedNote]!.targetScaleValue = state.targetScaleValue
+                    noteDisplayStateByNote[affectedNote]!.appearAnimationDuration = state.appearAnimationDuration
+                    noteDisplayStateByNote[affectedNote]!.targetColor = note == expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
                 }
             }
         }
@@ -344,6 +353,8 @@ class ProgressiveCountingDisplayScene: SKScene {
                                                               animationDuration: state.appearAnimationDuration,
                                                               initialScaleValue: self.noteDisplayNodeByNote[note]!.xScale,
                                                               animationStartTime: nil)
+            
+            self.noteDisplayNodeByNote[note]!.fillColor = state.targetColor
         }
         
         // animate jiggle for played note
@@ -385,15 +396,20 @@ class ProgressiveCountingDisplayScene: SKScene {
                                                               animationDuration: disappearDuration,
                                                               initialScaleValue: self.noteDisplayNodeByNote[note]!.xScale,
                                                               animationStartTime: nil)
+            
+            self.noteDisplayNodeByNote[note]!.fillColor = state.targetColor
         }
         
         // stop jiggle
         
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let nodeDisplayNode = self.noteDisplayNodeByNote[playedNote]!
+        if !self.activeNotes.contains(playedNote) {
         
-        nodeDisplayNode.removeAction(forKey: "jiggle")
-        nodeDisplayNode.zRotation = 0
+            let nodeDisplayNode = self.noteDisplayNodeByNote[playedNote]!
+            
+            nodeDisplayNode.removeAction(forKey: "jiggle")
+            nodeDisplayNode.zRotation = 0
+        }
     }
 }
