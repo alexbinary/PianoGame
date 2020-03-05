@@ -58,8 +58,34 @@ class ProgressiveCountingDisplayScene: SKScene {
             .b: 1,
         ]
         
-        for (note, scale) in scaleByNote {
-            if note.isSharp {
+//        // promote "white" notes
+//
+//        for (note, scale) in scaleByNote {
+//            if note.isSharp {
+//                scaleByNote[note] = 0.7
+//            }
+//        }
+        
+//        // promote whole steps
+//
+//        for (index, note) in Note.allCases.enumerated() {
+//            if index % 2 == 1 {
+//                scaleByNote[note] = 0.7
+//            }
+//        }
+        
+//        // promote notes of the major scale
+//
+//        for (index, note) in Note.allCases.enumerated() {
+//            if ![1,3,5,6,8,10,12].contains(index + 1) {
+//                scaleByNote[note] = 0.7
+//            }
+//        }
+        
+        // promote notes of the natural minor scale
+        
+        for (index, note) in Note.allCases.enumerated() {
+            if ![1,3,4,6,8,9,11].contains(index + 1) {
                 scaleByNote[note] = 0.7
             }
         }
