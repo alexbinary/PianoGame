@@ -332,7 +332,7 @@ class ProgressiveCountingDisplayScene: SKScene {
                 
                 circleNode.setScale(finalValue)
                 
-                self.layoutNotes()
+//                self.layoutNotes()
                 
                 if animationProgress >= 1 {
                      self.activeAnimationsByNote[note] = nil
@@ -369,6 +369,8 @@ class ProgressiveCountingDisplayScene: SKScene {
         
         self.activeNoteCodes.insert(noteCode)
         
+        let playedNote = Note(fromNoteCode: noteCode)
+        
         // animate scale progression for relevant notes
         
         let noteDisplayStateByNote = computeNotesDisplayStateForActiveNotes(self.activeNotes)
@@ -381,11 +383,11 @@ class ProgressiveCountingDisplayScene: SKScene {
                                                               animationStartTime: nil)
             
             self.noteDisplayNodeByNote[note]!.fillColor = state.targetColor
+            
+            self.noteDisplayNodeByNote[note]!.zPosition = state.targetScaleValue
         }
         
         // animate jiggle for played note
-        
-        let playedNote = Note(fromNoteCode: noteCode)
         
         let nodeDisplayNode = self.noteDisplayNodeByNote[playedNote]!
         
@@ -424,6 +426,8 @@ class ProgressiveCountingDisplayScene: SKScene {
                                                               animationStartTime: nil)
             
             self.noteDisplayNodeByNote[note]!.fillColor = state.targetColor
+            
+            self.noteDisplayNodeByNote[note]!.zPosition = state.targetScaleValue
         }
         
         // stop jiggle
