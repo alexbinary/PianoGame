@@ -38,7 +38,10 @@ class SimpleCountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
-    var noteDisplayNoteByNote: [Note: SKNode] = [:]
+    var noteDisplayNoteByNote: [Note: SKShapeNode] = [:]
+    
+    
+    var expectedNote: Note = Note.allCases.randomElement()!
     
     
     override func didMove(to view: SKView) {
@@ -100,8 +103,6 @@ class SimpleCountingDisplayScene: SKScene {
     
     func layoutNotes() {
         
-        let noteSize: CGFloat = 50
-        
         let anchorPosition = CGPoint(x: -400, y: 0)
         
         var previousNoteNode: SKNode? = nil
@@ -116,8 +117,6 @@ class SimpleCountingDisplayScene: SKScene {
 
             noteNode.position = refPosition + CGPoint(x: offset  + noteNode.frame.width/2.0, y: 0)
             
-//            noteNode.position = refPosition + CGPoint(x: noteSize, y: 0)
-             
             previousNoteNode = noteNode
         }
         
@@ -127,7 +126,7 @@ class SimpleCountingDisplayScene: SKScene {
         
             if note.isSharp {
                 
-                noteNode.position += CGPoint(x: 0, y: noteSize)
+                noteNode.position += CGPoint(x: 0, y: -40)
             }
         }
     }
@@ -219,6 +218,10 @@ class SimpleCountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
+        guard let colorPalette = self.colorPalette else {
+            fatalError("Color palette is not defined.")
+        }
+        
         let playedNote = Note(fromNoteCode: noteCode)
         
         let noteDisplayNode = noteDisplayNoteByNote[playedNote]!
@@ -237,6 +240,11 @@ class SimpleCountingDisplayScene: SKScene {
                                                        animationDuration: appearDuration,
                                                        scaleInitialValue: noteDisplayNode.xScale,
                                                        timeAnimationStart: nil)
+        
+        for note in Note.allCases {
+            self.noteDisplayNoteByNote[note]!.zPosition = note == playedNote ? 100 : 0
+        }
+        noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
          
         // animate jiggle
         
@@ -272,6 +280,8 @@ class SimpleCountingDisplayScene: SKScene {
                                                        animationDuration: disappearDuration,
                                                        scaleInitialValue: noteDisplayNoteByNote[playedNote]!.xScale,
                                                        timeAnimationStart: nil)
+        
+        noteDisplayNode.fillColor = .clear
             
         // stop jiggle
         
