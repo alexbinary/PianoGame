@@ -84,12 +84,38 @@ class SimpleCountingDisplayScene: SKScene {
             (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
             (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
             
-        ], expectedNote: .d)
+        ], expectedNote: .d),
+        
+        Puzzle(configByNote: [
+        
+            (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
+            (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            
+        ], expectedNote: .e)
     ]
     
     var currentPuzzleIndex: Int = 0
     
     var currentPuzzleSolved = false
+    
+    
+    var playerCharacterNode: SKNode!
+    
+    
+    var markers: [CGFloat] = [
+        
+        200,400,600,800
+    ]
     
     
     override func didMove(to view: SKView) {
@@ -119,6 +145,16 @@ class SimpleCountingDisplayScene: SKScene {
         }
         
         self.backgroundColor = colorPalette.backgroundColor
+        
+        self.playerCharacterNode = SKSpriteNode(color: .red, size: CGSize(width: 10, height: 50))
+        self.addChild(self.playerCharacterNode)
+        
+        for x in markers {
+            
+            let markerNode = SKSpriteNode(color: .blue, size: CGSize(width: 10, height: 10))
+            markerNode.position = CGPoint(x: x, y: 0)
+            self.addChild(markerNode)
+        }
     }
     
     
@@ -157,7 +193,7 @@ class SimpleCountingDisplayScene: SKScene {
         
         let totalNoteWidth = self.noteDisplayNodeByNote.reduce(0) { $0 + $1.value.xScale * self.noteSize }
         
-        let anchorPosition = CGPoint(x: -totalNoteWidth/2.0, y: 0)
+        let anchorPosition = CGPoint(x: -totalNoteWidth/2.0, y: -self.size.height/4)
         
         var previousNoteNode: SKNode? = nil
         
@@ -188,6 +224,8 @@ class SimpleCountingDisplayScene: SKScene {
         
         self.recreateNoteDisplayNodes()
         self.layoutNotes()
+        
+        self.playerCharacterNode.run(SKAction.move(to: CGPoint(x: markers[self.currentPuzzleIndex], y: 0), duration: 2))
     }
     
     
