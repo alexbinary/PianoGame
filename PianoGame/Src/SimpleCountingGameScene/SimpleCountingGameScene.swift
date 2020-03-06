@@ -62,19 +62,14 @@ class SimpleCountingGameScene: SKScene {
                expectedNote: .a),
         
         Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c_sharp, .d, .e, .f_sharp, .g_sharp ],
-               hiddenNoteNames: [ .c, .c_sharp, .d ],
-               expectedNote: .c_sharp),
-
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c_sharp, .d, .e, .f_sharp, .g_sharp ],
-               hiddenNoteNames: [ .c, .c_sharp, .d ],
-               expectedNote: .d_sharp),
+               visibleNotes: [ .a, .b ],
+               hiddenNoteNames: [],
+               expectedNote: .b),
         
         Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c_sharp, .d, .e, .f_sharp, .g_sharp ],
-               hiddenNoteNames: [ .c, .c_sharp, .d ],
-               expectedNote: .f_sharp),
+               visibleNotes: [ .a, .b, .c ],
+               hiddenNoteNames: [],
+               expectedNote: .c),
     ]
     
     var currentPuzzleIndex: Int = 0
@@ -85,10 +80,7 @@ class SimpleCountingGameScene: SKScene {
     var playerCharacterNode: SKNode!
     
     
-    var markers: [CGFloat] = [
-        
-        0, 200,400,600,800
-    ]
+    lazy var markers: [CGFloat] = { (0..<self.puzzles.count).map { CGFloat($0 * 100) } }()
     
     
     override func didMove(to view: SKView) {
