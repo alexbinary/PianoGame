@@ -51,6 +51,16 @@ class SimpleCountingGameScene: SKScene {
         let hiddenNoteNames: Set<Note>
         
         let expectedNote: Note
+        let distanceToPreviousPuzzle: CGFloat
+        
+        init(startingNote: Note, visibleNotes: Set<Note> = Set<Note>(Note.allCases), hiddenNoteNames: Set<Note> = [], expectedNote: Note, distanceToPreviousPuzzle: CGFloat = 100) {
+            
+            self.startingNote = startingNote
+            self.visibleNotes = visibleNotes
+            self.hiddenNoteNames = hiddenNoteNames
+            self.expectedNote = expectedNote
+            self.distanceToPreviousPuzzle = distanceToPreviousPuzzle
+        }
     }
     
     
@@ -58,48 +68,40 @@ class SimpleCountingGameScene: SKScene {
      
         Puzzle(startingNote: .a,
                visibleNotes: [ .a ],
-               hiddenNoteNames: [],
                expectedNote: .a),
         
         Puzzle(startingNote: .b,
                visibleNotes: [ .b ],
-               hiddenNoteNames: [],
                expectedNote: .b),
         
         Puzzle(startingNote: .c,
                visibleNotes: [ .c ],
-               hiddenNoteNames: [],
                expectedNote: .c),
         
         Puzzle(startingNote: .d,
                visibleNotes: [ .d ],
-               hiddenNoteNames: [],
                expectedNote: .d),
         
         Puzzle(startingNote: .e,
                visibleNotes: [ .e ],
-               hiddenNoteNames: [],
                expectedNote: .e),
         
         Puzzle(startingNote: .f,
                visibleNotes: [ .f ],
-               hiddenNoteNames: [],
                expectedNote: .f),
         
         Puzzle(startingNote: .g,
                visibleNotes: [ .g ],
-               hiddenNoteNames: [],
                expectedNote: .g),
         
         Puzzle(startingNote: .a,
                visibleNotes: [ .a, .b ],
-               hiddenNoteNames: [],
-               expectedNote: .b),
+               expectedNote: .a,
+               distanceToPreviousPuzzle: 200),
         
         Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c ],
-               hiddenNoteNames: [],
-               expectedNote: .c),
+               visibleNotes: [ .a, .b ],
+               expectedNote: .b),
     ]
     
     var currentPuzzleIndex: Int = 0
@@ -110,7 +112,17 @@ class SimpleCountingGameScene: SKScene {
     var playerCharacterNode: SKNode!
     
     
-    lazy var markers: [CGFloat] = { (0..<self.puzzles.count).map { CGFloat($0 * 100 + (-50...50).randomElement()!) } }()
+    lazy var markers: [CGFloat] = {
+        
+        var markers: [CGFloat] = []
+        
+        for puzzle in self.puzzles {
+            
+            markers.append((markers.last ?? 0) + puzzle.distanceToPreviousPuzzle)
+        }
+        
+        return markers
+    }()
     
     
     override func didMove(to view: SKView) {
