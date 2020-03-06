@@ -226,7 +226,7 @@ class SimpleCountingDisplayScene: SKScene {
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
-        let scaleUpAmplitude: CGFloat = 1.5
+        let scaleUpAmplitude: CGFloat = 1.1 + CGFloat(velocityFactor) * 2
         let appearDuration: Double = 0.1
         
         // animate scale
