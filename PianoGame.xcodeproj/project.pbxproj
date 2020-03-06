@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		290CCCA3240D097500526404 /* CountingExerciseTimingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */; };
 		291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */; };
+		291DAD542412D73A004ADD2F /* PhysicsCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */; };
 		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
 		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
 		2929AB3923FC915200AC18C1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
@@ -112,6 +113,7 @@
 /* Begin PBXFileReference section */
 		290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseTimingScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
+		291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCountingGameScene.swift; sourceTree = "<group>"; };
 		2921E30524071B4800119589 /* Display2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display2Scene.swift; sourceTree = "<group>"; };
 		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
 		2929AB3823FC915200AC18C1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -198,6 +200,14 @@
 				291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */,
 			);
 			path = CountingExercise;
+			sourceTree = "<group>";
+		};
+		291DAD522412D71C004ADD2F /* PhysicsCountingGame */ = {
+			isa = PBXGroup;
+			children = (
+				291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */,
+			);
+			path = PhysicsCountingGame;
 			sourceTree = "<group>";
 		};
 		2921E30124071B0100119589 /* Display2 */ = {
@@ -413,6 +423,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
 				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
 				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */,
 				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplay */,
@@ -628,6 +639,7 @@
 				29D1B02F2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift in Sources */,
 				29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */,
 				29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */,
+				291DAD542412D73A004ADD2F /* PhysicsCountingGameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
