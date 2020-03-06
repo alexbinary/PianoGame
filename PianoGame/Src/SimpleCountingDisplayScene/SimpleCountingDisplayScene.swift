@@ -120,8 +120,6 @@ class SimpleCountingDisplayScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         self.connectToMIDIDevice()
         
         self.configureColorPalette()
@@ -139,6 +137,12 @@ class SimpleCountingDisplayScene: SKScene {
     
     
     func initScene() {
+        
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        let camera = SKCameraNode()
+        self.addChild(camera)
+        self.camera = camera
         
         guard let colorPalette = self.colorPalette else {
             fatalError("Color palette is not defined.")
@@ -180,7 +184,7 @@ class SimpleCountingDisplayScene: SKScene {
             circleNode.setScale(config.visibleByDefault ? 1 : 0)
             
             circleNode.addChild(labelNode)
-            self.addChild(circleNode)
+            self.camera?.addChild(circleNode)
             
             self.noteDisplayNodeByNote[config.note] = circleNode
         }
@@ -213,6 +217,8 @@ class SimpleCountingDisplayScene: SKScene {
     
     
     override func didFinishUpdate() {
+        
+        self.camera?.position.x = self.playerCharacterNode.position.x
         
         self.layoutNotes()
     }
@@ -328,18 +334,19 @@ class SimpleCountingDisplayScene: SKScene {
         // animate scale
         
         let scaleDownAction = SKAction.scale(to: self.puzzles[self.currentPuzzleIndex].configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0, duration: disappearDuration)
-        noteDisplayNode.run(scaleDownAction)
+        noteDisplayNode.run(scaleDownAction, completion: {
+            
+            // update game logic
+            
+            if playedNote == self.puzzles[self.currentPuzzleIndex].expectedNote, self.currentPuzzleSolved {
+                
+                self.loadNextPuzzle()
+            }
+        })
         
         // update node
         
         noteDisplayNode.fillColor = .clear
         noteDisplayNode.children.forEach { $0.alpha = self.puzzles[self.currentPuzzleIndex].configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
-        
-        // update game logic
-        
-        if playedNote == self.puzzles[self.currentPuzzleIndex].expectedNote, self.currentPuzzleSolved {
-            
-            self.loadNextPuzzle()
-        }
     }
 }
