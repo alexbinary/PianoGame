@@ -38,6 +38,8 @@ class SimpleCountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
+    let noteSize: CGFloat = 50
+    
     var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
@@ -59,19 +61,6 @@ class SimpleCountingDisplayScene: SKScene {
     
     
     var expectedNote: Note = .c_sharp
-    
-    
-    struct NoteAnimation {
-        
-        var scaleTargetValue: CGFloat
-        var scaleAnimationDuration: TimeInterval
-        
-        var scaleInitialValue: CGFloat! = nil
-        var scaleAnimationStartTime: TimeInterval! = nil
-    }
-    
-    
-    var activeAnimationsByNote: [Note: NoteAnimation] = [:]
     
     
     override func didMove(to view: SKView) {
@@ -108,8 +97,6 @@ class SimpleCountingDisplayScene: SKScene {
             fatalError("Color palette is not defined.")
         }
     
-        let noteSize: CGFloat = 50
-        
         for config in self.configByNote {
         
             let labelNode = SKLabelNode(text: config.note.description.uppercased())
@@ -117,8 +104,8 @@ class SimpleCountingDisplayScene: SKScene {
             labelNode.verticalAlignmentMode = .center
             labelNode.horizontalAlignmentMode = .center
             labelNode.alpha = config.labelVisibleByDefault ? 1 : 0
-        
-            let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
+            
+            let circleNode = SKShapeNode(circleOfRadius: self.noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
             circleNode.lineWidth = config.note == self.expectedNote ? 4 : 1
             circleNode.setScale(config.visibleByDefault ? 1 : 0)
@@ -135,7 +122,7 @@ class SimpleCountingDisplayScene: SKScene {
     
     func layoutNotes() {
         
-        let totalNoteWidth = self.noteDisplayNodeByNote.reduce(0) { $0 + $1.value.frame.width }
+        let totalNoteWidth = self.noteDisplayNodeByNote.reduce(0) { $0 + $1.value.xScale * self.noteSize }
         
         let anchorPosition = CGPoint(x: -totalNoteWidth/2.0, y: 0)
         
@@ -147,44 +134,18 @@ class SimpleCountingDisplayScene: SKScene {
             
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
-            let offset = (previousNoteNode?.frame.width ?? 0)/2.0
+            let offset = (previousNoteNode?.xScale ?? 0) * self.noteSize / 2.0
 
-            noteNode.position = refPosition + CGPoint(x: offset  + noteNode.frame.width/2.0, y: 0)
+            noteNode.position = refPosition + CGPoint(x: offset + noteNode.xScale * self.noteSize / 2.0, y: 0)
             
             previousNoteNode = noteNode
         }
     }
     
     
-    override func update(_ currentTime: TimeInterval) {
+    override func didFinishUpdate() {
         
-        for note in Note.allCases {
-            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.scaleAnimationStartTime == nil {
-                activeAnimationsByNote[note]!.scaleAnimationStartTime = currentTime
-            }
-        }
-        
-        for note in Note.allCases {
-        
-            if let animation = activeAnimationsByNote[note] {
-            
-                let circleNode = noteDisplayNodeByNote[note]!
-                
-                let elapsedTimeSinceAnimationStart = currentTime - animation.scaleAnimationStartTime
-                let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.scaleAnimationDuration, 0.0, 1.0)
-            
-                let totalValueAmplitude = animation.scaleTargetValue - animation.scaleInitialValue
-                let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
-                
-                circleNode.setScale(finalValue)
-                
-                layoutNotes()
-                
-                if animationProgress >= 1 {
-                     activeAnimationsByNote[note] = nil
-                 }
-            }
-        }
+        self.layoutNotes()
     }
     
     
@@ -231,15 +192,8 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = NoteAnimation(scaleTargetValue: scaleUpAmplitude,
-                                                           scaleAnimationDuration: appearDuration,
-                                                           scaleInitialValue: noteDisplayNode.xScale,
-                                                           scaleAnimationStartTime: nil)
-    
-        noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
-        
-        noteDisplayNode.children.forEach { $0.alpha = 1 }
-         
+        let scaleUpAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+     
         // animate jiggle
         
         let jiggleDuration: Double = 0.02 * 4
@@ -254,7 +208,13 @@ class SimpleCountingDisplayScene: SKScene {
         
         // setup an animate
         
-        noteDisplayNode.run(jiggleAction, withKey: "jiggle")
+        noteDisplayNode.run(jiggleAction , withKey: "jiggle")
+        noteDisplayNode.run(scaleUpAction)
+        
+        // update node
+        
+        noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
+        noteDisplayNode.children.forEach { $0.alpha = 1 }
     }
     
     
@@ -270,18 +230,17 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = NoteAnimation(scaleTargetValue: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0,
-                                                           scaleAnimationDuration: disappearDuration,
-                                                           scaleInitialValue: noteDisplayNodeByNote[playedNote]!.xScale,
-                                                           scaleAnimationStartTime: nil)
+        let scaleDownAction = SKAction.scale(to: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0, duration: disappearDuration)
+        noteDisplayNode.run(scaleDownAction)
         
-        noteDisplayNode.fillColor = .clear
-        
-        noteDisplayNode.children.forEach { $0.alpha = self.configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
-            
         // stop jiggle
         
         noteDisplayNode.removeAction(forKey: "jiggle")
         noteDisplayNode.zRotation = 0
+        
+        // update node
+        
+        noteDisplayNode.fillColor = .clear
+        noteDisplayNode.children.forEach { $0.alpha = self.configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
     }
 }
