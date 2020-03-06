@@ -71,6 +71,9 @@ class SimpleCountingDisplayScene: SKScene {
     
     
     var simpleCountingDisplayNode: SimpleCountingDisplayNode!
+    var simpleCountingDisplayNode2: SimpleCountingDisplayNode!
+    
+    var activeCountingDisplayNode: SimpleCountingDisplayNode?
         
     
     override func didMove(to view: SKView) {
@@ -99,13 +102,21 @@ class SimpleCountingDisplayScene: SKScene {
         self.backgroundColor = colorPalette.backgroundColor
         
         self.simpleCountingDisplayNode = SimpleCountingDisplayNode(colorPalette: colorPalette, puzzle: self.puzzle)
+        self.simpleCountingDisplayNode.position = CGPoint(x: 0, y: 200)
         self.addChild(self.simpleCountingDisplayNode)
+        
+        self.simpleCountingDisplayNode2 = SimpleCountingDisplayNode(colorPalette: colorPalette, puzzle: self.puzzle)
+        self.simpleCountingDisplayNode2.position = CGPoint(x: 0, y: -200)
+        self.addChild(self.simpleCountingDisplayNode2)
+        
+        self.activeCountingDisplayNode = self.simpleCountingDisplayNode2
     }
     
     
     override func didFinishUpdate() {
         
         self.simpleCountingDisplayNode.layoutNotes()
+        self.simpleCountingDisplayNode2.layoutNotes()
     }
     
     
@@ -134,12 +145,12 @@ class SimpleCountingDisplayScene: SKScene {
     
     func onNoteOn(noteCode: NoteCode, velocity: Velocity) {
         
-        self.simpleCountingDisplayNode.onNoteOn(noteCode: noteCode, velocity: velocity)
+        self.activeCountingDisplayNode?.onNoteOn(noteCode: noteCode, velocity: velocity)
     }
     
     
     func onNoteOff(noteCode: NoteCode) {
     
-        self.simpleCountingDisplayNode.onNoteOff(noteCode: noteCode)
+        self.activeCountingDisplayNode?.onNoteOff(noteCode: noteCode)
     }
 }
