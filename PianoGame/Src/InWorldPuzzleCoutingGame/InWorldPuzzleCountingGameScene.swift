@@ -283,7 +283,10 @@ class InWorldPuzzleCountingGameScene: SKScene {
         
         self.currentPuzzleIndex += 1
         
-        self.playerCharacterNode.run(SKAction.move(to: CGPoint(x: markers[self.currentPuzzleIndex], y: 0), duration: 0.4))
+        let action = SKAction.move(to: CGPoint(x: markers[self.currentPuzzleIndex], y: 0), duration: 0.4)
+        action.timingMode = .easeInEaseOut
+        
+        self.playerCharacterNode.run(action)
     }
     
     
