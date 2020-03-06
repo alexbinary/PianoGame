@@ -235,10 +235,7 @@ class SimpleCountingDisplayScene: SKScene {
                                                            scaleAnimationDuration: appearDuration,
                                                            scaleInitialValue: noteDisplayNode.xScale,
                                                            scaleAnimationStartTime: nil)
-        
-        for note in Note.allCases {
-            self.noteDisplayNodeByNote[note]!.zPosition = note == playedNote ? 100 : 0
-        }
+    
         noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
         
         noteDisplayNode.children.forEach { $0.alpha = 1 }
