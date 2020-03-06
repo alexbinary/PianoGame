@@ -448,7 +448,8 @@ class PhysicsCountingGameScene: SKScene {
         
         let scaleUpAction = SKAction.scale(to: scaleUpAmplitude,
                                            duration: appearDuration,
-                                           delay: 0, usingSpringWithDamping: 0.4,
+                                           delay: 0,
+                                           usingSpringWithDamping: 0.4,
                                            initialSpringVelocity: 10)
      
         // animate jiggle
@@ -601,8 +602,8 @@ class PhysicsCountingGameScene: SKScene {
         
         // animate jiggle
         
-        let jiggleDuration: Double = 0.02
-        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor)
+        let jiggleDuration: Double = 0.02 * 4
+        let jiggleAmplitude: CGFloat = .pi/12.0 * CGFloat(velocityFactor * velocityFactor) * 0.5
         let jiggleCount = 5
         
         let jiggleAction = SKAction.repeat(SKAction.sequence([
