@@ -15,7 +15,7 @@ struct Puzzle {
     let distanceToPreviousPuzzle: CGFloat
     
     
-    init(startingNote: Note, visibleNotes: Set<Note> = Set<Note>(Note.allCases), hiddenNoteNames: Set<Note> = [], expectedNote: Note, distanceToPreviousPuzzle: CGFloat = 400) {
+    init(startingNote: Note, visibleNotes: Set<Note> = Set<Note>(Note.allCases), hiddenNoteNames: Set<Note> = [], expectedNote: Note, distanceToPreviousPuzzle: CGFloat = 800) {
         
         self.startingNote = startingNote
         self.visibleNotes = visibleNotes
