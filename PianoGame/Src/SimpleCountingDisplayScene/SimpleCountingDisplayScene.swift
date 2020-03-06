@@ -89,7 +89,7 @@ class SimpleCountingDisplayScene: SKScene {
         
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
-            circleNode.setScale(self.configByNote.first { $0.note == note }!.defaultScale)
+            circleNode.setScale(self.configByNote.first { $0.note == note }!.visibleByDefault ? 1 : 0)
             
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
@@ -120,14 +120,11 @@ class SimpleCountingDisplayScene: SKScene {
             previousNoteNode = noteNode
         }
         
-        for note in Note.allCases {
+        for config in self.configByNote {
         
-            if let noteNode = noteDisplayNodeByNote[note] {
-        
-                if note.isSharp {
-                    
-                    noteNode.position += CGPoint(x: 0, y: -40)
-                }
+            if !config.visibleByDefault {
+                
+                noteDisplayNodeByNote[config.note]!.position += CGPoint(x: 0, y: -40)
             }
         }
     }
@@ -146,20 +143,20 @@ class SimpleCountingDisplayScene: SKScene {
     var activeAnimationsByNote: [Note: Animation] = [:]
     
     
-    var configByNote: [(note: Note, defaultScale: CGFloat)] = [
+    var configByNote: [(note: Note, visibleByDefault: Bool)] = [
         
-        (note: .a,          defaultScale: 1),
-        (note: .a_sharp,    defaultScale: 0),
-        (note: .b,          defaultScale: 1),
-        (note: .c,          defaultScale: 1),
-        (note: .c_sharp,    defaultScale: 0),
-        (note: .d,          defaultScale: 1),
-        (note: .d_sharp,    defaultScale: 0),
-        (note: .e,          defaultScale: 1),
-        (note: .f,          defaultScale: 1),
-        (note: .f_sharp,    defaultScale: 0),
-        (note: .g,          defaultScale: 1),
-        (note: .g_sharp,    defaultScale: 0),
+        (note: .a,          visibleByDefault: true),
+        (note: .a_sharp,    visibleByDefault: false),
+        (note: .b,          visibleByDefault: true),
+        (note: .c,          visibleByDefault: false),
+        (note: .c_sharp,    visibleByDefault: true),
+        (note: .d,          visibleByDefault: true),
+        (note: .d_sharp,    visibleByDefault: false),
+        (note: .e,          visibleByDefault: true),
+        (note: .f,          visibleByDefault: false),
+        (note: .f_sharp,    visibleByDefault: true),
+        (note: .g,          visibleByDefault: false),
+        (note: .g_sharp,    visibleByDefault: true),
     ]
     
     
@@ -278,7 +275,7 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = Animation(scaleTarget: configByNote.first { $0.note == playedNote }!.defaultScale,
+        activeAnimationsByNote[playedNote] = Animation(scaleTarget: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0,
                                                        animationDuration: disappearDuration,
                                                        scaleInitialValue: noteDisplayNodeByNote[playedNote]!.xScale,
                                                        timeAnimationStart: nil)
