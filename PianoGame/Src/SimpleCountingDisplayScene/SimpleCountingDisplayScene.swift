@@ -43,24 +43,53 @@ class SimpleCountingDisplayScene: SKScene {
     var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
-    var configByNote: [(note: Note, visibleByDefault: Bool, labelVisibleByDefault: Bool)] = [
+    struct Puzzle {
+    
+        let configByNote: [(note: Note, visibleByDefault: Bool, labelVisibleByDefault: Bool)]
+        let expectedNote: Note
+    }
+    
+    
+    var puzzles = [
+     
+        Puzzle(configByNote: [
         
-        (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
-        (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
-        (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
-        (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
+            (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            
+        ], expectedNote: .c_sharp),
+        
+        Puzzle(configByNote: [
+        
+            (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
+            (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
+            (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
+            (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+            
+        ], expectedNote: .d)
     ]
     
+    var currentPuzzleIndex: Int = 0
     
-    var expectedNote: Note = .c_sharp
+    var currentPuzzleSolved = false
     
     
     override func didMove(to view: SKView) {
@@ -71,7 +100,9 @@ class SimpleCountingDisplayScene: SKScene {
         
         self.configureColorPalette()
         self.initScene()
-        self.initStaticUI()
+        
+        self.recreateNoteDisplayNodes()
+        self.layoutNotes()
     }
     
     
@@ -91,13 +122,15 @@ class SimpleCountingDisplayScene: SKScene {
     }
     
     
-    func initStaticUI() {
-    
+    func recreateNoteDisplayNodes() {
+        
         guard let colorPalette = self.colorPalette else {
             fatalError("Color palette is not defined.")
         }
+        
+        self.noteDisplayNodeByNote.forEach { $0.value.removeFromParent() }
     
-        for config in self.configByNote {
+        for config in self.puzzles[self.currentPuzzleIndex].configByNote {
         
             let labelNode = SKLabelNode(text: config.note.description.uppercased())
             labelNode.fontColor = colorPalette.foregroundColor
@@ -107,7 +140,7 @@ class SimpleCountingDisplayScene: SKScene {
             
             let circleNode = SKShapeNode(circleOfRadius: self.noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
-            circleNode.lineWidth = config.note == self.expectedNote ? 4 : 1
+            circleNode.lineWidth = config.note == self.puzzles[self.currentPuzzleIndex].expectedNote ? 4 : 1
             circleNode.setScale(config.visibleByDefault ? 1 : 0)
             
             circleNode.addChild(labelNode)
@@ -128,7 +161,7 @@ class SimpleCountingDisplayScene: SKScene {
         
         var previousNoteNode: SKNode? = nil
         
-        for note in self.configByNote.map({ $0.note }) {
+        for note in self.puzzles[self.currentPuzzleIndex].configByNote.map({ $0.note }) {
         
             let noteNode = noteDisplayNodeByNote[note]!
             
@@ -145,6 +178,15 @@ class SimpleCountingDisplayScene: SKScene {
     
     override func didFinishUpdate() {
         
+        self.layoutNotes()
+    }
+    
+    
+    func loadNextPuzzle() {
+        
+        self.currentPuzzleIndex += 1
+        
+        self.recreateNoteDisplayNodes()
         self.layoutNotes()
     }
     
@@ -216,8 +258,15 @@ class SimpleCountingDisplayScene: SKScene {
         
         // update node
         
-        noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
+        noteDisplayNode.fillColor = playedNote == self.puzzles[self.currentPuzzleIndex].expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
         noteDisplayNode.children.forEach { $0.alpha = 1 }
+        
+        // update game logic
+        
+        if playedNote == self.puzzles[self.currentPuzzleIndex].expectedNote {
+            
+            self.currentPuzzleSolved = true
+        }
     }
     
     
@@ -240,12 +289,19 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        let scaleDownAction = SKAction.scale(to: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0, duration: disappearDuration)
+        let scaleDownAction = SKAction.scale(to: self.puzzles[self.currentPuzzleIndex].configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0, duration: disappearDuration)
         noteDisplayNode.run(scaleDownAction)
         
         // update node
         
         noteDisplayNode.fillColor = .clear
-        noteDisplayNode.children.forEach { $0.alpha = self.configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
+        noteDisplayNode.children.forEach { $0.alpha = self.puzzles[self.currentPuzzleIndex].configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
+        
+        // update game logic
+        
+        if playedNote == self.puzzles[self.currentPuzzleIndex].expectedNote, self.currentPuzzleSolved {
+            
+            self.loadNextPuzzle()
+        }
     }
 }
