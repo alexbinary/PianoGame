@@ -311,20 +311,20 @@
 			path = SimpleQuiz;
 			sourceTree = "<group>";
 		};
-		29A92B3F24100FB9004C5131 /* SimpleCountingGameScene */ = {
+		29A92B3F24100FB9004C5131 /* SimpleCountingGame */ = {
 			isa = PBXGroup;
 			children = (
 				29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */,
 			);
-			path = SimpleCountingGameScene;
+			path = SimpleCountingGame;
 			sourceTree = "<group>";
 		};
-		29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplayScene */ = {
+		29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				29AFDA94240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift */,
 			);
-			path = ProgressiveCountingDisplayScene;
+			path = ProgressiveCountingDisplay;
 			sourceTree = "<group>";
 		};
 		29B1CAB0240C13AC00A653AA /* IntervalQuizPhysicsDisplay */ = {
@@ -335,12 +335,12 @@
 			path = IntervalQuizPhysicsDisplay;
 			sourceTree = "<group>";
 		};
-		29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplayScene */ = {
+		29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				29D1B02E2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift */,
 			);
-			path = SimpleCountingDisplayScene;
+			path = SimpleCountingDisplay;
 			sourceTree = "<group>";
 		};
 		29D7DF3223E765A600760A8D /* Nodes */ = {
@@ -413,9 +413,9 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
-				29A92B3F24100FB9004C5131 /* SimpleCountingGameScene */,
-				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplayScene */,
-				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplayScene */,
+				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
+				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */,
+				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplay */,
 				290CCC9E240D095C00526404 /* CountingExerciseTiming */,
 				291BEE43240C2D4A0043217B /* CountingExercise */,
 				29B1CAB0240C13AC00A653AA /* IntervalQuizPhysicsDisplay */,
