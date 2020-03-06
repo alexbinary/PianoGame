@@ -35,7 +35,7 @@
 		29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D4023EB8721009E71F2 /* DisplayGameScene.swift */; };
 		299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */; };
 		299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
-		29A92B4124100FD6004C5131 /* SimpleCountingDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A92B4024100FD6004C5131 /* SimpleCountingDisplayScene.swift */; };
+		29A92B4124100FD6004C5131 /* SimpleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */; };
 		29AFDA95240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFDA94240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift */; };
 		29B1CAB5240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1CAB4240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift */; };
 		29C198D323EF712C007950DE /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
@@ -135,7 +135,7 @@
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
 		299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizViewController.swift; sourceTree = "<group>"; };
 		299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizGameScene.swift; sourceTree = "<group>"; };
-		29A92B4024100FD6004C5131 /* SimpleCountingDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingDisplayScene.swift; sourceTree = "<group>"; };
+		29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingGameScene.swift; sourceTree = "<group>"; };
 		29AFDA94240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressiveCountingDisplayScene.swift; sourceTree = "<group>"; };
 		29B1CAB4240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizPhysicsDisplayScene.swift; sourceTree = "<group>"; };
 		29C198CF23EF712C007950DE /* wedding.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = wedding.mid; sourceTree = "<group>"; };
@@ -309,12 +309,12 @@
 			path = SimpleQuiz;
 			sourceTree = "<group>";
 		};
-		29A92B3F24100FB9004C5131 /* SimpleCountingDisplayScene */ = {
+		29A92B3F24100FB9004C5131 /* SimpleCountingGameScene */ = {
 			isa = PBXGroup;
 			children = (
-				29A92B4024100FD6004C5131 /* SimpleCountingDisplayScene.swift */,
+				29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */,
 			);
-			path = SimpleCountingDisplayScene;
+			path = SimpleCountingGameScene;
 			sourceTree = "<group>";
 		};
 		29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplayScene */ = {
@@ -403,7 +403,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
-				29A92B3F24100FB9004C5131 /* SimpleCountingDisplayScene */,
+				29A92B3F24100FB9004C5131 /* SimpleCountingGameScene */,
 				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplayScene */,
 				290CCC9E240D095C00526404 /* CountingExerciseTiming */,
 				291BEE43240C2D4A0043217B /* CountingExercise */,
@@ -613,7 +613,7 @@
 				29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */,
 				29B1CAB5240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift in Sources */,
 				29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */,
-				29A92B4124100FD6004C5131 /* SimpleCountingDisplayScene.swift in Sources */,
+				29A92B4124100FD6004C5131 /* SimpleCountingGameScene.swift in Sources */,
 				29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */,
 				29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */,
 			);
