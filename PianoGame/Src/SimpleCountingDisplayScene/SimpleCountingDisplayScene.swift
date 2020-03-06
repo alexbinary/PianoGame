@@ -80,21 +80,22 @@ class SimpleCountingDisplayScene: SKScene {
     
         let noteSize: CGFloat = 50
         
-        for note in self.configByNote.map({ $0.note }) {
+        for config in self.configByNote {
         
-            let labelNode = SKLabelNode(text: note.description.uppercased())
+            let labelNode = SKLabelNode(text: config.note.description.uppercased())
             labelNode.fontColor = colorPalette.foregroundColor
             labelNode.verticalAlignmentMode = .center
             labelNode.horizontalAlignmentMode = .center
+            labelNode.alpha = config.labelVisibleByDefault ? 1 : 0
         
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
-            circleNode.setScale(self.configByNote.first { $0.note == note }!.visibleByDefault ? 1 : 0)
+            circleNode.setScale(config.visibleByDefault ? 1 : 0)
             
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
             
-            self.noteDisplayNodeByNote[note] = circleNode
+            self.noteDisplayNodeByNote[config.note] = circleNode
         }
         
         self.layoutNotes()
@@ -143,20 +144,20 @@ class SimpleCountingDisplayScene: SKScene {
     var activeAnimationsByNote: [Note: Animation] = [:]
     
     
-    var configByNote: [(note: Note, visibleByDefault: Bool)] = [
+    var configByNote: [(note: Note, visibleByDefault: Bool, labelVisibleByDefault: Bool)] = [
         
-        (note: .a,          visibleByDefault: true),
-        (note: .a_sharp,    visibleByDefault: false),
-        (note: .b,          visibleByDefault: true),
-        (note: .c,          visibleByDefault: false),
-        (note: .c_sharp,    visibleByDefault: true),
-        (note: .d,          visibleByDefault: true),
-        (note: .d_sharp,    visibleByDefault: false),
-        (note: .e,          visibleByDefault: true),
-        (note: .f,          visibleByDefault: false),
-        (note: .f_sharp,    visibleByDefault: true),
-        (note: .g,          visibleByDefault: false),
-        (note: .g_sharp,    visibleByDefault: true),
+        (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
+        (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
+        (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
+        (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
     ]
     
     
@@ -244,6 +245,8 @@ class SimpleCountingDisplayScene: SKScene {
             self.noteDisplayNodeByNote[note]!.zPosition = note == playedNote ? 100 : 0
         }
         noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
+        
+        noteDisplayNode.children.forEach { $0.alpha = 1 }
          
         // animate jiggle
         
@@ -281,6 +284,8 @@ class SimpleCountingDisplayScene: SKScene {
                                                        timeAnimationStart: nil)
         
         noteDisplayNode.fillColor = .clear
+        
+        noteDisplayNode.children.forEach { $0.alpha = self.configByNote.first { $0.note == playedNote }!.labelVisibleByDefault ? 1 : 0 }
             
         // stop jiggle
         
