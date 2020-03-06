@@ -61,61 +61,177 @@ class SimpleCountingGameScene: SKScene {
             self.expectedNote = expectedNote
             self.distanceToPreviousPuzzle = distanceToPreviousPuzzle
         }
+        
+        static func random(startingWith startingNote: Note) -> Puzzle {
+            
+            let visibleNotes = Set<Note>(Note.allCases.filter { !$0.isSharp })
+            let expectedNote: Note = visibleNotes.randomElement()!
+            
+            var hiddenNoteNames: Set<Note> = [ expectedNote ]
+            while hiddenNoteNames.count < 5 {
+                hiddenNoteNames.insert(visibleNotes.randomElement()!)
+            }
+            
+            return Puzzle(startingNote: startingNote,
+                   visibleNotes: visibleNotes,
+                   hiddenNoteNames: hiddenNoteNames,
+                   expectedNote: expectedNote)
+        }
     }
     
     
-    var puzzles = [
+    var puzzles = (0...30).map { _ in Puzzle.random(startingWith: Note.allCases.filter { !$0.isSharp } .randomElement()!) }
+        
+//        [
      
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a ],
-               expectedNote: .a),
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a ],
+//               expectedNote: .a),
+//
+//        Puzzle(startingNote: .b,
+//               visibleNotes: [ .b ],
+//               expectedNote: .b),
         
-        Puzzle(startingNote: .b,
-               visibleNotes: [ .b ],
-               expectedNote: .b),
+//        Puzzle(startingNote: .c,
+//               visibleNotes: [ .c ],
+//               expectedNote: .c),
+//
+//        Puzzle(startingNote: .d,
+//               visibleNotes: [ .d ],
+//               expectedNote: .d),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: [ .e ],
+//               expectedNote: .e),
+//
+//        Puzzle(startingNote: .f,
+//               visibleNotes: [ .f ],
+//               expectedNote: .f),
+//
+//        Puzzle(startingNote: .g,
+//               visibleNotes: [ .g ],
+//               expectedNote: .g),
         
-        Puzzle(startingNote: .c,
-               visibleNotes: [ .c ],
-               expectedNote: .c),
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a, .b ],
+//               expectedNote: .a,
+//               distanceToPreviousPuzzle: 200),
+//
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a, .b ],
+//               expectedNote: .b),
         
-        Puzzle(startingNote: .d,
-               visibleNotes: [ .d ],
-               expectedNote: .d),
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a, .b, .c ],
+//               expectedNote: .a,
+//               distanceToPreviousPuzzle: 200),
+//
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a, .b, .c ],
+//               expectedNote: .b),
+//
+//        Puzzle(startingNote: .a,
+//               visibleNotes: [ .a, .b, .c ],
+//               expectedNote: .c),
         
-        Puzzle(startingNote: .e,
-               visibleNotes: [ .e ],
-               expectedNote: .e),
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.c],
+//               expectedNote: .c,
+//               distanceToPreviousPuzzle: 200),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.d],
+//               expectedNote: .d),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.e],
+//               expectedNote: .e),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.f],
+//               expectedNote: .f),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.g],
+//               expectedNote: .g),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.a],
+//               expectedNote: .a),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.b],
+//               expectedNote: .b),
         
-        Puzzle(startingNote: .f,
-               visibleNotes: [ .f ],
-               expectedNote: .f),
-        
-        Puzzle(startingNote: .g,
-               visibleNotes: [ .g ],
-               expectedNote: .g),
-        
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b ],
-               expectedNote: .a,
-               distanceToPreviousPuzzle: 200),
-        
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b ],
-               expectedNote: .b),
-        
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c ],
-               expectedNote: .a,
-               distanceToPreviousPuzzle: 200),
-        
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c ],
-               expectedNote: .b),
-        
-        Puzzle(startingNote: .a,
-               visibleNotes: [ .a, .b, .c ],
-               expectedNote: .c),
-    ]
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.c, .d],
+//               expectedNote: .c,
+//               distanceToPreviousPuzzle: 200),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.d, .e],
+//               expectedNote: .d),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.e, .f],
+//               expectedNote: .e),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.f, .g],
+//               expectedNote: .f),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.g, .a],
+//               expectedNote: .g),
+//
+//        Puzzle(startingNote: .c,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.a, .b],
+//               expectedNote: .a),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.c, .d],
+//               expectedNote: .c,
+//               distanceToPreviousPuzzle: 200),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.d, .e],
+//               expectedNote: .d),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.e, .f],
+//               expectedNote: .e),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.f, .g],
+//               expectedNote: .f),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.g, .a],
+//               expectedNote: .g),
+//
+//        Puzzle(startingNote: .e,
+//               visibleNotes: Set<Note>(Note.allCases.filter { !$0.isSharp }),
+//               hiddenNoteNames: [.a, .b],
+//               expectedNote: .a),
+//    ]
     
     var currentPuzzleIndex: Int = 0
     
