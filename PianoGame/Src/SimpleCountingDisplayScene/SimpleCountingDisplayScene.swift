@@ -41,7 +41,7 @@ class SimpleCountingDisplayScene: SKScene {
     var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
-    var expectedNote: Note = Note.allCases.randomElement()!
+    var expectedNote: Note = .c_sharp
     
     
     override func didMove(to view: SKView) {
@@ -90,6 +90,7 @@ class SimpleCountingDisplayScene: SKScene {
         
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
+            circleNode.lineWidth = config.note == self.expectedNote ? 4 : 1
             circleNode.setScale(config.visibleByDefault ? 1 : 0)
             
             circleNode.addChild(labelNode)
