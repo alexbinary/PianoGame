@@ -102,6 +102,19 @@ class SimpleCountingGameScene: SKScene {
         Puzzle(startingNote: .a,
                visibleNotes: [ .a, .b ],
                expectedNote: .b),
+        
+        Puzzle(startingNote: .a,
+               visibleNotes: [ .a, .b, .c ],
+               expectedNote: .a,
+               distanceToPreviousPuzzle: 200),
+        
+        Puzzle(startingNote: .a,
+               visibleNotes: [ .a, .b, .c ],
+               expectedNote: .b),
+        
+        Puzzle(startingNote: .a,
+               visibleNotes: [ .a, .b, .c ],
+               expectedNote: .c),
     ]
     
     var currentPuzzleIndex: Int = 0
