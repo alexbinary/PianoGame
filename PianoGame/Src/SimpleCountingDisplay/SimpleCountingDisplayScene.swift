@@ -11,14 +11,6 @@ class SimpleCountingDisplayScene: SKScene {
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
     
-    struct ColorPalette {
-        
-        let backgroundColor: NSColor
-        let foregroundColor: NSColor
-        let correctColor: NSColor
-        let incorrectColor: NSColor
-    }
-    
     let colorPaletteDefault = ColorPalette(
         
         backgroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
@@ -36,32 +28,6 @@ class SimpleCountingDisplayScene: SKScene {
     )
     
     var colorPalette: ColorPalette!
-    
-    
-    let noteSize: CGFloat = 50
-    
-    var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
-    
-    
-    struct Puzzle {
-    
-        let startingNote: Note
-        
-        let visibleNotes: Set<Note>
-        let hiddenNoteNames: Set<Note>
-        
-        let expectedNote: Note
-        let distanceToPreviousPuzzle: CGFloat
-        
-        init(startingNote: Note, visibleNotes: Set<Note> = Set<Note>(Note.allCases), hiddenNoteNames: Set<Note> = [], expectedNote: Note, distanceToPreviousPuzzle: CGFloat = 100) {
-            
-            self.startingNote = startingNote
-            self.visibleNotes = visibleNotes
-            self.hiddenNoteNames = hiddenNoteNames
-            self.expectedNote = expectedNote
-            self.distanceToPreviousPuzzle = distanceToPreviousPuzzle
-        }
-    }
     
     
     var puzzle = Puzzle(startingNote: .c,

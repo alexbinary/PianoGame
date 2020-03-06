@@ -9,7 +9,7 @@ class GenericViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = SimpleCountingDisplayScene(size: CGSize(width: 1600, height: 900))
+        let scene = InWorldPuzzleCountingGameScene(size: CGSize(width: 1600, height: 900))
         scene.scaleMode = .aspectFit
         
         (view as! SKView).presentScene(scene)

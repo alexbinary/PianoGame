@@ -11,6 +11,9 @@
 		291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */; };
 		291DAD542412D73A004ADD2F /* PhysicsCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */; };
 		291DAD562412DC1D004ADD2F /* SimpleCountingDisplayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */; };
+		291DAD592412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
+		291DAD5B2412E175004ADD2F /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5A2412E175004ADD2F /* Puzzle.swift */; };
+		291DAD5D2412E1E4004ADD2F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
 		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
 		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
 		2929AB3923FC915200AC18C1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
@@ -116,6 +119,9 @@
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
 		291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCountingGameScene.swift; sourceTree = "<group>"; };
 		291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingDisplayNode.swift; sourceTree = "<group>"; };
+		291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InWorldPuzzleCountingGameScene.swift; sourceTree = "<group>"; };
+		291DAD5A2412E175004ADD2F /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
+		291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		2921E30524071B4800119589 /* Display2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display2Scene.swift; sourceTree = "<group>"; };
 		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
 		2929AB3823FC915200AC18C1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -212,6 +218,14 @@
 			path = PhysicsCountingGame;
 			sourceTree = "<group>";
 		};
+		291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */ = {
+			isa = PBXGroup;
+			children = (
+				291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */,
+			);
+			path = InWorldPuzzleCoutingGame;
+			sourceTree = "<group>";
+		};
 		2921E30124071B0100119589 /* Display2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +247,8 @@
 			children = (
 				2929AB3823FC915200AC18C1 /* Note.swift */,
 				29E7DDDE23FC91F900D15166 /* Interval.swift */,
+				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
+				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -426,6 +442,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */,
 				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
 				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
 				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */,
@@ -620,6 +637,8 @@
 				299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */,
 				2929AB3923FC915200AC18C1 /* Note.swift in Sources */,
 				2921E30624071B4800119589 /* Display2Scene.swift in Sources */,
+				291DAD5B2412E175004ADD2F /* Puzzle.swift in Sources */,
+				291DAD592412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift in Sources */,
 				291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */,
 				29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */,
 				29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */,
@@ -638,6 +657,7 @@
 				29DF725E240A6687004DD36F /* Operators.swift in Sources */,
 				29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */,
 				29B1CAB5240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift in Sources */,
+				291DAD5D2412E1E4004ADD2F /* ColorPalette.swift in Sources */,
 				29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */,
 				29A92B4124100FD6004C5131 /* SimpleCountingGameScene.swift in Sources */,
 				29D1B02F2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift in Sources */,

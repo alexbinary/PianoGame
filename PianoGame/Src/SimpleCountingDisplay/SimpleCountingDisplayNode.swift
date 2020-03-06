@@ -8,15 +8,22 @@ import MIKMIDI
 class SimpleCountingDisplayNode: SKNode {
     
     
-    var colorPalette: SimpleCountingDisplayScene.ColorPalette!
+    var colorPalette: ColorPalette!
 
 
     let noteSize: CGFloat = 50
 
     var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
+    
+    
+    var delegate: SimpleCountingDisplayNodeDelegate?
 
 
-    var puzzle: SimpleCountingDisplayScene.Puzzle!
+    var puzzle: Puzzle! {
+        didSet {
+            self.createNoteDisplayNodes()
+        }
+    }
 
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,7 +36,7 @@ class SimpleCountingDisplayNode: SKNode {
     }
 
 
-    convenience init(colorPalette: SimpleCountingDisplayScene.ColorPalette, puzzle: SimpleCountingDisplayScene.Puzzle) {
+    convenience init(colorPalette: ColorPalette, puzzle: Puzzle) {
 
         self.init()
         
@@ -46,6 +53,8 @@ class SimpleCountingDisplayNode: SKNode {
         guard let colorPalette = self.colorPalette else {
             fatalError("Color palette is not defined.")
         }
+        
+        self.noteDisplayNodeByNote.forEach { $0.value.removeFromParent() }
 
         for note in Note.allCases {
 
@@ -164,11 +173,23 @@ class SimpleCountingDisplayNode: SKNode {
         // animate scale
 
         let scaleDownAction = SKAction.scale(to: self.puzzle.visibleNotes.contains(playedNote) ? 1 : 0, duration: disappearDuration)
-        noteDisplayNode.run(scaleDownAction)
+        noteDisplayNode.run(scaleDownAction, completion: {
+            if playedNote == self.puzzle.expectedNote {
+                self.delegate?.didReleaseExpectedNote()
+            }
+        })
 
         // update node
 
         noteDisplayNode.fillColor = .clear
         noteDisplayNode.children.forEach { $0.alpha = self.puzzle.hiddenNoteNames.contains(playedNote) ? 0 : 1 }
     }
+}
+
+
+
+protocol SimpleCountingDisplayNodeDelegate {
+    
+    
+    func didReleaseExpectedNote()
 }
