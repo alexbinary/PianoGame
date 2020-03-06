@@ -19,6 +19,7 @@
 		2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */; };
 		295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B83A224000DAE00993564 /* IntervalGameScene.swift */; };
 		295B83A6240013D500993564 /* Percent in Frameworks */ = {isa = PBXBuildFile; productRef = 295B83A5240013D500993564 /* Percent */; };
+		2961E72224127F9D009DACD4 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
 		2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8F23EB320300A7D97B /* SceneDelegate.swift */; };
@@ -118,6 +119,7 @@
 		2950286023FC1B6B00073C4E /* GenericViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericViewController.swift; sourceTree = "<group>"; };
 		2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDisplayScene.swift; sourceTree = "<group>"; };
 		295B83A224000DAE00993564 /* IntervalGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalGameScene.swift; path = PianoGame/Src/IntervalGame/IntervalGameScene.swift; sourceTree = SOURCE_ROOT; };
+		2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameScene.swift; sourceTree = "<group>"; };
 		296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame_iPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296B1B8D23EB320300A7D97B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				2950286023FC1B6B00073C4E /* GenericViewController.swift */,
 				29DF725B240A6176004DD36F /* TypesAliases.swift */,
 				29DF725D240A6687004DD36F /* Operators.swift */,
+				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
 				29A92B3F24100FB9004C5131 /* SimpleCountingDisplayScene */,
 				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplayScene */,
@@ -597,6 +600,7 @@
 				29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */,
 				29E87DCE240A88C500A0BA0A /* PhysicsDisplayScene.swift in Sources */,
 				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
+				2961E72224127F9D009DACD4 /* SpriteKit-Spring.swift in Sources */,
 				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
 				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
 				29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */,

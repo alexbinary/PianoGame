@@ -188,11 +188,14 @@ class SimpleCountingDisplayScene: SKScene {
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
         let scaleUpAmplitude: CGFloat = 1.1 + CGFloat(velocityFactor) * 2
-        let appearDuration: Double = 0.1
+        let appearDuration: Double = 1
         
         // animate scale
         
-        let scaleUpAction = SKAction.scale(to: scaleUpAmplitude, duration: appearDuration)
+        let scaleUpAction = SKAction.scale(to: scaleUpAmplitude,
+                                           duration: appearDuration,
+                                           delay: 0, usingSpringWithDamping: 0.4,
+                                           initialSpringVelocity: 10)
      
         // animate jiggle
         
