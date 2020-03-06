@@ -201,7 +201,11 @@ class InWorldPuzzleCountingGameScene: SKScene {
         
         for puzzle in self.puzzles {
             
-            markers.append((markers.last ?? 0) + puzzle.distanceToPreviousPuzzle)
+            if let previous = markers.last {
+                markers.append(previous + puzzle.distanceToPreviousPuzzle)
+            } else {
+                markers.append(0)
+            }
         }
         
         return markers
@@ -250,9 +254,6 @@ class InWorldPuzzleCountingGameScene: SKScene {
         
         self.backgroundColor = colorPalette.backgroundColor
         
-        self.playerCharacterNode = SKSpriteNode(color: .red, size: CGSize(width: 10, height: 50))
-        self.addChild(self.playerCharacterNode)
-        
         for i in 0..<markers.count {
             
             let x = markers[i]
@@ -268,6 +269,10 @@ class InWorldPuzzleCountingGameScene: SKScene {
             
             self.simpleCountingDisplayNodes.append(simpleCountingDisplayNode)
         }
+        
+        self.playerCharacterNode = SKSpriteNode(imageNamed: "jump outline")
+        self.playerCharacterNode.setScale(2)
+        self.addChild(self.playerCharacterNode)
     }
     
     
