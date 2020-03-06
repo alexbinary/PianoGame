@@ -38,7 +38,7 @@ class SimpleCountingDisplayScene: SKScene {
     var colorPalette: ColorPalette!
     
     
-    var noteDisplayNoteByNote: [Note: SKShapeNode] = [:]
+    var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
     var expectedNote: Note = Note.allCases.randomElement()!
@@ -80,7 +80,7 @@ class SimpleCountingDisplayScene: SKScene {
     
         let noteSize: CGFloat = 50
         
-        for note in Note.allCases {
+        for note in self.configByNote.map({ $0.note }) {
         
             let labelNode = SKLabelNode(text: note.description.uppercased())
             labelNode.fontColor = colorPalette.foregroundColor
@@ -89,15 +89,15 @@ class SimpleCountingDisplayScene: SKScene {
         
             let circleNode = SKShapeNode(circleOfRadius: noteSize / 2.0)
             circleNode.strokeColor = colorPalette.foregroundColor
-            circleNode.setScale(defaultScaleByNote[note]!)
+            circleNode.setScale(self.configByNote.first { $0.note == note }!.defaultScale)
             
             circleNode.addChild(labelNode)
             self.addChild(circleNode)
             
-            noteDisplayNoteByNote[note] = circleNode
+            self.noteDisplayNodeByNote[note] = circleNode
         }
         
-        layoutNotes()
+        self.layoutNotes()
     }
     
     
@@ -107,9 +107,9 @@ class SimpleCountingDisplayScene: SKScene {
         
         var previousNoteNode: SKNode? = nil
         
-        for note in Note.allCases {
+        for note in self.configByNote.map({ $0.note }) {
         
-            let noteNode = noteDisplayNoteByNote[note]!
+            let noteNode = noteDisplayNodeByNote[note]!
             
             let refPosition = previousNoteNode?.position ?? anchorPosition
             
@@ -122,11 +122,12 @@ class SimpleCountingDisplayScene: SKScene {
         
         for note in Note.allCases {
         
-            let noteNode = noteDisplayNoteByNote[note]!
+            if let noteNode = noteDisplayNodeByNote[note] {
         
-            if note.isSharp {
-                
-                noteNode.position += CGPoint(x: 0, y: -40)
+                if note.isSharp {
+                    
+                    noteNode.position += CGPoint(x: 0, y: -40)
+                }
             }
         }
     }
@@ -145,19 +146,20 @@ class SimpleCountingDisplayScene: SKScene {
     var activeAnimationsByNote: [Note: Animation] = [:]
     
     
-    var defaultScaleByNote: [Note: CGFloat] = [
-        .c: 1,
-        .c_sharp: 0,
-        .d: 1,
-        .d_sharp: 0,
-        .e: 1,
-        .f: 1,
-        .f_sharp: 0,
-        .g: 1,
-        .g_sharp: 0,
-        .a: 1,
-        .a_sharp: 0,
-        .b: 1,
+    var configByNote: [(note: Note, defaultScale: CGFloat)] = [
+        
+        (note: .a,          defaultScale: 1),
+        (note: .a_sharp,    defaultScale: 0),
+        (note: .b,          defaultScale: 1),
+        (note: .c,          defaultScale: 1),
+        (note: .c_sharp,    defaultScale: 0),
+        (note: .d,          defaultScale: 1),
+        (note: .d_sharp,    defaultScale: 0),
+        (note: .e,          defaultScale: 1),
+        (note: .f,          defaultScale: 1),
+        (note: .f_sharp,    defaultScale: 0),
+        (note: .g,          defaultScale: 1),
+        (note: .g_sharp,    defaultScale: 0),
     ]
     
     
@@ -173,7 +175,7 @@ class SimpleCountingDisplayScene: SKScene {
         
             if let animation = activeAnimationsByNote[note] {
             
-                let circleNode = noteDisplayNoteByNote[note]!
+                let circleNode = noteDisplayNodeByNote[note]!
                 
                 let elapsedTimeSinceAnimationStart = currentTime - animation.timeAnimationStart
                 let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.animationDuration, 0.0, 1.0)
@@ -224,7 +226,7 @@ class SimpleCountingDisplayScene: SKScene {
         
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let noteDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let noteDisplayNode = noteDisplayNodeByNote[playedNote]!
         
         // general animation settings
         
@@ -242,7 +244,7 @@ class SimpleCountingDisplayScene: SKScene {
                                                        timeAnimationStart: nil)
         
         for note in Note.allCases {
-            self.noteDisplayNoteByNote[note]!.zPosition = note == playedNote ? 100 : 0
+            self.noteDisplayNodeByNote[note]!.zPosition = note == playedNote ? 100 : 0
         }
         noteDisplayNode.fillColor = playedNote == self.expectedNote ? colorPalette.correctColor : colorPalette.incorrectColor
          
@@ -268,7 +270,7 @@ class SimpleCountingDisplayScene: SKScene {
     
         let playedNote = Note(fromNoteCode: noteCode)
         
-        let noteDisplayNode = noteDisplayNoteByNote[playedNote]!
+        let noteDisplayNode = noteDisplayNodeByNote[playedNote]!
         
         // general animation settings
         
@@ -276,9 +278,9 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = Animation(scaleTarget: defaultScaleByNote[playedNote]!,
+        activeAnimationsByNote[playedNote] = Animation(scaleTarget: configByNote.first { $0.note == playedNote }!.defaultScale,
                                                        animationDuration: disappearDuration,
-                                                       scaleInitialValue: noteDisplayNoteByNote[playedNote]!.xScale,
+                                                       scaleInitialValue: noteDisplayNodeByNote[playedNote]!.xScale,
                                                        timeAnimationStart: nil)
         
         noteDisplayNode.fillColor = .clear
