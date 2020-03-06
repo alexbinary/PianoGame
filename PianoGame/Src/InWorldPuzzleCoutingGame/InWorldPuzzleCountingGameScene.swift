@@ -254,6 +254,10 @@ class InWorldPuzzleCountingGameScene: SKScene {
         
         self.backgroundColor = colorPalette.backgroundColor
         
+        let bkg = SKSpriteNode(imageNamed: "plx-5")
+        bkg.setScale(4.2)
+        self.camera?.addChild(bkg)
+        
         for i in 0..<markers.count {
             
             let x = markers[i]
