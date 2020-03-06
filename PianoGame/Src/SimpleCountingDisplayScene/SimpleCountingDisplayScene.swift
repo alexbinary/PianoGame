@@ -41,7 +41,37 @@ class SimpleCountingDisplayScene: SKScene {
     var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
     
     
+    var configByNote: [(note: Note, visibleByDefault: Bool, labelVisibleByDefault: Bool)] = [
+        
+        (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
+        (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
+        (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
+        (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+        (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
+        (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
+    ]
+    
+    
     var expectedNote: Note = .c_sharp
+    
+    
+    struct NoteAnimation {
+        
+        var scaleTargetValue: CGFloat
+        var scaleAnimationDuration: TimeInterval
+        
+        var scaleInitialValue: CGFloat! = nil
+        var scaleAnimationStartTime: TimeInterval! = nil
+    }
+    
+    
+    var activeAnimationsByNote: [Note: NoteAnimation] = [:]
     
     
     override func didMove(to view: SKView) {
@@ -132,41 +162,11 @@ class SimpleCountingDisplayScene: SKScene {
     }
     
     
-    struct Animation {
-        
-        var scaleTarget: CGFloat = 2
-        var animationDuration: TimeInterval = 2
-        
-        var scaleInitialValue: CGFloat! = nil
-        var timeAnimationStart: TimeInterval! = nil
-    }
-    
-    
-    var activeAnimationsByNote: [Note: Animation] = [:]
-    
-    
-    var configByNote: [(note: Note, visibleByDefault: Bool, labelVisibleByDefault: Bool)] = [
-        
-        (note: .a,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .a_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .b,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .c,          visibleByDefault: false,    labelVisibleByDefault: false),
-        (note: .c_sharp,    visibleByDefault: true,     labelVisibleByDefault: false),
-        (note: .d,          visibleByDefault: true,     labelVisibleByDefault: false),
-        (note: .d_sharp,    visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .e,          visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .f,          visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .f_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
-        (note: .g,          visibleByDefault: false,    labelVisibleByDefault: true),
-        (note: .g_sharp,    visibleByDefault: true,     labelVisibleByDefault: true),
-    ]
-    
-    
     override func update(_ currentTime: TimeInterval) {
         
         for note in Note.allCases {
-            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.timeAnimationStart == nil {
-                activeAnimationsByNote[note]!.timeAnimationStart = currentTime
+            if activeAnimationsByNote[note] != nil, activeAnimationsByNote[note]!.scaleAnimationStartTime == nil {
+                activeAnimationsByNote[note]!.scaleAnimationStartTime = currentTime
             }
         }
         
@@ -176,10 +176,10 @@ class SimpleCountingDisplayScene: SKScene {
             
                 let circleNode = noteDisplayNodeByNote[note]!
                 
-                let elapsedTimeSinceAnimationStart = currentTime - animation.timeAnimationStart
-                let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.animationDuration, 0.0, 1.0)
+                let elapsedTimeSinceAnimationStart = currentTime - animation.scaleAnimationStartTime
+                let animationProgress = simd_clamp(elapsedTimeSinceAnimationStart / animation.scaleAnimationDuration, 0.0, 1.0)
             
-                let totalValueAmplitude = animation.scaleTarget - animation.scaleInitialValue
+                let totalValueAmplitude = animation.scaleTargetValue - animation.scaleInitialValue
                 let finalValue = animation.scaleInitialValue + totalValueAmplitude * CGFloat(animationProgress)
                 
                 circleNode.setScale(finalValue)
@@ -237,10 +237,10 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = Animation(scaleTarget: scaleUpAmplitude,
-                                                       animationDuration: appearDuration,
+        activeAnimationsByNote[playedNote] = NoteAnimation(scaleTargetValue: scaleUpAmplitude,
+                                                       scaleAnimationDuration: appearDuration,
                                                        scaleInitialValue: noteDisplayNode.xScale,
-                                                       timeAnimationStart: nil)
+                                                       scaleAnimationStartTime: nil)
         
         for note in Note.allCases {
             self.noteDisplayNodeByNote[note]!.zPosition = note == playedNote ? 100 : 0
@@ -279,10 +279,10 @@ class SimpleCountingDisplayScene: SKScene {
         
         // animate scale
         
-        activeAnimationsByNote[playedNote] = Animation(scaleTarget: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0,
-                                                       animationDuration: disappearDuration,
+        activeAnimationsByNote[playedNote] = NoteAnimation(scaleTargetValue: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0,
+                                                       scaleAnimationDuration: disappearDuration,
                                                        scaleInitialValue: noteDisplayNodeByNote[playedNote]!.xScale,
-                                                       timeAnimationStart: nil)
+                                                       scaleAnimationStartTime: nil)
         
         noteDisplayNode.fillColor = .clear
         
