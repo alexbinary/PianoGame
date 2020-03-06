@@ -209,7 +209,7 @@ class SimpleCountingDisplayScene: SKScene {
         // setup an animate
         
         noteDisplayNode.run(jiggleAction , withKey: "jiggle")
-        noteDisplayNode.run(scaleUpAction)
+        noteDisplayNode.run(scaleUpAction, withKey: "scaleUp")
         
         // update node
         
@@ -224,6 +224,13 @@ class SimpleCountingDisplayScene: SKScene {
         
         let noteDisplayNode = noteDisplayNodeByNote[playedNote]!
         
+        // stop jiggle and scale up
+        
+        noteDisplayNode.removeAction(forKey: "jiggle")
+        noteDisplayNode.zRotation = 0
+        
+        noteDisplayNode.removeAction(forKey: "scaleUp")
+        
         // general animation settings
         
         let disappearDuration: Double = 0.05
@@ -232,11 +239,6 @@ class SimpleCountingDisplayScene: SKScene {
         
         let scaleDownAction = SKAction.scale(to: configByNote.first { $0.note == playedNote }!.visibleByDefault ? 1 : 0, duration: disappearDuration)
         noteDisplayNode.run(scaleDownAction)
-        
-        // stop jiggle
-        
-        noteDisplayNode.removeAction(forKey: "jiggle")
-        noteDisplayNode.zRotation = 0
         
         // update node
         
