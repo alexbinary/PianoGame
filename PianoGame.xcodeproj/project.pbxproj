@@ -16,10 +16,10 @@
 		29289F102413F93C006D2F6A /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
 		29289F112413F9E3006D2F6A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
 		29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
+		29289F192413FE6D006D2F6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9223EB320300A7D97B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* ViewController.swift */; };
 		296B1B9523EB320300A7D97B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9323EB320300A7D97B /* Main.storyboard */; };
-		296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9623EB320700A7D97B /* Assets.xcassets */; };
 		296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */; };
 		296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; };
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -88,7 +88,6 @@
 		296B1B8D23EB320300A7D97B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		296B1B9123EB320300A7D97B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		296B1B9423EB320300A7D97B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		296B1B9623EB320700A7D97B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		296B1B9923EB320700A7D97B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		296B1B9B23EB320700A7D97B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		296B1BA523EB7C7700A7D97B /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
@@ -231,11 +230,11 @@
 		296B1B8C23EB320300A7D97B /* PianoGame_iPad */ = {
 			isa = PBXGroup;
 			children = (
+				29F7524623E6DBA700CC776C /* Assets.xcassets */,
 				29289F182413FCC6006D2F6A /* PianoGame_iPad.entitlements */,
 				296B1B8D23EB320300A7D97B /* AppDelegate.swift */,
 				296B1B9123EB320300A7D97B /* ViewController.swift */,
 				296B1B9323EB320300A7D97B /* Main.storyboard */,
-				296B1B9623EB320700A7D97B /* Assets.xcassets */,
 				296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */,
 				296B1B9B23EB320700A7D97B /* Info.plist */,
 			);
@@ -364,7 +363,6 @@
 			children = (
 				29F7524B23E6DBA700CC776C /* Info.plist */,
 				29F7524C23E6DBA700CC776C /* PianoGame.entitlements */,
-				29F7524623E6DBA700CC776C /* Assets.xcassets */,
 				2945345023EA16C200F92152 /* Resources */,
 				29F7525223E6E3EA00CC776C /* Src */,
 			);
@@ -505,7 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */,
-				296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */,
+				29289F192413FE6D006D2F6A /* Assets.xcassets in Resources */,
 				296B1B9523EB320300A7D97B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
