@@ -36,7 +36,6 @@
 		2961E72224127F9D009DACD4 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
 		2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
-		296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8F23EB320300A7D97B /* SceneDelegate.swift */; };
 		296B1B9223EB320300A7D97B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* ViewController.swift */; };
 		296B1B9523EB320300A7D97B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9323EB320300A7D97B /* Main.storyboard */; };
 		296B1B9723EB320700A7D97B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9623EB320700A7D97B /* Assets.xcassets */; };
@@ -143,7 +142,6 @@
 		2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameScene.swift; sourceTree = "<group>"; };
 		296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame_iPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296B1B8D23EB320300A7D97B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		296B1B8F23EB320300A7D97B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		296B1B9123EB320300A7D97B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		296B1B9423EB320300A7D97B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		296B1B9623EB320700A7D97B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				296B1B8D23EB320300A7D97B /* AppDelegate.swift */,
-				296B1B8F23EB320300A7D97B /* SceneDelegate.swift */,
 				296B1B9123EB320300A7D97B /* ViewController.swift */,
 				296B1B9323EB320300A7D97B /* Main.storyboard */,
 				296B1B9623EB320700A7D97B /* Assets.xcassets */,
@@ -635,7 +632,6 @@
 				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
-				296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */,
 				29289F062413F3EE006D2F6A /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -722,7 +718,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2N6DR3R99K;
 				INFOPLIST_FILE = PianoGame_iPad/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -742,7 +738,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2N6DR3R99K;
 				INFOPLIST_FILE = PianoGame_iPad/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
