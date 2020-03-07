@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		290CCCA3240D097500526404 /* CountingExerciseTimingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */; };
-		291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */; };
-		291DAD542412D73A004ADD2F /* PhysicsCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */; };
-		291DAD562412DC1D004ADD2F /* SimpleCountingDisplayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */; };
-		291DAD592412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
-		291DAD5B2412E175004ADD2F /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5A2412E175004ADD2F /* Puzzle.swift */; };
-		291DAD5D2412E1E4004ADD2F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
-		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
 		29289F062413F3EE006D2F6A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
 		29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
 		29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
@@ -24,17 +16,6 @@
 		29289F102413F93C006D2F6A /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
 		29289F112413F9E3006D2F6A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
 		29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
-		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
-		2929AB3923FC915200AC18C1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
-		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
-		2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2945345223EA16E700F92152 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
-		2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286023FC1B6B00073C4E /* GenericViewController.swift */; };
-		2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */; };
-		295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B83A224000DAE00993564 /* IntervalGameScene.swift */; };
-		295B83A6240013D500993564 /* Percent in Frameworks */ = {isa = PBXBuildFile; productRef = 295B83A5240013D500993564 /* Percent */; };
-		2961E72224127F9D009DACD4 /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
-		2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9223EB320300A7D97B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* ViewController.swift */; };
 		296B1B9523EB320300A7D97B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9323EB320300A7D97B /* Main.storyboard */; };
@@ -42,35 +23,8 @@
 		296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */; };
 		296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; };
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA523EB7C7700A7D97B /* QuizViewController.swift */; };
-		296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
-		29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D3E23EB8711009E71F2 /* DisplayViewController.swift */; };
-		29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29818D4023EB8721009E71F2 /* DisplayGameScene.swift */; };
-		299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */; };
-		299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
-		29A92B4124100FD6004C5131 /* SimpleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */; };
-		29AFDA95240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFDA94240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift */; };
-		29B1CAB5240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1CAB4240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift */; };
-		29C198D323EF712C007950DE /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
 		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
-		29D1B02F2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D1B02E2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift */; };
-		29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */; };
-		29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3523E7680F00760A8D /* GroundNode.swift */; };
-		29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3723E771A400760A8D /* SpikesNode.swift */; };
-		29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */; };
-		29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */; };
-		29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7DF3D23E7751F00760A8D /* ScaleNode.swift */; };
-		29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF7259240A614D004DD36F /* IntervalQuizDisplay2Scene.swift */; };
-		29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725B240A6176004DD36F /* TypesAliases.swift */; };
-		29DF725E240A6687004DD36F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
-		29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
-		29E87DCE240A88C500A0BA0A /* PhysicsDisplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */; };
-		29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524223E6DBA600CC776C /* AppDelegate.swift */; };
-		29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F7524423E6DBA600CC776C /* DefaultViewController.swift */; };
-		29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
-		29F7524A23E6DBA700CC776C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524823E6DBA700CC776C /* Main.storyboard */; };
-		29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7525423E6E52500CC776C /* SpriteKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,17 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2945344F23EA0B2D00F92152 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2945344E23EA0B2D00F92152 /* MIKMIDI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		296B1BA423EB334800A7D97B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,7 +113,6 @@
 		29DF725D240A6687004DD36F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		29E7DDDE23FC91F900D15166 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsDisplayScene.swift; sourceTree = "<group>"; };
-		29F7523F23E6DBA600CC776C /* PianoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PianoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7524223E6DBA600CC776C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29F7524423E6DBA600CC776C /* DefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
 		29F7524623E6DBA700CC776C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -186,16 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		29F7523C23E6DBA600CC776C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				295B83A6240013D500993564 /* Percent in Frameworks */,
-				29F7525523E6E52500CC776C /* SpriteKit.framework in Frameworks */,
-				2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +354,6 @@
 		29F7524023E6DBA600CC776C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				29F7523F23E6DBA600CC776C /* PianoGame.app */,
 				296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */,
 			);
 			name = Products;
@@ -502,27 +433,6 @@
 			productReference = 296B1B8B23EB320300A7D97B /* PianoGame_iPad.app */;
 			productType = "com.apple.product-type.application";
 		};
-		29F7523E23E6DBA600CC776C /* PianoGame */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 29F7524F23E6DBA700CC776C /* Build configuration list for PBXNativeTarget "PianoGame" */;
-			buildPhases = (
-				29F7523B23E6DBA600CC776C /* Sources */,
-				29F7523C23E6DBA600CC776C /* Frameworks */,
-				29F7523D23E6DBA600CC776C /* Resources */,
-				2945344F23EA0B2D00F92152 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PianoGame;
-			packageProductDependencies = (
-				295B83A5240013D500993564 /* Percent */,
-			);
-			productName = PianoGame;
-			productReference = 29F7523F23E6DBA600CC776C /* PianoGame.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -535,9 +445,6 @@
 				TargetAttributes = {
 					296B1B8A23EB320300A7D97B = {
 						CreatedOnToolsVersion = 11.3.1;
-					};
-					29F7523E23E6DBA600CC776C = {
-						CreatedOnToolsVersion = 11.0;
 					};
 				};
 			};
@@ -563,7 +470,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				29F7523E23E6DBA600CC776C /* PianoGame */,
 				296B1B8A23EB320300A7D97B /* PianoGame_iPad */,
 			);
 		};
@@ -604,17 +510,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		29F7523D23E6DBA600CC776C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2945345223EA16E700F92152 /* sample.mid in Resources */,
-				29C198D323EF712C007950DE /* wedding.mid in Resources */,
-				29F7524723E6DBA700CC776C /* Assets.xcassets in Resources */,
-				29F7524A23E6DBA700CC776C /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -635,51 +530,6 @@
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
 				29289F062413F3EE006D2F6A /* Note.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		29F7523B23E6DBA600CC776C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */,
-				29D7DF3E23E7751F00760A8D /* ScaleNode.swift in Sources */,
-				296B1BA623EB7C7700A7D97B /* QuizViewController.swift in Sources */,
-				2950286123FC1B6B00073C4E /* GenericViewController.swift in Sources */,
-				296B1BA823EB7C8300A7D97B /* QuizGameScene.swift in Sources */,
-				299F7AB723EB88D0008E6F56 /* SimpleQuizViewController.swift in Sources */,
-				29D7DF3423E765BF00760A8D /* PlayerCharacterNode.swift in Sources */,
-				2950286323FC1BCA00073C4E /* IntervalDisplayScene.swift in Sources */,
-				299F7AB923EB88DB008E6F56 /* SimpleQuizGameScene.swift in Sources */,
-				2929AB3923FC915200AC18C1 /* Note.swift in Sources */,
-				2921E30624071B4800119589 /* Display2Scene.swift in Sources */,
-				291DAD5B2412E175004ADD2F /* Puzzle.swift in Sources */,
-				291DAD592412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift in Sources */,
-				291BEE48240C2D6C0043217B /* CountingExerciseScene.swift in Sources */,
-				29E7DDDF23FC91F900D15166 /* Interval.swift in Sources */,
-				29DF725C240A6176004DD36F /* TypesAliases.swift in Sources */,
-				29E87DCE240A88C500A0BA0A /* PhysicsDisplayScene.swift in Sources */,
-				2964B39523E6EB9100E6BABF /* DefaultGameScene.swift in Sources */,
-				2961E72224127F9D009DACD4 /* SpriteKit-Spring.swift in Sources */,
-				29D7DF3A23E7724600760A8D /* GenericRectanglePhysicsNode.swift in Sources */,
-				29D7DF3823E771A400760A8D /* SpikesNode.swift in Sources */,
-				29818D3F23EB8711009E71F2 /* DisplayViewController.swift in Sources */,
-				290CCCA3240D097500526404 /* CountingExerciseTimingScene.swift in Sources */,
-				29D7DF3C23E7737C00760A8D /* CircleTextNode.swift in Sources */,
-				29F7524523E6DBA600CC776C /* DefaultViewController.swift in Sources */,
-				29AFDA95240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift in Sources */,
-				295B83A324000DAE00993564 /* IntervalGameScene.swift in Sources */,
-				291DAD562412DC1D004ADD2F /* SimpleCountingDisplayNode.swift in Sources */,
-				29DF725E240A6687004DD36F /* Operators.swift in Sources */,
-				29DF725A240A614D004DD36F /* IntervalQuizDisplay2Scene.swift in Sources */,
-				29B1CAB5240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift in Sources */,
-				291DAD5D2412E1E4004ADD2F /* ColorPalette.swift in Sources */,
-				29818D4123EB8721009E71F2 /* DisplayGameScene.swift in Sources */,
-				29A92B4124100FD6004C5131 /* SimpleCountingGameScene.swift in Sources */,
-				29D1B02F2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift in Sources */,
-				29D7DF3623E7680F00760A8D /* GroundNode.swift in Sources */,
-				29F7524323E6DBA600CC776C /* AppDelegate.swift in Sources */,
-				291DAD542412D73A004ADD2F /* PhysicsCountingGameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,46 +723,6 @@
 			};
 			name = Release;
 		};
-		29F7525023E6DBA700CC776C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = PianoGame/PianoGame.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2N6DR3R99K;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = PianoGame/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.bintz.PianoGame;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		29F7525123E6DBA700CC776C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = PianoGame/PianoGame.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2N6DR3R99K;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = PianoGame/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.bintz.PianoGame;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -934,15 +744,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		29F7524F23E6DBA700CC776C /* Build configuration list for PBXNativeTarget "PianoGame" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				29F7525023E6DBA700CC776C /* Debug */,
-				29F7525123E6DBA700CC776C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -955,14 +756,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		295B83A5240013D500993564 /* Percent */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 295B83A4240013D500993564 /* XCRemoteSwiftPackageReference "Percentage" */;
-			productName = Percent;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29F7523723E6DBA600CC776C /* Project object */;
 }
