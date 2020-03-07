@@ -11,23 +11,6 @@ class InWorldPuzzleCountingGameScene: SKScene {
     let MIDIDeviceName = "Alesis Recital Pro "  // trailing space intentional
     
     
-    #if os(macOS)
-    let colorPaletteDefault = ColorPalette(
-        
-        backgroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
-        foregroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1),
-        correctColor: .systemGreen,
-        incorrectColor: .systemRed
-    )
-    
-    let colorPaletteDarkMode = ColorPalette(
-        
-        backgroundColor: NSColor(red: 44.0/255.0, green: 44.0/255.0, blue: 44.0/255.0, alpha: 1),
-        foregroundColor: NSColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
-        correctColor: .systemGreen,
-        incorrectColor: .systemRed
-    )
-    #elseif os(iOS)
     let colorPaletteDefault = ColorPalette(
         
         backgroundColor: UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1),
@@ -43,7 +26,6 @@ class InWorldPuzzleCountingGameScene: SKScene {
         correctColor: .systemGreen,
         incorrectColor: .systemRed
     )
-    #endif
     
     var colorPalette: ColorPalette!
     
@@ -243,7 +225,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-//        self.connectToMIDIDevice()
+        self.connectToMIDIDevice()
         
         self.configureColorPalette()
         self.initScene()
@@ -254,11 +236,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
     
     func configureColorPalette() {
         
-        #if os(macOS)
-        self.colorPalette = self.view?.effectiveAppearance.name == NSAppearance.Name.darkAqua ? self.colorPaletteDarkMode : self.colorPaletteDefault
-        #elseif os(iOS)
         self.colorPalette = self.view?.traitCollection.userInterfaceStyle == .dark ? self.colorPaletteDarkMode : self.colorPaletteDefault
-        #endif
     }
     
     
