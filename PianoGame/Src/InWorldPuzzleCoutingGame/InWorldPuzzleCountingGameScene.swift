@@ -243,7 +243,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        self.connectToMIDIDevice()
+//        self.connectToMIDIDevice()
         
         self.configureColorPalette()
         self.initScene()
