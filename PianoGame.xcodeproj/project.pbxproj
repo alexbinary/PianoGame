@@ -15,6 +15,15 @@
 		291DAD5B2412E175004ADD2F /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5A2412E175004ADD2F /* Puzzle.swift */; };
 		291DAD5D2412E1E4004ADD2F /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
 		2921E30624071B4800119589 /* Display2Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2921E30524071B4800119589 /* Display2Scene.swift */; };
+		29289F062413F3EE006D2F6A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
+		29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
+		29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
+		29289F0D2413F91E006D2F6A /* SimpleCountingDisplayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */; };
+		29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5A2412E175004ADD2F /* Puzzle.swift */; };
+		29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725B240A6176004DD36F /* TypesAliases.swift */; };
+		29289F102413F93C006D2F6A /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DDDE23FC91F900D15166 /* Interval.swift */; };
+		29289F112413F9E3006D2F6A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DF725D240A6687004DD36F /* Operators.swift */; };
+		29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
 		2929AB3623FC8B0E00AC18C1 /* IntervalQuizScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */; };
 		2929AB3923FC915200AC18C1 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
 		2945344D23EA0B2D00F92152 /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344823EA0AB200F92152 /* MIKMIDI.framework */; };
@@ -616,9 +625,18 @@
 			files = (
 				29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */,
 				296B1B9223EB320300A7D97B /* ViewController.swift in Sources */,
+				29289F102413F93C006D2F6A /* Interval.swift in Sources */,
+				29289F0D2413F91E006D2F6A /* SimpleCountingDisplayNode.swift in Sources */,
 				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
+				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
+				29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */,
+				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
+				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
+				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
+				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
 				296B1B9023EB320300A7D97B /* SceneDelegate.swift in Sources */,
+				29289F062413F3EE006D2F6A /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

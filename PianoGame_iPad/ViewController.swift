@@ -9,14 +9,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let scene = InWorldPuzzleCountingGameScene(size: CGSize(width: 1600, height: 900))
+        scene.scaleMode = .aspectFit
         
-        let skView = view as! SKView
-        
-        let scene = SimpleQuizGameScene()
-        
-        scene.scaleMode = .resizeFill
-        
-        skView.presentScene(scene)
+        (view as! SKView).presentScene(scene)
     }
 }
 
