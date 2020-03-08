@@ -51,6 +51,7 @@ class AudioKitTestScene: SKScene {
         sequencer.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound.midiIn)
         generateNewMelodicSequence()
         
+//        sequencer.setLength(AKDuration(beats: 2))
         sequencer.enableLooping()
         sequencer.setTempo(60)
         sequencer.play()
@@ -62,16 +63,28 @@ class AudioKitTestScene: SKScene {
         sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(60),
                                                        velocity: 100,
                                                        position: AKDuration(beats: 0),
-                                                       duration: AKDuration(beats: 1/2))
+                                                       duration: AKDuration(beats: 1))
         
         sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(70),
                                                        velocity: 100,
                                                        position: AKDuration(beats: 1),
-                                                       duration: AKDuration(beats: 1/2))
+                                                       duration: AKDuration(beats: 1))
+        
+        sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(70),
+                                                       velocity: 0,
+                                                       position: AKDuration(beats: 0),
+                                                       duration: AKDuration(beats: 4))
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(65),
                                                        velocity: 100,
                                                        position: AKDuration(beats: 2),
                                                        duration: AKDuration(beats: 1))
+        
+//        sequencer.setLength(AKDuration(beats: 3))
+        sequencer.enableLooping()
     }
 }
