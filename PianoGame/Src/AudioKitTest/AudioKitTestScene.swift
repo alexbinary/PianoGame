@@ -14,14 +14,8 @@ class AudioKitTestScene: SKScene {
     
     
     var fmOscillator = AKFMOscillatorBank()
-    var verb: AKReverb2!
     var sequencer = AKAppleSequencer()
-    let sequenceLength = AKDuration(beats: 8.0)
     var melodicSound: AKMIDINode!
-    let scale1: [Int] = [0, 2, 4, 7, 9]
-    let scale2: [Int] = [0, 3, 5, 7, 10]
-    var pumper: AKCompressor!
-    var mixer = AKMixer()
 
     
     override func didMove(to view: SKView) {
@@ -43,29 +37,9 @@ class AudioKitTestScene: SKScene {
         fmOscillator.modulationIndex = 0.3
 
         melodicSound = AKMIDINode(node: fmOscillator)
-        verb = AKReverb2(melodicSound)
-        verb.dryWetMix = 0.5
-        verb.decayTimeAt0Hz = 7
-        verb.decayTimeAtNyquist = 11
-        verb.randomizeReflections = 600
-        verb.gain = 1
-        
-        pumper = AKCompressor(mixer)
 
-        pumper.headRoom = 0.10
-        pumper.threshold = -15
-        pumper.masterGain = 10
-        pumper.attackDuration = 0.01
-        pumper.releaseDuration = 0.3
-
-        [verb] >>> mixer
-
-        AudioKit.output = pumper
-        do {
-            try AudioKit.start()
-        } catch {
-            AKLog("AudioKit did not start!")
-        }
+        AudioKit.output = melodicSound
+        try! AudioKit.start()
         
         setupTracks()
     }
@@ -74,44 +48,30 @@ class AudioKitTestScene: SKScene {
     func setupTracks() {
         
         _ = sequencer.newTrack()
-        sequencer.setLength(sequenceLength)
         sequencer.tracks[Sequence.melody.rawValue].setMIDIOutput(melodicSound.midiIn)
-        generateNewMelodicSequence(minor: false)
+        generateNewMelodicSequence()
         
         sequencer.enableLooping()
-        sequencer.setTempo(100)
+        sequencer.setTempo(60)
         sequencer.play()
     }
     
     
-    func generateNewMelodicSequence(_ stepSize: Float = 1 / 8, minor: Bool = false, clear: Bool = true) {
-        if clear { sequencer.tracks[Sequence.melody.rawValue].clear() }
-        sequencer.setLength(sequenceLength)
-        let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
-        //AKLog("steps in sequence: \(numberOfSteps)")
-        for i in 0 ..< numberOfSteps {
-            if arc4random_uniform(17) > 12 {
-                let step = Double(i) * stepSize
-                //AKLog("step is \(step)")
-                let scale = (minor ? scale2 : scale1)
-                let scaleOffset = arc4random_uniform(UInt32(scale.count) - 1)
-                var octaveOffset = 0
-                for _ in 0 ..< 2 {
-                    octaveOffset += Int(12 * (((Float(arc4random_uniform(2))) * 2.0) + (-1.0)))
-                    octaveOffset = Int(
-                        (Float(arc4random_uniform(2))) *
-                        (Float(arc4random_uniform(2))) *
-                        Float(octaveOffset)
-                    )
-                }
-                //AKLog("octave offset is \(octaveOffset)")
-                let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
-                sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(noteToAdd),
-                                                               velocity: 100,
-                                                               position: AKDuration(beats: step),
-                                                               duration: AKDuration(beats: 1))
-            }
-        }
-        sequencer.setLength(sequenceLength)
+    func generateNewMelodicSequence() {
+        
+        sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(60),
+                                                       velocity: 100,
+                                                       position: AKDuration(beats: 0),
+                                                       duration: AKDuration(beats: 1/2))
+        
+        sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(70),
+                                                       velocity: 100,
+                                                       position: AKDuration(beats: 1),
+                                                       duration: AKDuration(beats: 1/2))
+        
+        sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(65),
+                                                       velocity: 100,
+                                                       position: AKDuration(beats: 2),
+                                                       duration: AKDuration(beats: 1))
     }
 }
