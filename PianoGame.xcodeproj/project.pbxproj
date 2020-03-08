@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
+		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
+		291A095D24157C1400DC1BD2 /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
 		29289F062413F3EE006D2F6A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
 		29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
 		29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
@@ -68,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseTimingScene.swift; sourceTree = "<group>"; };
+		291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencingTestScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
 		291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCountingGameScene.swift; sourceTree = "<group>"; };
 		291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingDisplayNode.swift; sourceTree = "<group>"; };
@@ -136,6 +140,14 @@
 				290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */,
 			);
 			path = CountingExerciseTiming;
+			sourceTree = "<group>";
+		};
+		291A09562415797900DC1BD2 /* SequencingTest */ = {
+			isa = PBXGroup;
+			children = (
+				291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */,
+			);
+			path = SequencingTest;
 			sourceTree = "<group>";
 		};
 		291BEE43240C2D4A0043217B /* CountingExercise */ = {
@@ -371,6 +383,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				291A09562415797900DC1BD2 /* SequencingTest */,
 				29D994DD241535DB00EC274D /* SpeechGame */,
 				291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */,
 				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
@@ -495,8 +508,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291A095C24157C1000DC1BD2 /* sample.mid in Resources */,
 				296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */,
 				29289F192413FE6D006D2F6A /* Assets.xcassets in Resources */,
+				291A095D24157C1400DC1BD2 /* wedding.mid in Resources */,
 				296B1B9523EB320300A7D97B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +533,7 @@
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
 				29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */,
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
+				291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */,
 				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
