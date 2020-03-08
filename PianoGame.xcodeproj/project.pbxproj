@@ -25,6 +25,7 @@
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
+		29D994E22415360100EC274D /* PlatformerGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D994E12415360100EC274D /* PlatformerGameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		29D7DF3923E7724600760A8D /* GenericRectanglePhysicsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRectanglePhysicsNode.swift; sourceTree = "<group>"; };
 		29D7DF3B23E7737C00760A8D /* CircleTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleTextNode.swift; sourceTree = "<group>"; };
 		29D7DF3D23E7751F00760A8D /* ScaleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleNode.swift; sourceTree = "<group>"; };
+		29D994E12415360100EC274D /* PlatformerGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformerGameScene.swift; sourceTree = "<group>"; };
 		29DF7259240A614D004DD36F /* IntervalQuizDisplay2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizDisplay2Scene.swift; sourceTree = "<group>"; };
 		29DF725B240A6176004DD36F /* TypesAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesAliases.swift; sourceTree = "<group>"; };
 		29DF725D240A6687004DD36F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -317,6 +319,14 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		29D994DD241535DB00EC274D /* PlatformerGame */ = {
+			isa = PBXGroup;
+			children = (
+				29D994E12415360100EC274D /* PlatformerGameScene.swift */,
+			);
+			path = PlatformerGame;
+			sourceTree = "<group>";
+		};
 		29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +371,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				29D994DD241535DB00EC274D /* PlatformerGame */,
 				291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */,
 				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
 				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
@@ -505,6 +516,7 @@
 				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
 				29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */,
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
+				29D994E22415360100EC274D /* PlatformerGameScene.swift in Sources */,
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
 				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
