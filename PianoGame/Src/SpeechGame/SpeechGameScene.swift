@@ -79,11 +79,11 @@ class SpeechGameScene: SKScene {
 
         self.recognitionTask = self.speechRecognizer!.recognitionTask(with: self.request) { result, error in
             print("-----------")
-            print("substring: \(result!.bestTranscription.segments.last?.substring)")
-            print("alternativeSubstrings: \(result!.bestTranscription.segments.last?.alternativeSubstrings)")
+            print("substring: \(String(describing: result!.bestTranscription.segments.last?.substring))")
+            print("alternativeSubstrings: \(String(describing: result!.bestTranscription.segments.last?.alternativeSubstrings))")
             
             let letter = result!.bestTranscription.segments.last?.substring.last!.uppercased()
-            print("letter: \(letter)")
+            print("letter: \(String(describing: letter))")
             
             switch letter {
                 case "A":

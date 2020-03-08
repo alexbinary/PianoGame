@@ -31,7 +31,7 @@ class SequencingTestScene: SKScene {
 //        let tempoEvent = MIKMIDITempoEvent(timeStamp: 0, tempo: 60)
 //        tempoTrack.addEvent(tempoEvent)
         
-        let musicTrack = try! sequence.addTrack()
+//        let musicTrack = try! sequence.addTrack()
         
         let event = MIKMIDINoteEvent(timeStamp: 2000, note: 60, velocity: 128, duration: 2000, channel: 1)
         sequence.tracks[0].addEvent(event)
