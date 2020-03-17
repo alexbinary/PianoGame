@@ -14,6 +14,8 @@ class RecorderViewController: UIViewController {
     var melodicSound: AKMIDINode!
     var track: AKMusicTrack!
     
+    var lastNoteOn: [MIDINoteNumber: (timeStart: AKDuration, velocity: MIDIVelocity)] = [:]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,8 @@ class RecorderViewController: UIViewController {
     
     @IBAction func record() {
         
-        track.clear()
+        sequencer.rewind()
+        sequencer.play()
     }
     
     
@@ -63,10 +66,17 @@ extension RecorderViewController: AKMIDIListener {
         
         if velocity > 0 {
             
-            track.add(noteNumber: noteNumber,
-                      velocity: velocity,
-                      position: AKDuration(beats: 0),
-                      duration: AKDuration(beats: 1))
+            self.lastNoteOn[noteNumber] = (timeStart: sequencer.currentPosition, velocity: velocity)
+            
+        } else {
+            
+            if let noteOn = self.lastNoteOn[noteNumber] {
+            
+                track.add(noteNumber: noteNumber,
+                          velocity: noteOn.velocity,
+                          position: noteOn.timeStart,
+                          duration: sequencer.currentPosition - noteOn.timeStart)
+            }
         }
     }
 }
