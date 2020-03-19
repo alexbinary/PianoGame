@@ -17,6 +17,8 @@ class RecorderViewController: UIViewController {
     var lastNoteOn: [MIDINoteNumber: (timeStart: AKDuration, velocity: MIDIVelocity)] = [:]
     
     let oscillator = AKOscillatorBank()
+    var kick = AKSynthKick()
+    var booster: AKBooster!
     
     
     override func viewDidLoad() {
@@ -26,7 +28,9 @@ class RecorderViewController: UIViewController {
         fmOscillator.modulationIndex = 0.3
         melodicSound = AKMIDINode(node: fmOscillator)
         AudioKit.output = melodicSound
-        AudioKit.output = oscillator
+        
+        booster = AKBooster(kick, gain: 5)
+        AudioKit.output = booster
         
         let midi = AudioKit.midi
         midi.openInput(name: MIDIDeviceName)
@@ -71,7 +75,10 @@ extension RecorderViewController: AKMIDIListener {
             
             self.lastNoteOn[noteNumber] = (timeStart: sequencer.currentPosition, velocity: velocity)
             
-            self.oscillator.play(noteNumber: noteNumber, velocity: velocity)
+//            self.oscillator.play(noteNumber: noteNumber, velocity: velocity)
+            
+            self.kick.play(noteNumber: noteNumber, velocity: velocity)
+            self.kick.stop(noteNumber: noteNumber)
             
         } else {
             
@@ -83,7 +90,7 @@ extension RecorderViewController: AKMIDIListener {
                           duration: sequencer.currentPosition - noteOn.timeStart)
             }
             
-            self.oscillator.stop(noteNumber: noteNumber)
+//            self.oscillator.stop(noteNumber: noteNumber)
         }
     }
 }
