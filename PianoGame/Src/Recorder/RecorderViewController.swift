@@ -16,6 +16,8 @@ class RecorderViewController: UIViewController {
     
     var lastNoteOn: [MIDINoteNumber: (timeStart: AKDuration, velocity: MIDIVelocity)] = [:]
     
+    let clarinet = AKClarinet()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class RecorderViewController: UIViewController {
         fmOscillator.modulationIndex = 0.3
         melodicSound = AKMIDINode(node: fmOscillator)
         AudioKit.output = melodicSound
+        AudioKit.output = clarinet
         
         let midi = AudioKit.midi
         midi.openInput(name: MIDIDeviceName)
@@ -68,6 +71,8 @@ extension RecorderViewController: AKMIDIListener {
             
             self.lastNoteOn[noteNumber] = (timeStart: sequencer.currentPosition, velocity: velocity)
             
+            self.clarinet.trigger(frequency: noteNumber.midiNoteToFrequency(), amplitude: 0.1)
+            
         } else {
             
             if let noteOn = self.lastNoteOn[noteNumber] {
@@ -77,6 +82,8 @@ extension RecorderViewController: AKMIDIListener {
                           position: noteOn.timeStart,
                           duration: sequencer.currentPosition - noteOn.timeStart)
             }
+            
+            self.clarinet.stop()
         }
     }
 }
