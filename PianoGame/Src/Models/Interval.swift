@@ -23,5 +23,11 @@ enum Interval: CaseIterable {
     }
     
     
+    init(from bottomNote: Note, to topNote: Note) {
+        
+        self.init(fromHalfSteps: UInt(((Note.allCases.firstIndex(of: topNote)! - Note.allCases.firstIndex(of: bottomNote)!)+12) % 12))
+    }
+    
+    
     var lengthInHalfSteps: UInt { return UInt(Interval.allCases.firstIndex(of: self)!) }
 }

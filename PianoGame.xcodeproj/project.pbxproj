@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2900F3FC2428F6FC00722102 /* ScaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900F3FB2428F6FC00722102 /* ScaleViewController.swift */; };
+		2900F3FE2428FC3000722102 /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900F3FD2428FC3000722102 /* Scale.swift */; };
 		291366A224158DCC00C4BA8C /* AudioKitTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291366A124158DCC00C4BA8C /* AudioKitTestScene.swift */; };
 		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
 		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
@@ -89,6 +91,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2900F3FB2428F6FC00722102 /* ScaleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleViewController.swift; sourceTree = "<group>"; };
+		2900F3FD2428FC3000722102 /* Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		290CCCA2240D097500526404 /* CountingExerciseTimingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseTimingScene.swift; sourceTree = "<group>"; };
 		291366A124158DCC00C4BA8C /* AudioKitTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitTestScene.swift; sourceTree = "<group>"; };
 		291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencingTestScene.swift; sourceTree = "<group>"; };
@@ -157,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2900F3F52428F6E000722102 /* Scale */ = {
+			isa = PBXGroup;
+			children = (
+				2900F3FB2428F6FC00722102 /* ScaleViewController.swift */,
+			);
+			path = Scale;
+			sourceTree = "<group>";
+		};
 		290CCC9E240D095C00526404 /* CountingExerciseTiming */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +240,7 @@
 				29E7DDDE23FC91F900D15166 /* Interval.swift */,
 				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
 				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
+				2900F3FD2428FC3000722102 /* Scale.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -431,6 +444,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				2900F3F52428F6E000722102 /* Scale */,
 				29D6FACD24216EBC002FC01D /* Recorder */,
 				291366A024158DB500C4BA8C /* AudioKitTest */,
 				291A09562415797900DC1BD2 /* SequencingTest */,
@@ -599,8 +613,10 @@
 				29289F0D2413F91E006D2F6A /* SimpleCountingDisplayNode.swift in Sources */,
 				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
 				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
+				2900F3FE2428FC3000722102 /* Scale.swift in Sources */,
 				29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */,
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
+				2900F3FC2428F6FC00722102 /* ScaleViewController.swift in Sources */,
 				29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */,
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
 				291366A224158DCC00C4BA8C /* AudioKitTestScene.swift in Sources */,

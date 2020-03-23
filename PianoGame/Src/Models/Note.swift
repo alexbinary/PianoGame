@@ -28,16 +28,21 @@ enum Note : CaseIterable {
     }
     
     
-    mutating func adding(_ interval: Interval) -> Note {
+    func adding(_ interval: Interval) -> Note {
         
-        return self.addingHalfSteps(interval.lengthInHalfSteps)
+        return self.addingHalfSteps(Int(interval.lengthInHalfSteps))
     }
     
     
-    mutating func addingHalfSteps(_ halfSteps: UInt) -> Note {
+    func addingHalfSteps(_ halfSteps: Int) -> Note {
         
-        return Note.allCases[(Note.allCases.firstIndex(of: self)! + Int(halfSteps)) % 12]
+        return Note.allCases[(Note.allCases.firstIndex(of: self)! + halfSteps) % 12]
     }
+    
+    
+    var sharp: Note { return self.addingHalfSteps(1) }
+    
+    var flat: Note { return self.addingHalfSteps(-1) }
 }
 
 
