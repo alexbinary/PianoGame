@@ -1,6 +1,6 @@
 
 
-enum Note : CaseIterable {
+public enum Note : CaseIterable {
 
     
     case c
@@ -49,7 +49,7 @@ enum Note : CaseIterable {
 extension Note: CustomStringConvertible {
     
     
-    var description: String {
+    public var description: String {
         
         let mapping: [Note: String] = [
             .c: "C",
