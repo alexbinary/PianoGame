@@ -7,12 +7,46 @@ import MIKMIDI
 class SightReadingScene: SKScene {
     
     
-    var staffReferenceYPosition: CGFloat { self.frame.height / 2 + 200}
+    enum Clef {
+        
+        case treble
+        case bass
+    }
+
+
+    struct StaffNote {
+        
+        let note: Note
+        let octave: Int
+        
+        init(_ note: Note, octave: Int) {
+            self.note = note
+            self.octave = octave
+        }
+    }
+
+
+    struct ExerciseItem {
+        
+        let staffNotes: [StaffNote]
+        let annotations: [String]
+    }
+    
+    
+    struct Exercise {
+        
+        let clef: Clef
+        let items: [ExerciseItem]
+    }
+    
+    
+    var staffReferenceYPosition: CGFloat { self.frame.height / 2 + 100}
     let staffNumberOfLines = 5
     let staffLineHeight: CGFloat = 5
     let staffLineSpacing: CGFloat = 50
     let staffNoteEllipseness: CGFloat = 1.2
     let staffLedgerLineWidth: CGFloat = 100
+    let annotationDistanceFromStaffFirstLine: CGFloat = 100
     
     
     var staffYPositionOfFirstLine: CGFloat! = nil
@@ -21,17 +55,60 @@ class SightReadingScene: SKScene {
     var annotationNodes: [SKNode] = []
     
     
+    var currentExercise: Exercise!
+    
+    
+    var exerciseNodes: [SKNode] = []
+    
+    
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0, y: 0)
         
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
+        self.currentExercise = Exercise(clef: .treble, items: [
+            ExerciseItem(staffNotes: [StaffNote(.c, octave: 4), StaffNote(.e, octave: 4), StaffNote(.g, octave: 4)], annotations: ["CEG", "C"])
+        ])
+        
         self.drawStaff()
-        self.drawClef(.bass)
-        self.drawNotes([StaffNote(.c, octave: 4), StaffNote(.e, octave: 4), StaffNote(.g, octave: 4)], clef: .treble, x: 500)
-        self.drawNotes([StaffNote(.c, octave: 4)], clef: .bass, x: 800)
-        self.drawAnnotation(["CEG", "C"], x: 500)
+        self.drawExercise(self.currentExercise)
+        
+        self.clearExercise()
+        
+        self.currentExercise = Exercise(clef: .bass, items: [
+            ExerciseItem(staffNotes: [StaffNote(.d, octave: 3), StaffNote(.f, octave: 3), StaffNote(.a, octave: 3)], annotations: ["DFA", "Dm"])
+        ])
+        self.drawExercise(self.currentExercise)
+    }
+    
+    
+    func clearExercise() {
+        
+        self.removeChildren(in: self.exerciseNodes)
+        self.exerciseNodes.removeAll()
+        self.annotationNodes.removeAll()
+    }
+    
+    
+    func drawExercise(_ exercise: Exercise) {
+        
+        self.exerciseNodes.append(self.drawClef(exercise.clef))
+        
+        let minX: CGFloat = 200
+        let maxX: CGFloat = self.frame.width - 100
+        let xSpan: CGFloat = maxX - minX
+        let xStep: CGFloat = xSpan / CGFloat(exercise.items.count + 1)
+        
+        var x = minX + xStep
+        
+        for item in exercise.items {
+    
+            self.exerciseNodes.append(contentsOf: self.drawNotes(item.staffNotes, clef: exercise.clef, x: x))
+            self.exerciseNodes.append(contentsOf: self.drawAnnotation(item.annotations, x: x))
+            
+            x += xStep
+        }
         
         self.hideAnnotations()
     }
@@ -65,7 +142,7 @@ class SightReadingScene: SKScene {
     }
     
     
-    func drawClef(_ clef: Clef) {
+    func drawClef(_ clef: Clef) -> SKNode {
         
         switch clef {
         case .treble:
@@ -73,22 +150,26 @@ class SightReadingScene: SKScene {
             spriteNode.setScale(0.2)
             spriteNode.position = CGPoint(x: 100, y: self.staffReferenceYPosition - 28)
             self.addChild(spriteNode)
+            return spriteNode
         case .bass:
             let spriteNode = SKSpriteNode(imageNamed: "bass_clef")
             spriteNode.setScale(0.15)
             spriteNode.position = CGPoint(x: 100, y: self.staffReferenceYPosition - 10)
             self.addChild(spriteNode)
+            return spriteNode
         }
     }
     
     
-    func drawNotes(_ staffNotes: [StaffNote], clef: Clef, x: CGFloat) {
+    func drawNotes(_ staffNotes: [StaffNote], clef: Clef, x: CGFloat) -> [SKNode] {
         
         let referenceNote: Note = .c
         let referenceOctave = 4
         let offsetForOneOctave = 7
         
         let naturalNotes = Note.allCases.filter { !$0.isSharp }
+        
+        var nodes: [SKNode] = []
         
         for staffNote in staffNotes {
             
@@ -102,24 +183,31 @@ class SightReadingScene: SKScene {
             noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(noteStaffOffsetFromFirstLine) * self.staffLineSpacing/2)
             self.addChild(noteNode)
             
+            nodes.append(noteNode)
+            
             if noteStaffOffsetFromFirstLine < 0 || noteStaffOffsetFromFirstLine > 9 {
-                self.drawLedgerLine(x: x, staffOffsetFromFirstLine: noteStaffOffsetFromFirstLine)
+                nodes.append(self.drawLedgerLine(x: x, staffOffsetFromFirstLine: noteStaffOffsetFromFirstLine))
             }
         }
+        
+        return nodes
     }
     
     
-    func drawLedgerLine(x: CGFloat, staffOffsetFromFirstLine: Int) {
+    func drawLedgerLine(x: CGFloat, staffOffsetFromFirstLine: Int) -> SKNode {
         
         let line = SKSpriteNode(color: .black, size: CGSize(width: self.staffLedgerLineWidth, height: self.staffLineHeight))
         line.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetFromFirstLine) * self.staffLineSpacing/2)
         self.addChild(line)
+        return line
     }
     
     
-    func drawAnnotation(_ texts: [String], x: CGFloat) {
+    func drawAnnotation(_ texts: [String], x: CGFloat) -> [SKNode] {
         
-        var y = self.staffYPositionOfFirstLine - 200
+        var y = self.staffYPositionOfFirstLine - annotationDistanceFromStaffFirstLine
+        
+        var nodes: [SKNode] = []
         
         for text in texts {
             
@@ -132,10 +220,15 @@ class SightReadingScene: SKScene {
             labelNode.horizontalAlignmentMode = .center
             labelNode.position = CGPoint(x: x, y: y)
             self.addChild(labelNode)
+            
+            nodes.append(labelNode)
+            
             y -= labelNode.calculateAccumulatedFrame().height
             
             self.annotationNodes.append(labelNode)
         }
+        
+        return nodes
     }
     
     
@@ -148,24 +241,5 @@ class SightReadingScene: SKScene {
     func hideAnnotations() {
         
         self.annotationNodes.forEach { $0.isHidden = true }
-    }
-}
-
-
-enum Clef {
-    
-    case treble
-    case bass
-}
-
-
-struct StaffNote {
-    
-    let note: Note
-    let octave: Int
-    
-    init(_ note: Note, octave: Int) {
-        self.note = note
-        self.octave = octave
     }
 }
