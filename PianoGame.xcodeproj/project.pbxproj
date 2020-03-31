@@ -25,6 +25,7 @@
 		29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */; };
 		29289F192413FE6D006D2F6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F7524623E6DBA700CC776C /* Assets.xcassets */; };
 		294963EB24336EAC002D267A /* treble_clef.png in Resources */ = {isa = PBXBuildFile; fileRef = 294963E524336EAB002D267A /* treble_clef.png */; };
+		294963ED24337057002D267A /* bass_clef.png in Resources */ = {isa = PBXBuildFile; fileRef = 294963EC24337057002D267A /* bass_clef.png */; };
 		294DCAB1241591D5005E69F0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAAE241591A7005E69F0 /* AudioKit.framework */; };
 		294DCAB2241591D5005E69F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAAE241591A7005E69F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
@@ -120,6 +121,7 @@
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
 		294963E524336EAB002D267A /* treble_clef.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = treble_clef.png; sourceTree = "<group>"; };
+		294963EC24337057002D267A /* bass_clef.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bass_clef.png; sourceTree = "<group>"; };
 		294DCAA8241591A6005E69F0 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../dev/AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDisplayScene.swift; sourceTree = "<group>"; };
 		295B83A224000DAE00993564 /* IntervalGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalGameScene.swift; path = PianoGame/Src/IntervalGame/IntervalGameScene.swift; sourceTree = SOURCE_ROOT; };
@@ -291,6 +293,7 @@
 				2945345123EA16E700F92152 /* sample.mid */,
 				29C198CF23EF712C007950DE /* wedding.mid */,
 				294963E524336EAB002D267A /* treble_clef.png */,
+				294963EC24337057002D267A /* bass_clef.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 			files = (
 				291A095C24157C1000DC1BD2 /* sample.mid in Resources */,
 				296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */,
+				294963ED24337057002D267A /* bass_clef.png in Resources */,
 				29289F192413FE6D006D2F6A /* Assets.xcassets in Resources */,
 				291A095D24157C1400DC1BD2 /* wedding.mid in Resources */,
 				296B1B9523EB320300A7D97B /* Main.storyboard in Resources */,

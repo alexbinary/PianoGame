@@ -23,7 +23,7 @@ class SightReadingScene: SKScene {
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
         self.drawStaff()
-        self.drawClef(.treble)
+        self.drawClef(.bass)
         self.drawNote(note: .c, octave: 4, clef: .bass, x: 500)
     }
     
@@ -47,10 +47,18 @@ class SightReadingScene: SKScene {
     
     func drawClef(_ clef: Clef) {
         
-        let spriteNode = SKSpriteNode(imageNamed: "treble_clef")
-        spriteNode.setScale(0.2)
-        spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 28)
-        self.addChild(spriteNode)
+        switch clef {
+        case .treble:
+            let spriteNode = SKSpriteNode(imageNamed: "treble_clef")
+            spriteNode.setScale(0.2)
+            spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 28)
+            self.addChild(spriteNode)
+        case .bass:
+            let spriteNode = SKSpriteNode(imageNamed: "bass_clef")
+            spriteNode.setScale(0.15)
+            spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 10)
+            self.addChild(spriteNode)
+        }
     }
     
     
