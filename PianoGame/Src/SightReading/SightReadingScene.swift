@@ -23,6 +23,24 @@ class SightReadingScene: SKScene {
             self.note = note
             self.octave = octave
         }
+        
+        func addingStaffOffset(_ offset: Int) -> StaffNote {
+            
+            let naturalNotes = Note.allCases.filter { !$0.isSharp }
+            let absoluteIndex = naturalNotes.firstIndex(of: self.note)! + offset
+            let note = naturalNotes[(absoluteIndex + 7) % 7]
+            
+            var octave = self.octave
+            
+            if absoluteIndex > 6 {
+                octave += Int(absoluteIndex)/Int(7)
+            }
+            if absoluteIndex < 0 {
+                octave -= Int(absoluteIndex)/Int(7) + 1
+            }
+            
+            return StaffNote(note, octave: octave)
+        }
     }
 
 
@@ -67,25 +85,63 @@ class SightReadingScene: SKScene {
         
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
-        self.currentExercise = Exercise(clef: .treble, items: [
-            ExerciseItem(staffNotes: [StaffNote(.e, octave: 4)], annotations: ["E"]),
-            ExerciseItem(staffNotes: [StaffNote(.d, octave: 4)], annotations: ["D"]),
-            ExerciseItem(staffNotes: [StaffNote(.c, octave: 4)], annotations: ["C"]),
-            ExerciseItem(staffNotes: [StaffNote(.b, octave: 3)], annotations: ["B"]),
-            ExerciseItem(staffNotes: [StaffNote(.a, octave: 3)], annotations: ["A"]),
-            ExerciseItem(staffNotes: [StaffNote(.g, octave: 3)], annotations: ["G"]),
-        ])
-        
-        self.currentExercise = Exercise(clef: .treble, items: [
-            ExerciseItem(staffNotes: [StaffNote(.f, octave: 5)], annotations: ["F"]),
-            ExerciseItem(staffNotes: [StaffNote(.g, octave: 5)], annotations: ["G"]),
-            ExerciseItem(staffNotes: [StaffNote(.a, octave: 5)], annotations: ["A"]),
-            ExerciseItem(staffNotes: [StaffNote(.b, octave: 5)], annotations: ["B"]),
-            ExerciseItem(staffNotes: [StaffNote(.c, octave: 6)], annotations: ["C"]),
-            ExerciseItem(staffNotes: [StaffNote(.d, octave: 6)], annotations: ["D"]),
-        ])
-        
         self.drawStaff()
+        
+        self.nextExercise()
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        switch touches.count {
+        case 1:
+            self.showAnnotations()
+        case 2:
+            self.nextExercise()
+        default:
+            print("unsupported number of touches")
+        }
+    }
+    
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.hideAnnotations()
+    }
+    
+    
+    func nextExercise() {
+        
+        let numberOfNotes = 7
+        let maxExcursion = 3
+        
+        var clef: Clef
+        var centerNote: StaffNote
+        
+        if Bool.random() {
+            
+            clef = .treble
+            centerNote = Bool.random() ? StaffNote(.g, octave: 4) : StaffNote(.c, octave: Bool.random() ? 4 : 5)
+            
+        } else {
+            
+            clef = .bass
+            centerNote = Bool.random() ? StaffNote(.f, octave: 3) : StaffNote(.c, octave: Bool.random() ? 4 : 3)
+        }
+        
+        var notes = [centerNote]
+        
+        for _ in 1..<numberOfNotes {
+            notes.append(centerNote.addingStaffOffset((-maxExcursion...maxExcursion).randomElement()!))
+        }
+        
+        self.currentExercise = Exercise(clef: clef, items:
+            notes.map {
+                ExerciseItem(staffNotes: [$0], annotations: [$0.note.description])
+            }
+        )
+        
+        self.clearExercise()
         self.drawExercise(self.currentExercise)
     }
     
@@ -103,7 +159,7 @@ class SightReadingScene: SKScene {
         self.exerciseNodes.append(self.drawClef(exercise.clef))
         
         let minX: CGFloat = 200
-        let maxX: CGFloat = self.frame.width - 100
+        let maxX: CGFloat = self.frame.width - 50
         let xSpan: CGFloat = maxX - minX
         let xStep: CGFloat = xSpan / CGFloat(exercise.items.count + 1)
         
@@ -116,18 +172,6 @@ class SightReadingScene: SKScene {
             
             x += xStep
         }
-        
-        self.hideAnnotations()
-    }
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        self.showAnnotations()
-    }
-    
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.hideAnnotations()
     }

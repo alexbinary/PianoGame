@@ -13,6 +13,8 @@ class GenericSpriteKitViewController: UIViewController {
         scene.scaleMode = .aspectFit
         
         (view as! SKView).presentScene(scene)
+        
+        view.isMultipleTouchEnabled = true
     }
 }
 
