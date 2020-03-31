@@ -12,9 +12,13 @@ class SightReadingScene: SKScene {
     let staffLineHeight: CGFloat = 5
     let staffLineSpacing: CGFloat = 50
     let staffNoteEllipseness: CGFloat = 1.2
+    let staffLedgerLineWidth: CGFloat = 100
     
     
     var staffYPositionOfFirstLine: CGFloat! = nil
+    
+    
+    var annotationNodes: [SKNode] = []
     
     
     override func didMove(to view: SKView) {
@@ -26,7 +30,22 @@ class SightReadingScene: SKScene {
         self.drawStaff()
         self.drawClef(.bass)
         self.drawNotes([StaffNote(.c, octave: 4), StaffNote(.e, octave: 4), StaffNote(.g, octave: 4)], clef: .treble, x: 500)
+        self.drawNotes([StaffNote(.c, octave: 4)], clef: .bass, x: 800)
         self.drawAnnotation(["CEG", "C"], x: 500)
+        
+        self.hideAnnotations()
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.showAnnotations()
+    }
+    
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.hideAnnotations()
     }
     
     
@@ -73,16 +92,28 @@ class SightReadingScene: SKScene {
         
         for staffNote in staffNotes {
             
-            let staffOffsetFromC4 = naturalNotes.firstIndex(of: staffNote.note)! - naturalNotes.firstIndex(of: referenceNote)! + (staffNote.octave - referenceOctave) * offsetForOneOctave
-            
-            let staffOffsetOfC4FromFirstLine = clef == .treble ? -2 : 10
+            let noteStaffOffsetFromC4 = naturalNotes.firstIndex(of: staffNote.note)! - naturalNotes.firstIndex(of: referenceNote)! + (staffNote.octave - referenceOctave) * offsetForOneOctave
+            let C4StaffOffsetFromFirstLine = clef == .treble ? -2 : 10
+            let noteStaffOffsetFromFirstLine = noteStaffOffsetFromC4 + C4StaffOffsetFromFirstLine
             
             let noteNode = SKShapeNode(ellipseOf: CGSize(width: self.staffLineSpacing * self.staffNoteEllipseness, height: self.staffLineSpacing))
             noteNode.strokeColor = .clear
             noteNode.fillColor = .black
-            noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
+            noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(noteStaffOffsetFromFirstLine) * self.staffLineSpacing/2)
             self.addChild(noteNode)
+            
+            if noteStaffOffsetFromFirstLine < 0 || noteStaffOffsetFromFirstLine > 9 {
+                self.drawLedgerLine(x: x, staffOffsetFromFirstLine: noteStaffOffsetFromFirstLine)
+            }
         }
+    }
+    
+    
+    func drawLedgerLine(x: CGFloat, staffOffsetFromFirstLine: Int) {
+        
+        let line = SKSpriteNode(color: .black, size: CGSize(width: self.staffLedgerLineWidth, height: self.staffLineHeight))
+        line.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetFromFirstLine) * self.staffLineSpacing/2)
+        self.addChild(line)
     }
     
     
@@ -102,7 +133,21 @@ class SightReadingScene: SKScene {
             labelNode.position = CGPoint(x: x, y: y)
             self.addChild(labelNode)
             y -= labelNode.calculateAccumulatedFrame().height
+            
+            self.annotationNodes.append(labelNode)
         }
+    }
+    
+    
+    func showAnnotations() {
+        
+        self.annotationNodes.forEach { $0.isHidden = false }
+    }
+    
+    
+    func hideAnnotations() {
+        
+        self.annotationNodes.forEach { $0.isHidden = true }
     }
 }
 
