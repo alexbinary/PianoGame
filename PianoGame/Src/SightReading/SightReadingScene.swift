@@ -7,6 +7,7 @@ import MIKMIDI
 class SightReadingScene: SKScene {
     
     
+    var staffReferenceYPosition: CGFloat { self.frame.height / 2 + 200}
     let staffNumberOfLines = 5
     let staffLineHeight: CGFloat = 5
     let staffLineSpacing: CGFloat = 50
@@ -31,8 +32,7 @@ class SightReadingScene: SKScene {
     func drawStaff() {
         
         let totalStaffHeight = CGFloat(self.staffNumberOfLines) * self.staffLineSpacing
-        let referenceYPosition = self.frame.height / 2
-        let startYPosition = referenceYPosition - totalStaffHeight / 2
+        let startYPosition = self.staffReferenceYPosition - totalStaffHeight / 2
         
         self.staffYPositionOfFirstLine = startYPosition
         
@@ -51,12 +51,12 @@ class SightReadingScene: SKScene {
         case .treble:
             let spriteNode = SKSpriteNode(imageNamed: "treble_clef")
             spriteNode.setScale(0.2)
-            spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 28)
+            spriteNode.position = CGPoint(x: 100, y: self.staffReferenceYPosition - 28)
             self.addChild(spriteNode)
         case .bass:
             let spriteNode = SKSpriteNode(imageNamed: "bass_clef")
             spriteNode.setScale(0.15)
-            spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 10)
+            spriteNode.position = CGPoint(x: 100, y: self.staffReferenceYPosition - 10)
             self.addChild(spriteNode)
         }
     }
@@ -78,6 +78,13 @@ class SightReadingScene: SKScene {
         noteNode.fillColor = .black
         noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
         self.addChild(noteNode)
+        
+        let labelNode = SKLabelNode(text: note.description)
+        labelNode.fontColor = .black
+        labelNode.fontSize = 64
+        labelNode.fontName = "HelveticaNeue"
+        labelNode.position = CGPoint(x: noteNode.position.x, y: self.staffYPositionOfFirstLine - 200)
+        self.addChild(labelNode)
     }
 }
 
