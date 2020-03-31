@@ -68,17 +68,24 @@ class SightReadingScene: SKScene {
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
         self.currentExercise = Exercise(clef: .treble, items: [
-            ExerciseItem(staffNotes: [StaffNote(.c, octave: 4), StaffNote(.e, octave: 4), StaffNote(.g, octave: 4)], annotations: ["CEG", "C"])
+            ExerciseItem(staffNotes: [StaffNote(.e, octave: 4)], annotations: ["E"]),
+            ExerciseItem(staffNotes: [StaffNote(.d, octave: 4)], annotations: ["D"]),
+            ExerciseItem(staffNotes: [StaffNote(.c, octave: 4)], annotations: ["C"]),
+            ExerciseItem(staffNotes: [StaffNote(.b, octave: 3)], annotations: ["B"]),
+            ExerciseItem(staffNotes: [StaffNote(.a, octave: 3)], annotations: ["A"]),
+            ExerciseItem(staffNotes: [StaffNote(.g, octave: 3)], annotations: ["G"]),
+        ])
+        
+        self.currentExercise = Exercise(clef: .treble, items: [
+            ExerciseItem(staffNotes: [StaffNote(.f, octave: 5)], annotations: ["F"]),
+            ExerciseItem(staffNotes: [StaffNote(.g, octave: 5)], annotations: ["G"]),
+            ExerciseItem(staffNotes: [StaffNote(.a, octave: 5)], annotations: ["A"]),
+            ExerciseItem(staffNotes: [StaffNote(.b, octave: 5)], annotations: ["B"]),
+            ExerciseItem(staffNotes: [StaffNote(.c, octave: 6)], annotations: ["C"]),
+            ExerciseItem(staffNotes: [StaffNote(.d, octave: 6)], annotations: ["D"]),
         ])
         
         self.drawStaff()
-        self.drawExercise(self.currentExercise)
-        
-        self.clearExercise()
-        
-        self.currentExercise = Exercise(clef: .bass, items: [
-            ExerciseItem(staffNotes: [StaffNote(.d, octave: 3), StaffNote(.f, octave: 3), StaffNote(.a, octave: 3)], annotations: ["DFA", "Dm"])
-        ])
         self.drawExercise(self.currentExercise)
     }
     
@@ -185,8 +192,26 @@ class SightReadingScene: SKScene {
             
             nodes.append(noteNode)
             
-            if noteStaffOffsetFromFirstLine < 0 || noteStaffOffsetFromFirstLine > 9 {
-                nodes.append(self.drawLedgerLine(x: x, staffOffsetFromFirstLine: noteStaffOffsetFromFirstLine))
+            if noteStaffOffsetFromFirstLine <= -2 {
+                var offset = -2
+                while true {
+                    nodes.append(self.drawLedgerLine(x: x, staffOffsetFromFirstLine: offset))
+                    offset -= 2
+                    if offset < noteStaffOffsetFromFirstLine {
+                        break
+                    }
+                }
+            }
+            
+            if noteStaffOffsetFromFirstLine > 9 {
+                var offset = 10
+                while true {
+                    nodes.append(self.drawLedgerLine(x: x, staffOffsetFromFirstLine: offset))
+                    offset += 2
+                    if offset > noteStaffOffsetFromFirstLine {
+                        break
+                    }
+                }
             }
         }
         
