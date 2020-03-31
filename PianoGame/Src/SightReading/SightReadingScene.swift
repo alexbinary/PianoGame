@@ -25,7 +25,8 @@ class SightReadingScene: SKScene {
         
         self.drawStaff()
         self.drawClef(.bass)
-        self.drawNote(note: .c, octave: 4, clef: .bass, x: 500)
+        self.drawNotes([StaffNote(.c, octave: 4), StaffNote(.e, octave: 4), StaffNote(.g, octave: 4)], clef: .treble, x: 500)
+        self.drawAnnotation(["CEG", "C"], x: 500)
     }
     
     
@@ -62,29 +63,46 @@ class SightReadingScene: SKScene {
     }
     
     
-    func drawNote(note: Note, octave: Int, clef: Clef, x: CGFloat) {
+    func drawNotes(_ staffNotes: [StaffNote], clef: Clef, x: CGFloat) {
         
         let referenceNote: Note = .c
         let referenceOctave = 4
         let offsetForOneOctave = 7
         
         let naturalNotes = Note.allCases.filter { !$0.isSharp }
-        let staffOffsetFromC4 = naturalNotes.firstIndex(of: note)! - naturalNotes.firstIndex(of: referenceNote)! + (octave - referenceOctave) * offsetForOneOctave
         
-        let staffOffsetOfC4FromFirstLine = clef == .treble ? -2 : 10
+        for staffNote in staffNotes {
+            
+            let staffOffsetFromC4 = naturalNotes.firstIndex(of: staffNote.note)! - naturalNotes.firstIndex(of: referenceNote)! + (staffNote.octave - referenceOctave) * offsetForOneOctave
+            
+            let staffOffsetOfC4FromFirstLine = clef == .treble ? -2 : 10
+            
+            let noteNode = SKShapeNode(ellipseOf: CGSize(width: self.staffLineSpacing * self.staffNoteEllipseness, height: self.staffLineSpacing))
+            noteNode.strokeColor = .clear
+            noteNode.fillColor = .black
+            noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
+            self.addChild(noteNode)
+        }
+    }
+    
+    
+    func drawAnnotation(_ texts: [String], x: CGFloat) {
         
-        let noteNode = SKShapeNode(ellipseOf: CGSize(width: self.staffLineSpacing * self.staffNoteEllipseness, height: self.staffLineSpacing))
-        noteNode.strokeColor = .clear
-        noteNode.fillColor = .black
-        noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
-        self.addChild(noteNode)
+        var y = self.staffYPositionOfFirstLine - 200
         
-        let labelNode = SKLabelNode(text: note.description)
-        labelNode.fontColor = .black
-        labelNode.fontSize = 64
-        labelNode.fontName = "HelveticaNeue"
-        labelNode.position = CGPoint(x: noteNode.position.x, y: self.staffYPositionOfFirstLine - 200)
-        self.addChild(labelNode)
+        for text in texts {
+            
+            let labelNode = SKLabelNode(text: text)
+            labelNode.fontColor = .black
+            labelNode.numberOfLines = 0
+            labelNode.fontSize = 64
+            labelNode.fontName = "HelveticaNeue"
+            labelNode.verticalAlignmentMode = .top
+            labelNode.horizontalAlignmentMode = .center
+            labelNode.position = CGPoint(x: x, y: y)
+            self.addChild(labelNode)
+            y -= labelNode.calculateAccumulatedFrame().height
+        }
     }
 }
 
@@ -93,4 +111,16 @@ enum Clef {
     
     case treble
     case bass
+}
+
+
+struct StaffNote {
+    
+    let note: Note
+    let octave: Int
+    
+    init(_ note: Note, octave: Int) {
+        self.note = note
+        self.octave = octave
+    }
 }
