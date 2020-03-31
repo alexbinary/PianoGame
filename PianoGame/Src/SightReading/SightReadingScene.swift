@@ -23,7 +23,8 @@ class SightReadingScene: SKScene {
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
         self.drawStaff()
-        self.drawNote(note: .c, octave: 4, clef: .bass)
+        self.drawClef(.treble)
+        self.drawNote(note: .c, octave: 4, clef: .bass, x: 500)
     }
     
     
@@ -44,7 +45,16 @@ class SightReadingScene: SKScene {
     }
     
     
-    func drawNote(note: Note, octave: Int, clef: Clef) {
+    func drawClef(_ clef: Clef) {
+        
+        let spriteNode = SKSpriteNode(imageNamed: "treble_clef")
+        spriteNode.setScale(0.2)
+        spriteNode.position = CGPoint(x: 100, y: self.frame.height/2 - 28)
+        self.addChild(spriteNode)
+    }
+    
+    
+    func drawNote(note: Note, octave: Int, clef: Clef, x: CGFloat) {
         
         let referenceNote: Note = .c
         let referenceOctave = 4
@@ -53,12 +63,12 @@ class SightReadingScene: SKScene {
         let naturalNotes = Note.allCases.filter { !$0.isSharp }
         let staffOffsetFromC4 = naturalNotes.firstIndex(of: note)! - naturalNotes.firstIndex(of: referenceNote)! + (octave - referenceOctave) * offsetForOneOctave
         
-        let staffOffsetOfC4FromFirstLine = clef == .trebble ? -2 : 10
+        let staffOffsetOfC4FromFirstLine = clef == .treble ? -2 : 10
         
         let noteNode = SKShapeNode(ellipseOf: CGSize(width: self.staffLineSpacing * self.staffNoteEllipseness, height: self.staffLineSpacing))
         noteNode.strokeColor = .clear
         noteNode.fillColor = .black
-        noteNode.position = CGPoint(x: 100, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
+        noteNode.position = CGPoint(x: x, y: self.staffYPositionOfFirstLine + CGFloat(staffOffsetOfC4FromFirstLine + staffOffsetFromC4) * self.staffLineSpacing/2)
         self.addChild(noteNode)
     }
 }
@@ -66,6 +76,6 @@ class SightReadingScene: SKScene {
 
 enum Clef {
     
-    case trebble
+    case treble
     case bass
 }
