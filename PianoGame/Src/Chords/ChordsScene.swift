@@ -6,6 +6,9 @@ import SpriteKit
 class ChordsScene: SKScene {
     
     
+    let noteNaming: NoteNaming = .latinNaming
+    
+    
     var notesLabelNode: SKLabelNode! = nil
     var chordLabelNode: SKLabelNode! = nil
     
@@ -15,7 +18,7 @@ class ChordsScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         
         self.backgroundColor = UIColor(red: 233.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
         
@@ -25,7 +28,7 @@ class ChordsScene: SKScene {
         self.notesLabelNode.fontName = "HelveticaNeue"
         self.notesLabelNode.verticalAlignmentMode = .bottom
         self.notesLabelNode.horizontalAlignmentMode = .center
-        self.notesLabelNode.position = CGPoint(x: 0, y: 100)
+        self.notesLabelNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2 + 100)
         self.addChild(self.notesLabelNode)
         
         self.chordLabelNode = SKLabelNode()
@@ -34,7 +37,7 @@ class ChordsScene: SKScene {
         self.chordLabelNode.fontName = "HelveticaNeue"
         self.chordLabelNode.verticalAlignmentMode = .top
         self.chordLabelNode.horizontalAlignmentMode = .center
-        self.chordLabelNode.position = CGPoint(x: 0, y: -100)
+        self.chordLabelNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2 - 100)
         self.addChild(self.chordLabelNode)
         
         self.counterNode = SKLabelNode()
@@ -92,8 +95,8 @@ class ChordsScene: SKScene {
             inversions += 1
         }
         
-        self.notesLabelNode.text = chordNotes.map { $0.note.description } .joined()
-        self.chordLabelNode.text = centerNote.note.description + " (\(inversions))"
+        self.notesLabelNode.text = chordNotes.map { $0.note.name(using: self.noteNaming) } .joined(separator: " ")
+        self.chordLabelNode.text = centerNote.note.name(using: self.noteNaming) + " (\(inversions))"
         
         self.hideAnnotations()
         

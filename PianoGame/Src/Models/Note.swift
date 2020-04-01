@@ -1,7 +1,7 @@
 
 
 public enum Note : CaseIterable {
-
+    
     
     case c
     case c_sharp
@@ -70,5 +70,76 @@ extension Note: CustomStringConvertible {
     }
     
     
+    public func name(using naming: NoteNaming) -> String {
+        
+        switch naming {
+        case .englishNaming:
+            
+            switch self {
+            case .c:
+                return "C"
+            case .c_sharp:
+                return "C#"
+            case .d:
+                return "D"
+            case .d_sharp:
+                return "D#"
+            case .e:
+                return "E"
+            case .f:
+                return "F"
+            case .f_sharp:
+                return "F#"
+            case .g:
+                return "G"
+            case .g_sharp:
+                return "G#"
+            case .a:
+                return "A"
+            case .a_sharp:
+                return "A#"
+            case .b:
+                return "B"
+            }
+            
+        case .latinNaming:
+            
+            switch self {
+            case .c:
+                return "Do"
+            case .c_sharp:
+                return "Do#"
+            case .d:
+                return "Ré"
+            case .d_sharp:
+                return "Ré#"
+            case .e:
+                return "Mi"
+            case .f:
+                return "Fa"
+            case .f_sharp:
+                return "Fa#"
+            case .g:
+                return "Sol"
+            case .g_sharp:
+                return "Sol#"
+            case .a:
+                return "La"
+            case .a_sharp:
+                return "La#"
+            case .b:
+                return "Si"
+            }
+        }
+    }
+    
+    
     var isSharp: Bool { return self.description.contains("#") }
+}
+
+
+public enum NoteNaming {
+    
+    case latinNaming
+    case englishNaming
 }
