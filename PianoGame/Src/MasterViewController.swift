@@ -13,15 +13,27 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //
         
-        let vc = GenericSpriteKitViewController()
+        let vc2 = GenericSpriteKitViewController()
         
-        let scene = SightReadingScene(size: CGSize(width: 1024, height: 768))
-        scene.scaleMode = .aspectFit
+        let scene2 = ChordsScene(size: CGSize(width: 1024, height: 768))
+        scene2.scaleMode = .aspectFit
         
-        (vc.view as! SKView).presentScene(scene)
+        (vc2.view as! SKView).presentScene(scene2)
         
-        self.items.append(vc)
+        self.items.append(vc2)
+        
+        //
+        
+        let vc1 = GenericSpriteKitViewController()
+        
+        let scene1 = SightReadingScene(size: CGSize(width: 1024, height: 768))
+        scene1.scaleMode = .aspectFit
+        
+        (vc1.view as! SKView).presentScene(scene1)
+        
+        self.items.append(vc1)
     }
     
     
