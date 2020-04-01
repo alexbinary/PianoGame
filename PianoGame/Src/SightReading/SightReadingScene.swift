@@ -12,6 +12,14 @@ class SightReadingScene: SKScene {
         case treble
         case bass
     }
+    
+    
+    enum Quality {
+        
+        case minor
+        case major
+        case diminished
+    }
 
 
     struct StaffNote {
@@ -22,6 +30,10 @@ class SightReadingScene: SKScene {
         init(_ note: Note, octave: Int) {
             self.note = note
             self.octave = octave
+        }
+        
+        func upOnOctave() -> StaffNote {
+            StaffNote(self.note, octave: self.octave + 1)
         }
         
         func addingStaffOffset(_ offset: Int) -> StaffNote {
@@ -55,6 +67,14 @@ class SightReadingScene: SKScene {
         
         let clef: Clef
         let items: [ExerciseItem]
+    }
+    
+    
+    enum ExerciseType: CaseIterable {
+        
+        case random
+        case progression
+        case chords
     }
     
     
@@ -112,34 +132,102 @@ class SightReadingScene: SKScene {
     
     func nextExercise() {
         
-        let numberOfNotes = 7
-        let maxExcursion = 3
+        let type = ExerciseType.allCases.randomElement()!
         
-        var clef: Clef
-        var centerNote: StaffNote
-        
-        if Bool.random() {
+        switch type {
             
-            clef = .treble
-            centerNote = Bool.random() ? StaffNote(.g, octave: 4) : StaffNote(.c, octave: Bool.random() ? 4 : 5)
+        case .random:
             
-        } else {
+            let numberOfNotes = 7
+            let maxExcursion = 1
             
-            clef = .bass
-            centerNote = Bool.random() ? StaffNote(.f, octave: 3) : StaffNote(.c, octave: Bool.random() ? 4 : 3)
-        }
-        
-        var notes = [centerNote]
-        
-        for _ in 1..<numberOfNotes {
-            notes.append(centerNote.addingStaffOffset((-maxExcursion...maxExcursion).randomElement()!))
-        }
-        
-        self.currentExercise = Exercise(clef: clef, items:
-            notes.map {
-                ExerciseItem(staffNotes: [$0], annotations: [$0.note.description])
+            var clef: Clef
+            var centerNote: StaffNote
+            
+            if Bool.random() {
+                
+                clef = .treble
+                centerNote = Bool.random() ? StaffNote(.g, octave: 4) : StaffNote(.c, octave: Bool.random() ? 4 : 5)
+                
+            } else {
+                
+                clef = .bass
+                centerNote = Bool.random() ? StaffNote(.f, octave: 3) : StaffNote(.c, octave: Bool.random() ? 4 : 3)
             }
-        )
+            
+            var notes = [centerNote]
+            
+            for _ in 1..<numberOfNotes {
+                notes.append(centerNote.addingStaffOffset((-maxExcursion...maxExcursion).randomElement()!))
+            }
+            
+            self.currentExercise = Exercise(clef: clef, items:
+                notes.map {
+                    ExerciseItem(staffNotes: [$0], annotations: [$0.note.description])
+                }
+            )
+            
+        case .progression:
+            
+            let numberOfNotes = 8
+            
+            var clef: Clef
+            var centerNote: StaffNote
+            
+            if Bool.random() {
+                
+                clef = .treble
+                centerNote = Bool.random() ? StaffNote(.g, octave: 4) : StaffNote(.c, octave: Bool.random() ? 4 : 5)
+                
+            } else {
+                
+                clef = .bass
+                centerNote = Bool.random() ? StaffNote(.f, octave: 3) : StaffNote(.c, octave: Bool.random() ? 4 : 3)
+            }
+            
+            var notes = [centerNote]
+            
+            for i in 1..<numberOfNotes {
+                notes.append(centerNote.addingStaffOffset(i))
+            }
+            
+            self.currentExercise = Exercise(clef: clef, items:
+                notes.map {
+                    ExerciseItem(staffNotes: [$0], annotations: [$0.note.description])
+                }
+            )
+            
+        case .chords:
+            
+            let clef: Clef = Bool.random() ? .treble : .bass
+            let centerNote: StaffNote = StaffNote(Note.allCases.filter { !$0.isSharp } .randomElement()!, octave: clef == .treble ? 4 : 3)
+            
+            var chordNotes = [centerNote, centerNote.addingStaffOffset(2), centerNote.addingStaffOffset(4)]
+            
+            if Bool.random() {
+                chordNotes[0] = chordNotes[0].upOnOctave()
+                if Bool.random() {
+                    chordNotes[1] = chordNotes[1].upOnOctave()
+                }
+            }
+            
+            let qualityMap: [Note: Quality] = [
+                .c: .major,
+                .d: .minor,
+                .e: .minor,
+                .f: .major,
+                .g: .major,
+                .a: .minor,
+                .b: .diminished,
+            ]
+            let quality = qualityMap[centerNote.note]
+            
+            self.currentExercise = Exercise(clef: clef,
+                                            items: [
+                                                ExerciseItem(staffNotes: chordNotes,
+                                                             annotations: [chordNotes.map { $0.note.description } .joined(), centerNote.note.description + "\(quality == .minor ? "m" : quality == .diminished ? "d" : "")"])
+            ])
+        }
         
         self.clearExercise()
         self.drawExercise(self.currentExercise)
