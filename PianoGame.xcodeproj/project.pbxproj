@@ -34,6 +34,7 @@
 		296B1B9A23EB320700A7D97B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */; };
 		296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; };
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FBA2434B80300723718 /* SplitViewController.swift */; };
 		29A6A607242B62D900CA22D5 /* PianoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A606242B62D900CA22D5 /* PianoGameTests.swift */; };
 		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
@@ -137,6 +138,7 @@
 		296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizGameScene.swift; sourceTree = "<group>"; };
 		29818D3E23EB8711009E71F2 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
+		298E7FBA2434B80300723718 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizViewController.swift; sourceTree = "<group>"; };
 		299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizGameScene.swift; sourceTree = "<group>"; };
 		29A6A604242B62D900CA22D5 /* PianoGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PianoGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -484,6 +486,7 @@
 				296B1B9823EB320700A7D97B /* LaunchScreen.storyboard */,
 				296B1B9323EB320300A7D97B /* Main.storyboard */,
 				296B1B8D23EB320300A7D97B /* AppDelegate.swift */,
+				298E7FBA2434B80300723718 /* SplitViewController.swift */,
 				296B1B9123EB320300A7D97B /* GenericSpriteKitViewController.swift */,
 				29DF725B240A6176004DD36F /* TypesAliases.swift */,
 				29DF725D240A6687004DD36F /* Operators.swift */,
@@ -692,6 +695,7 @@
 				290CA5B82431F4E600D097DE /* SightReadingScene.swift in Sources */,
 				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
 				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
+				298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */,
 				2900F3FE2428FC3000722102 /* Scale.swift in Sources */,
 				29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */,
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
