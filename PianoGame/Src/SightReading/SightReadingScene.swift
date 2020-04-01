@@ -99,6 +99,10 @@ class SightReadingScene: SKScene {
     var exerciseNodes: [SKNode] = []
     
     
+    var exerciseCounter = 0
+    var counterNode: SKLabelNode! = nil
+    
+    
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0, y: 0)
@@ -107,7 +111,22 @@ class SightReadingScene: SKScene {
         
         self.drawStaff()
         
+        self.counterNode = SKLabelNode()
+        self.counterNode.fontColor = .black
+        self.counterNode.fontSize = 32
+        self.counterNode.fontName = "HelveticaNeue"
+        self.counterNode.verticalAlignmentMode = .bottom
+        self.counterNode.horizontalAlignmentMode = .left
+        self.counterNode.position = CGPoint(x: 100, y: 100)
+        self.addChild(self.counterNode)
+        
         self.nextExercise()
+    }
+    
+    
+    func updateCounter() {
+        
+        self.counterNode.text = "\(self.exerciseCounter)"
     }
     
     
@@ -231,6 +250,9 @@ class SightReadingScene: SKScene {
         
         self.clearExercise()
         self.drawExercise(self.currentExercise)
+        
+        self.exerciseCounter += 1
+        self.updateCounter()
     }
     
     
