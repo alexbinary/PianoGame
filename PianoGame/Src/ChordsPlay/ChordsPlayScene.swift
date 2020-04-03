@@ -13,13 +13,16 @@ class ChordsPlayScene: SKScene {
     
     var chordLabelNode: SKLabelNode! = nil
     
+    var exerciseCounter = 0
+    var counterNode: SKLabelNode! = nil
+    
     var currentChordNoteCodes: Set<NoteCode> = []
     var currentPlayedNoteCodes: Set<NoteCode> = []
     
     let authorizedChordQualities: [Quality] = [ .major ]
     let authorizedChordInversions: ClosedRange<Int> = 0...0
     let authorizedOctaves: ClosedRange<Int> = 4...4
-    let authorizedRootNotes: [Int] = [0, 2, 4, 5, 7, 9, 11] // white keys only
+    let authorizedRootNotes: [Int] = [0, 5, 7] // chords with all white keys only
     
     
     var correctNotesPlayed = false
@@ -40,10 +43,25 @@ class ChordsPlayScene: SKScene {
         self.chordLabelNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2 + 100)
         self.addChild(self.chordLabelNode)
         
+        self.counterNode = SKLabelNode()
+        self.counterNode.fontColor = .black
+        self.counterNode.fontSize = 32
+        self.counterNode.fontName = "HelveticaNeue"
+        self.counterNode.verticalAlignmentMode = .bottom
+        self.counterNode.horizontalAlignmentMode = .left
+        self.counterNode.position = CGPoint(x: 100, y: 100)
+        self.addChild(self.counterNode)
+        
         self.nextExercise()
         self.updateDisplay()
         
         self.connectToMIDIDevice()
+    }
+    
+    
+    func updateCounter() {
+        
+        self.counterNode.text = "\(self.exerciseCounter)"
     }
     
     
@@ -186,5 +204,8 @@ class ChordsPlayScene: SKScene {
         }
         
         self.chordLabelNode.text = "\(chordName) - \(octave)"
+        
+        self.exerciseCounter += 1
+        self.updateCounter()
     }
 }
