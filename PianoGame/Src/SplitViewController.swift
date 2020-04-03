@@ -13,7 +13,5 @@ class SplitViewController: UISplitViewController {
             self.primaryBackgroundStyle = .sidebar
         }
         self.preferredDisplayMode = .primaryOverlay
-        
-        self.showDetailViewController(GenericSpriteKitViewController(), sender: nil)
     }
 }

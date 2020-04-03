@@ -16,12 +16,6 @@ class GenericSpriteKitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = ChordsPlayScene(size: CGSize(width: 1024, height: 768))
-        scene.scaleMode = .aspectFit
-        
-        (view as! SKView).presentScene(scene)
-        
         view.isMultipleTouchEnabled = true
     }
 }
-

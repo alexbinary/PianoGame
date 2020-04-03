@@ -13,44 +13,45 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        items = [
-            
-            (title: "Chords Play", viewControllerBuilder: {
+        #if targetEnvironment(macCatalyst)
         
-                let vc = GenericSpriteKitViewController()
-                
-                let scene = ChordsPlayScene(size: CGSize(width: 1024, height: 768))
-                scene.scaleMode = .aspectFit
-                
-                (vc.view as! SKView).presentScene(scene)
-                
-                return vc
-            }),
+        items.append((title: "Chords Play", viewControllerBuilder: {
             
-            (title: "Chords", viewControllerBuilder: {
+            let vc = GenericSpriteKitViewController()
+            
+            let scene = ChordsPlayScene(size: CGSize(width: 1024, height: 768))
+            scene.scaleMode = .aspectFit
+            
+            (vc.view as! SKView).presentScene(scene)
+            
+            return vc
+        }))
         
-                let vc = GenericSpriteKitViewController()
-                
-                let scene = ChordsScene(size: CGSize(width: 1024, height: 768))
-                scene.scaleMode = .aspectFit
-                
-                (vc.view as! SKView).presentScene(scene)
-                
-                return vc
-            }),
+        #endif
+        
+        items.append((title: "Chords", viewControllerBuilder: {
             
-            (title: "SightReading", viewControllerBuilder: {
-         
-                let vc = GenericSpriteKitViewController()
-                
-                let scene = SightReadingScene(size: CGSize(width: 1024, height: 768))
-                scene.scaleMode = .aspectFit
-                
-                (vc.view as! SKView).presentScene(scene)
-                
-                return vc
-            }),
-        ]
+            let vc = GenericSpriteKitViewController()
+            
+            let scene = ChordsScene(size: CGSize(width: 1024, height: 768))
+            scene.scaleMode = .aspectFit
+            
+            (vc.view as! SKView).presentScene(scene)
+            
+            return vc
+        }))
+        
+        items.append((title: "SightReading", viewControllerBuilder: {
+            
+            let vc = GenericSpriteKitViewController()
+            
+            let scene = SightReadingScene(size: CGSize(width: 1024, height: 768))
+            scene.scaleMode = .aspectFit
+            
+            (vc.view as! SKView).presentScene(scene)
+            
+            return vc
+        }))
     }
     
     
@@ -61,7 +62,7 @@ class MasterViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     
+        
         let item = items[indexPath.row]
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")

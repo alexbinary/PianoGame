@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="S8M-5H-g4o">
-    <device id="mac" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -13,15 +13,15 @@
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="Txn-ZQ-g2L" customClass="MasterViewController" customModule="PianoGame" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jzi-Lz-WHb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="M6G-of-gPv">
-                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="51.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M6G-of-gPv" id="a5X-Jn-Vwq">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -42,7 +42,7 @@
             <objects>
                 <navigationController id="zK0-wZ-E8l" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jR3-tN-uj6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -59,18 +59,34 @@
                 <splitViewController id="S8M-5H-g4o" customClass="SplitViewController" customModule="PianoGame" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="zK0-wZ-E8l" kind="relationship" relationship="masterViewController" id="d6w-dh-Q1Z"/>
+                        <segue destination="CUp-wC-aW4" kind="relationship" relationship="detailViewController" id="yTT-hq-I5g"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HkS-Km-8Jv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128" y="-1670"/>
+            <point key="canvasLocation" x="117" y="-1672"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0kX-bR-d0h">
+            <objects>
+                <viewController id="CUp-wC-aW4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m8k-5C-UPE">
+                        <rect key="frame" x="0.0" y="0.0" width="990.5" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6T7-7p-cqK"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehX-2A-Rzu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893" y="-1324"/>
         </scene>
         <!--Generic Sprite Kit View Controller-->
         <scene sceneID="7FM-V5-pUt">
             <objects>
                 <viewController id="4Yf-yN-rwB" customClass="GenericSpriteKitViewController" customModule="PianoGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vkF-bg-D3H" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="bOZ-cg-HKy"/>
@@ -85,20 +101,20 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ScaleViewController" customModule="PianoGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-f0-OmF">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1004"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-r8-1qR">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="334.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Pkg-Z0-ojd">
-                                                <rect key="frame" x="0.0" y="0.0" width="800" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1366" height="167.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yY8-Vj-TRM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Do"/>
                                                         <connections>
@@ -106,7 +122,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3I-Hc-Hws">
-                                                        <rect key="frame" x="114" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="195" y="0.0" width="195.5" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Re"/>
                                                         <connections>
@@ -114,7 +130,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc2-5T-We7">
-                                                        <rect key="frame" x="229" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="390.5" y="0.0" width="195" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Mi"/>
                                                         <connections>
@@ -122,7 +138,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NOA-H0-gti">
-                                                        <rect key="frame" x="343" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="585.5" y="0.0" width="195" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Fa"/>
                                                         <connections>
@@ -130,7 +146,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWf-oo-xGm">
-                                                        <rect key="frame" x="457" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="780.5" y="0.0" width="195" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Sol"/>
                                                         <connections>
@@ -138,7 +154,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cco-oP-Dhm">
-                                                        <rect key="frame" x="571" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="975.5" y="0.0" width="195.5" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="La"/>
                                                         <connections>
@@ -146,7 +162,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEb-O1-xea">
-                                                        <rect key="frame" x="686" y="0.0" width="114" height="100"/>
+                                                        <rect key="frame" x="1171" y="0.0" width="195" height="167.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="Si"/>
                                                         <connections>
@@ -156,10 +172,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pRb-Ek-FDI">
-                                                <rect key="frame" x="0.0" y="100" width="800" height="100"/>
+                                                <rect key="frame" x="0.0" y="167.5" width="1366" height="167"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lcf-cD-oT0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="683" height="167"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="b"/>
                                                         <connections>
@@ -167,7 +183,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTZ-Zm-XKG">
-                                                        <rect key="frame" x="400" y="0.0" width="400" height="100"/>
+                                                        <rect key="frame" x="683" y="0.0" width="683" height="167"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                         <state key="normal" title="#"/>
                                                         <connections>
@@ -179,16 +195,16 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNs-Sp-Blr">
-                                        <rect key="frame" x="0.0" y="200" width="800" height="200"/>
+                                        <rect key="frame" x="0.0" y="334.5" width="1366" height="335"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sxn-Z1-WBd">
-                                        <rect key="frame" x="0.0" y="400" width="800" height="200"/>
+                                        <rect key="frame" x="0.0" y="669.5" width="1366" height="334.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yck-LF-1o1">
-                                                <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="683" height="334.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <state key="normal" title="Check"/>
                                                 <connections>
@@ -196,7 +212,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dci-sf-2Dh">
-                                                <rect key="frame" x="400" y="0.0" width="400" height="200"/>
+                                                <rect key="frame" x="683" y="0.0" width="683" height="334.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <state key="normal" title="Reset"/>
                                                 <connections>
@@ -230,7 +246,7 @@
             <objects>
                 <viewController id="BOk-jZ-13Z" customClass="RecorderViewController" customModule="PianoGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e1w-Fu-XWR" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcC-iE-ds4">
