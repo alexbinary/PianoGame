@@ -7,33 +7,50 @@ import SpriteKit
 class MasterViewController: UITableViewController {
     
     
-    var items: [UIViewController] = []
+    var items: [(title: String, viewControllerBuilder: () -> UIViewController)] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //
+        items = [
+            
+            (title: "Chords Play", viewControllerBuilder: {
         
-        let vc2 = GenericSpriteKitViewController()
+                let vc = GenericSpriteKitViewController()
+                
+                let scene = ChordsPlayScene(size: CGSize(width: 1024, height: 768))
+                scene.scaleMode = .aspectFit
+                
+                (vc.view as! SKView).presentScene(scene)
+                
+                return vc
+            }),
+            
+            (title: "Chords", viewControllerBuilder: {
         
-        let scene2 = ChordsScene(size: CGSize(width: 1024, height: 768))
-        scene2.scaleMode = .aspectFit
-        
-        (vc2.view as! SKView).presentScene(scene2)
-        
-        self.items.append(vc2)
-        
-        //
-        
-        let vc1 = GenericSpriteKitViewController()
-        
-        let scene1 = SightReadingScene(size: CGSize(width: 1024, height: 768))
-        scene1.scaleMode = .aspectFit
-        
-        (vc1.view as! SKView).presentScene(scene1)
-        
-        self.items.append(vc1)
+                let vc = GenericSpriteKitViewController()
+                
+                let scene = ChordsScene(size: CGSize(width: 1024, height: 768))
+                scene.scaleMode = .aspectFit
+                
+                (vc.view as! SKView).presentScene(scene)
+                
+                return vc
+            }),
+            
+            (title: "SightReading", viewControllerBuilder: {
+         
+                let vc = GenericSpriteKitViewController()
+                
+                let scene = SightReadingScene(size: CGSize(width: 1024, height: 768))
+                scene.scaleMode = .aspectFit
+                
+                (vc.view as! SKView).presentScene(scene)
+                
+                return vc
+            }),
+        ]
     }
     
     
@@ -48,7 +65,7 @@ class MasterViewController: UITableViewController {
         let item = items[indexPath.row]
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        cell.textLabel?.text = type(of: item).description()
+        cell.textLabel?.text = item.title
         
         return cell
     }
@@ -58,6 +75,6 @@ class MasterViewController: UITableViewController {
         
         let item = items[indexPath.row]
         
-        self.splitViewController?.showDetailViewController(item, sender: nil)
+        self.splitViewController?.showDetailViewController(item.viewControllerBuilder(), sender: nil)
     }
 }
