@@ -8,7 +8,7 @@ import AudioKitUI
 class SingViewController: UIViewController {
     
     
-    class AverageFilter: Filter {
+    class AverageSignalProcessor: SignalProcessor {
         
         var bufferSize: Int = 1
         var accumulator: [Double] = []
@@ -30,7 +30,7 @@ class SingViewController: UIViewController {
     }
     
     
-    class StabilizerFilter: Filter {
+    class StabilizerSignalProcessor: SignalProcessor {
         
         var threshold: Double
         var previousSample: Double! = nil
@@ -51,9 +51,16 @@ class SingViewController: UIViewController {
     }
     
     
-    var tracker: AKMicrophoneTracker!
+    var mic: AKMicrophone!
+    var tracker: AKFrequencyTracker!
+    
     let trackingPeriod: TimeInterval = 0.01
     var smoothingPeriod: TimeInterval = 0.1
+    
+    var micLowPassFilter: AKLowPassFilter!
+    let micHightCutoffFrequency: Double = 1600 // Hz
+    
+    let amplitudeThreshold: Double = 0.01
     
     var cursorView1: UIView!
     let cursorView1Height: CGFloat = 1
@@ -63,7 +70,10 @@ class SingViewController: UIViewController {
     let cursorView2Height: CGFloat = 1
     let cursorView2Color: UIColor = .green
     
-    let transformRawSampleToActualFrequencyInHz: (Double) -> Double = { $0 * 440.0 / 262.0 }
+    let trackerValueToActualFrequencyRatio: Double = 440.0 / 262.0 // result in Hz
+    
+    let plotMinFrequency: Double = 20 // Hz
+    let plotMaxFrequency: Double = 2000 // Hz
     
     
     override func viewDidLoad() {
@@ -73,44 +83,74 @@ class SingViewController: UIViewController {
         fatalError("macOS not supported, please run on an iOS device")
         #endif
         
+        // UI setup
+        
         self.cursorView1 = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.cursorView1Height))
         self.cursorView1.backgroundColor = self.cursorView1Color
         self.view.addSubview(cursorView1)
         
-        self.cursorView2 = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.cursorView2Height))
+        self.cursorView2 = UIView(frame: CGRect(x: self.view.bounds.width/2, y: 0, width: self.view.bounds.width/2, height: self.cursorView2Height))
         self.cursorView2.backgroundColor = self.cursorView2Color
         self.view.addSubview(cursorView2)
         
-        self.tracker = AKMicrophoneTracker()
-        self.tracker.start()
+        // Audio pipeline setup
         
-        let filters: [Filter] = [
-            AverageFilter(bufferSize: Int(self.smoothingPeriod / self.trackingPeriod)),
-            StabilizerFilter(threshold: 1),
+        self.mic = AKMicrophone()
+        self.micLowPassFilter = AKLowPassFilter(AKBooster(self.mic, gain: 10), cutoffFrequency: self.micHightCutoffFrequency, resonance: 0)
+        self.tracker = AKFrequencyTracker(self.self.micLowPassFilter)
+        
+        AudioKit.output = AKBooster(self.tracker, gain: 0)
+        try! AudioKit.start()
+        
+        // Signal processing setup
+        
+        let signalProcessors: [SignalProcessor] = [
+            AverageSignalProcessor(bufferSize: Int(self.smoothingPeriod / self.trackingPeriod)),
+            StabilizerSignalProcessor(threshold: 1),
         ]
+        
+        // Sample processing setup
+        
+        let convertTrackerValueToActualFrequency: SampleProcessor = { $0 * self.trackerValueToActualFrequencyRatio }
+        
+        let sampleProcessors: [SampleProcessor] = [ convertTrackerValueToActualFrequency ]
+        let samplePlotter: SamplePlotter = { sample in
+            let logValue = log2(sample)
+            let minLogValue = log2(self.plotMinFrequency)
+            let maxLogValue = log2(self.plotMaxFrequency)
+            let normalized = (logValue - minLogValue) / (maxLogValue - minLogValue)
+            return CGFloat(normalized)
+        }
+        
+        let plotRawSample = { (rawSample: Double, cursorView: UIView) in
+            
+            let processedSample = sampleProcessors.reduce(rawSample, { $1($0) })
+            let plotValue = samplePlotter(processedSample)
+            
+            cursorView.center = CGPoint(x: cursorView.center.x, y: self.view.bounds.height * (1 - plotValue))
+        }
+        
+        //
         
         Timer.scheduledTimer(withTimeInterval: self.trackingPeriod, repeats: true) { _ in
             
+            guard self.tracker.amplitude > self.amplitudeThreshold else { return }
+            
             let rawSample: Double = self.tracker.frequency
+            plotRawSample(rawSample, self.cursorView1)
             
-            let y1 = self.view.bounds.height - CGFloat(rawSample)
-            self.cursorView1.center = CGPoint(x: self.view.bounds.width/4, y: y1)
-            
-            let filteredSample = filters.reduce(rawSample, { $1.inject(sample: $0) })
-            
-            let y2 = self.view.bounds.height - CGFloat(filteredSample)
-            self.cursorView2.center = CGPoint(x: self.view.bounds.width*3/4, y: y2)
-            
-            print(filteredSample)
-            
-            let actualFrequencyInHz = self.transformRawSampleToActualFrequencyInHz(filteredSample)
-            print("\(round(actualFrequencyInHz)) Hz")
+            let processedSignalSample = signalProcessors.reduce(rawSample, { $1.inject(sample: $0) })
+            plotRawSample(processedSignalSample, self.cursorView2)
         }
     }
 }
 
 
-protocol Filter {
+protocol SignalProcessor {
     
     func inject(sample: Double) -> Double
 }
+
+
+typealias SampleProcessor = (Double) -> Double
+typealias SamplePlotter = (Double) -> CGFloat
