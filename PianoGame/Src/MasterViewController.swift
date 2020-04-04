@@ -29,6 +29,13 @@ class MasterViewController: UITableViewController {
         
         #endif
         
+        items.append((title: "Sing", viewControllerBuilder: {
+            
+            let vc = SingViewController()
+            
+            return vc
+        }))
+        
         items.append((title: "Chords", viewControllerBuilder: {
             
             let vc = GenericSpriteKitViewController()
