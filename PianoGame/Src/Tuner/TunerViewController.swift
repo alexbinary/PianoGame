@@ -85,7 +85,9 @@ class TunerViewController: UIViewController {
         fatalError("macOS not supported, please run on an iOS device")
         #endif
         
-        self.label = UILabel()
+        self.label = UILabel(frame: self.view.bounds)
+        self.label.numberOfLines = 0
+        self.label.textAlignment = .center
         self.label.font = UIFont.systemFont(ofSize: 64, weight: .bold)
         self.view.addSubview(self.label)
         
@@ -127,10 +129,20 @@ class TunerViewController: UIViewController {
                 let rawFrequency: Double = self.frequencyTrackerAudioNode.frequency
                 let stabilizedFrequency = frequencyStabilizerNode.inject(sample: rawFrequency)
 
-                self.label.text = String(format: "%.0f Hz", stabilizedFrequency.rounded())
+                let octaveFromA4 = log2(stabilizedFrequency / 440.0)
+                let keysFromA4 = octaveFromA4 * 12  // 12 keys in an octave
+                
+                let closestIntegerValue = Int(keysFromA4.rounded(.toNearestOrAwayFromZero))
+                let approximation = (keysFromA4 - closestIntegerValue)
+                
+                let note = Note.a.addingHalfSteps(closestIntegerValue)
+                
+                self.label.text = """
+                                \(String(format: "%.0f Hz", stabilizedFrequency.rounded()))
+                                \(note.name(using: .latinNaming))
+                                \(String(format: "%.2f", approximation))
+                                """
                 self.label.font = UIFont.systemFont(ofSize: 64, weight: .bold)
-                self.label.sizeToFit()
-                self.label.center = self.view.center
                 
             } else {
                 

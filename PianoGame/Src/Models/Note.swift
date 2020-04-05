@@ -36,7 +36,7 @@ public enum Note : CaseIterable {
     
     func addingHalfSteps(_ halfSteps: Int) -> Note {
         
-        return Note.allCases[(Note.allCases.firstIndex(of: self)! + halfSteps) % 12]
+        return Note.allCases[(Note.allCases.firstIndex(of: self)! + halfSteps + 12 * 10) % 12]
     }
     
     
