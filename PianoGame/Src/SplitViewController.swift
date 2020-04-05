@@ -40,6 +40,13 @@ class SplitViewController: UISplitViewController {
         
         #endif
         
+        items.append((title: "Tuner", viewControllerBuilder: {
+            
+            let vc = TunerViewController()
+            
+            return vc
+        }))
+        
         items.append((title: "Sing", viewControllerBuilder: {
             
             let vc = SingViewController()

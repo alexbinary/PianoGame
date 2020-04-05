@@ -48,6 +48,7 @@
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
 		29D6FAD424216EF2002FC01D /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6FAD324216EF2002FC01D /* RecorderViewController.swift */; };
 		29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D994E12415360100EC274D /* SpeechGameScene.swift */; };
+		29F5C558243A06DB004FF7C9 /* TunerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F5C557243A06DB004FF7C9 /* TunerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		29DF725D240A6687004DD36F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		29E7DDDE23FC91F900D15166 /* Interval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		29E87DCD240A88C500A0BA0A /* PhysicsDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsDisplayScene.swift; sourceTree = "<group>"; };
+		29F5C557243A06DB004FF7C9 /* TunerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunerViewController.swift; sourceTree = "<group>"; };
 		29F7524423E6DBA600CC776C /* DefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
 		29F7524623E6DBA700CC776C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29F7525423E6E52500CC776C /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -503,6 +505,14 @@
 			path = PhysicsDisplay;
 			sourceTree = "<group>";
 		};
+		29F5C551243A06CA004FF7C9 /* Tuner */ = {
+			isa = PBXGroup;
+			children = (
+				29F5C557243A06DB004FF7C9 /* TunerViewController.swift */,
+			);
+			path = Tuner;
+			sourceTree = "<group>";
+		};
 		29F7523623E6DBA500CC776C = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +545,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				29F5C551243A06CA004FF7C9 /* Tuner */,
 				29698F3C2438856100691D01 /* Sing */,
 				290C7287243762D600397374 /* ChordsPlay */,
 				298E7FC32434C15900723718 /* Chords */,
@@ -746,6 +757,7 @@
 				290C728E243762EF00397374 /* ChordsPlayScene.swift in Sources */,
 				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
 				298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */,
+				29F5C558243A06DB004FF7C9 /* TunerViewController.swift in Sources */,
 				2900F3FE2428FC3000722102 /* Scale.swift in Sources */,
 				29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */,
 				298E7FC72434C30900723718 /* StaffNote.swift in Sources */,

@@ -75,7 +75,7 @@ class SingViewController: UIViewController {
     let cursorView2Height: CGFloat = 1
     let cursorView2Color: UIColor = .blue
     
-    let trackerValueToActualFrequencyRatio: Double = 440.0 / 262.0 // result in Hz
+    let trackerValueToActualFrequencyRatio: Double = 1 // result in Hz
     
     let plotMinFrequency: Double = 20 // Hz
     let plotMaxFrequency: Double = 2000 // Hz
