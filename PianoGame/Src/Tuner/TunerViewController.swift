@@ -38,12 +38,34 @@ class TunerViewController: UIViewController {
     }
     
     
+    class StabilizerNode {
+        
+        var threshold: Double
+        var previousSample: Double! = nil
+        
+        init(threshold: Double) {
+            
+            self.threshold = threshold
+        }
+        
+        func inject(sample: Double) -> Double {
+            
+            if self.previousSample == nil || abs(sample - self.previousSample!) > self.threshold {
+                self.previousSample = sample
+                return sample
+            } else {
+                return self.previousSample
+            }
+        }
+    }
+    
+    
     var microphoneAudioNode: AKMicrophone!
     var frequencyTrackerAudioNode: AKFrequencyTracker!
     
     let trackingPeriod: TimeInterval = 0.03 // seconds
     
-    let amplitudeThreshold: Double = 0.03
+    let amplitudeThreshold: Double = 0.02
     
     
     var label: UILabel! = nil
@@ -84,10 +106,10 @@ class TunerViewController: UIViewController {
         try! AudioKit.start()
         
         let amplitudeSmoothingNode = ExponentialSmoothingNode(bufferSize: self.amplitudeSmoothingBufferSize, smoothingFactor: self.amplitudeSmoothingFactor)
-        
         let rawAmplitudeToScreenPosition: (Double) -> CGFloat = { self.view.bounds.height * CGFloat(1 - $0/0.2) }
-        
         self.volumeThresholdView.center = CGPoint(x: 0, y: rawAmplitudeToScreenPosition(self.amplitudeThreshold))
+        
+        let frequencyStabilizerNode = StabilizerNode(threshold: 1)  // Hz
         
         Timer.scheduledTimer(withTimeInterval: self.trackingPeriod, repeats: true) { _ in
             
@@ -103,8 +125,9 @@ class TunerViewController: UIViewController {
             if self.frequencyTrackerAudioNode.amplitude > self.amplitudeThreshold {
                 
                 let rawFrequency: Double = self.frequencyTrackerAudioNode.frequency
+                let stabilizedFrequency = frequencyStabilizerNode.inject(sample: rawFrequency)
 
-                self.label.text = "\(round(rawFrequency)) Hz"
+                self.label.text = String(format: "%.0f Hz", stabilizedFrequency.rounded())
                 self.label.font = UIFont.systemFont(ofSize: 64, weight: .bold)
                 self.label.sizeToFit()
                 self.label.center = self.view.center
