@@ -52,7 +52,8 @@ class SingViewController: UIViewController {
     
     
     var mic: AKMicrophone!
-    var tracker: AKFrequencyTracker!
+    var tracker1: AKFrequencyTracker!
+    var tracker2: AKFrequencyTracker!
     
     let trackingPeriod: TimeInterval = 0.01
     var smoothingPeriod: TimeInterval = 0.1
@@ -60,15 +61,19 @@ class SingViewController: UIViewController {
     var micLowPassFilter: AKLowPassFilter!
     let micHightCutoffFrequency: Double = 1600 // Hz
     
+    var micBandPassFilter: AKBandPassButterworthFilter!
+    let micBandPassCenterFrequency: Double = 440 // Hz
+    let micBandPassBandwidth: Double = 100 // cents
+    
     let amplitudeThreshold: Double = 0.01
     
     var cursorView1: UIView!
     let cursorView1Height: CGFloat = 1
-    let cursorView1Color: UIColor = .red
+    let cursorView1Color: UIColor = .purple
     
     var cursorView2: UIView!
     let cursorView2Height: CGFloat = 1
-    let cursorView2Color: UIColor = .green
+    let cursorView2Color: UIColor = .blue
     
     let trackerValueToActualFrequencyRatio: Double = 440.0 / 262.0 // result in Hz
     
@@ -97,14 +102,21 @@ class SingViewController: UIViewController {
         
         self.mic = AKMicrophone()
         self.micLowPassFilter = AKLowPassFilter(AKBooster(self.mic, gain: 10), cutoffFrequency: self.micHightCutoffFrequency, resonance: 0)
-        self.tracker = AKFrequencyTracker(self.self.micLowPassFilter)
+        self.micBandPassFilter = AKBandPassButterworthFilter(AKBooster(self.mic, gain: 10), centerFrequency: self.micBandPassCenterFrequency, bandwidth: self.micBandPassBandwidth)
+        self.tracker1 = AKFrequencyTracker(self.micLowPassFilter)
+        self.tracker2 = AKFrequencyTracker(self.micBandPassFilter)
         
-        AudioKit.output = AKBooster(self.tracker, gain: 0)
+        AudioKit.output = AKBooster(AKMixer(self.tracker1, self.tracker2), gain: 0)
         try! AudioKit.start()
         
         // Signal processing setup
         
-        let signalProcessors: [SignalProcessor] = [
+        let signalProcessors1: [SignalProcessor] = [
+            AverageSignalProcessor(bufferSize: Int(self.smoothingPeriod / self.trackingPeriod)),
+            StabilizerSignalProcessor(threshold: 1),
+        ]
+        
+        let signalProcessors2: [SignalProcessor] = [
             AverageSignalProcessor(bufferSize: Int(self.smoothingPeriod / self.trackingPeriod)),
             StabilizerSignalProcessor(threshold: 1),
         ]
@@ -114,7 +126,9 @@ class SingViewController: UIViewController {
         let convertTrackerValueToActualFrequency: SampleProcessor = { $0 * self.trackerValueToActualFrequencyRatio }
         
         let sampleProcessors: [SampleProcessor] = [ convertTrackerValueToActualFrequency ]
+        
         let samplePlotter: SamplePlotter = { sample in
+        
             let logValue = log2(sample)
             let minLogValue = log2(self.plotMinFrequency)
             let maxLogValue = log2(self.plotMaxFrequency)
@@ -134,12 +148,19 @@ class SingViewController: UIViewController {
         
         Timer.scheduledTimer(withTimeInterval: self.trackingPeriod, repeats: true) { _ in
             
-            guard self.tracker.amplitude > self.amplitudeThreshold else { return }
+            guard self.tracker1.amplitude > self.amplitudeThreshold else { return }
             
-            let rawSample: Double = self.tracker.frequency
-            plotRawSample(rawSample, self.cursorView1)
+            let rawSignalSample: Double = self.tracker1.frequency
+            let processedSignalSample = signalProcessors1.reduce(rawSignalSample, { $1.inject(sample: $0) })
+            plotRawSample(processedSignalSample, self.cursorView1)
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: self.trackingPeriod, repeats: true) { _ in
             
-            let processedSignalSample = signalProcessors.reduce(rawSample, { $1.inject(sample: $0) })
+            guard self.tracker2.amplitude > self.amplitudeThreshold else { return }
+            
+            let rawSignalSample: Double = self.tracker2.frequency
+            let processedSignalSample = signalProcessors2.reduce(rawSignalSample, { $1.inject(sample: $0) })
             plotRawSample(processedSignalSample, self.cursorView2)
         }
     }
