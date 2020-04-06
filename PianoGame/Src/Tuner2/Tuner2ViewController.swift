@@ -41,8 +41,11 @@ class Tuner2ViewController: UIViewController {
     var label: UILabel! = nil
     var noteCursorView: UIView!
     
+
+    let fullKeyboardNoteRangeRelativeToA4: ClosedRange<Int> = (-4 * 12)...(3 * 12 + 3)
+    let standardClefsNoteRangeRelativeToA4: ClosedRange<Int> = (-3 * 12)...(1 * 12 + 5) // A1 to D6
     
-    let noteAxisNoteRangeRelativeToA4: ClosedRange<Int> = (-4 * 12)...(3 * 12 + 3)
+    var noteAxisNoteRangeRelativeToA4: ClosedRange<Int> { self.standardClefsNoteRangeRelativeToA4 }
     
     
     override func viewDidLoad() {
