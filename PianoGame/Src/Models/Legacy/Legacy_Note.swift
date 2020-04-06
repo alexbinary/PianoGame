@@ -166,10 +166,3 @@ extension Legacy_Note: CustomStringConvertible {
     
     var isSharp: Bool { return self.description.contains("#") }
 }
-
-
-public enum NoteNaming {
-    
-    case latinNaming
-    case englishNaming
-}

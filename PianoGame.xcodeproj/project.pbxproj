@@ -30,6 +30,8 @@
 		294963ED24337057002D267A /* bass_clef.png in Resources */ = {isa = PBXBuildFile; fileRef = 294963EC24337057002D267A /* bass_clef.png */; };
 		294DCAB1241591D5005E69F0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAAE241591A7005E69F0 /* AudioKit.framework */; };
 		294DCAB2241591D5005E69F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAAE241591A7005E69F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		295F9BCE243B636E00CEF6C2 /* NoteName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BCD243B636E00CEF6C2 /* NoteName.swift */; };
+		295F9BD0243B641400CEF6C2 /* NoteNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BCF243B641400CEF6C2 /* NoteNaming.swift */; };
 		29698F432438857100691D01 /* SingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29698F422438857100691D01 /* SingViewController.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9223EB320300A7D97B /* GenericSpriteKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* GenericSpriteKitViewController.swift */; };
@@ -140,6 +142,8 @@
 		294DCAA8241591A6005E69F0 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../dev/AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		2950286223FC1BCA00073C4E /* IntervalDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalDisplayScene.swift; sourceTree = "<group>"; };
 		295B83A224000DAE00993564 /* IntervalGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalGameScene.swift; path = PianoGame/Src/IntervalGame/IntervalGameScene.swift; sourceTree = SOURCE_ROOT; };
+		295F9BCD243B636E00CEF6C2 /* NoteName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteName.swift; sourceTree = "<group>"; };
+		295F9BCF243B641400CEF6C2 /* NoteNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteNaming.swift; sourceTree = "<group>"; };
 		2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameScene.swift; sourceTree = "<group>"; };
 		29698F422438857100691D01 /* SingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingViewController.swift; sourceTree = "<group>"; };
@@ -300,13 +304,15 @@
 		2929AB3D23FC916400AC18C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2929AB3823FC915200AC18C1 /* Legacy_Note.swift */,
+				295F9BCD243B636E00CEF6C2 /* NoteName.swift */,
 				29E7DDDE23FC91F900D15166 /* Interval.swift */,
 				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
 				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
 				2900F3FD2428FC3000722102 /* Scale.swift */,
 				298E7FC62434C30900723718 /* StaffNote.swift */,
 				29130ECE2437675200B407E6 /* Quality.swift */,
+				295F9BCC243B635900CEF6C2 /* Legacy */,
+				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,6 +361,14 @@
 				295B83A224000DAE00993564 /* IntervalGameScene.swift */,
 			);
 			path = IntervalGame;
+			sourceTree = "<group>";
+		};
+		295F9BCC243B635900CEF6C2 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				2929AB3823FC915200AC18C1 /* Legacy_Note.swift */,
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 		29698F3C2438856100691D01 /* Sing */ = {
@@ -770,8 +784,10 @@
 				29289F0D2413F91E006D2F6A /* SimpleCountingDisplayNode.swift in Sources */,
 				290CA5B82431F4E600D097DE /* SightReadingScene.swift in Sources */,
 				296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */,
+				295F9BD0243B641400CEF6C2 /* NoteNaming.swift in Sources */,
 				290C728E243762EF00397374 /* ChordsPlayScene.swift in Sources */,
 				29289F0F2413F934006D2F6A /* TypesAliases.swift in Sources */,
+				295F9BCE243B636E00CEF6C2 /* NoteName.swift in Sources */,
 				298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */,
 				29F5C558243A06DB004FF7C9 /* TunerViewController.swift in Sources */,
 				2900F3FE2428FC3000722102 /* Scale.swift in Sources */,
