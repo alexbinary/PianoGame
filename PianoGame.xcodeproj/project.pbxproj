@@ -32,6 +32,11 @@
 		294DCAB2241591D5005E69F0 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAAE241591A7005E69F0 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		295F9BCE243B636E00CEF6C2 /* NoteName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BCD243B636E00CEF6C2 /* NoteName.swift */; };
 		295F9BD0243B641400CEF6C2 /* NoteNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BCF243B641400CEF6C2 /* NoteNaming.swift */; };
+		295F9BD2243B649B00CEF6C2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BD1243B649B00CEF6C2 /* Note.swift */; };
+		295F9BD4243B64EA00CEF6C2 /* Alteration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BD3243B64EA00CEF6C2 /* Alteration.swift */; };
+		295F9BD6243B652800CEF6C2 /* Octave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BD5243B652800CEF6C2 /* Octave.swift */; };
+		295F9BD8243B665800CEF6C2 /* Pitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BD7243B665800CEF6C2 /* Pitch.swift */; };
+		295F9BDA243B66C200CEF6C2 /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F9BD9243B66C200CEF6C2 /* Frequency.swift */; };
 		29698F432438857100691D01 /* SingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29698F422438857100691D01 /* SingViewController.swift */; };
 		296B1B8E23EB320300A7D97B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B8D23EB320300A7D97B /* AppDelegate.swift */; };
 		296B1B9223EB320300A7D97B /* GenericSpriteKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1B9123EB320300A7D97B /* GenericSpriteKitViewController.swift */; };
@@ -144,6 +149,11 @@
 		295B83A224000DAE00993564 /* IntervalGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalGameScene.swift; path = PianoGame/Src/IntervalGame/IntervalGameScene.swift; sourceTree = SOURCE_ROOT; };
 		295F9BCD243B636E00CEF6C2 /* NoteName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteName.swift; sourceTree = "<group>"; };
 		295F9BCF243B641400CEF6C2 /* NoteNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteNaming.swift; sourceTree = "<group>"; };
+		295F9BD1243B649B00CEF6C2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		295F9BD3243B64EA00CEF6C2 /* Alteration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alteration.swift; sourceTree = "<group>"; };
+		295F9BD5243B652800CEF6C2 /* Octave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Octave.swift; sourceTree = "<group>"; };
+		295F9BD7243B665800CEF6C2 /* Pitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch.swift; sourceTree = "<group>"; };
+		295F9BD9243B66C200CEF6C2 /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpriteKit-Spring.swift"; sourceTree = "<group>"; };
 		2964B39423E6EB9100E6BABF /* DefaultGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGameScene.swift; sourceTree = "<group>"; };
 		29698F422438857100691D01 /* SingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingViewController.swift; sourceTree = "<group>"; };
@@ -304,15 +314,20 @@
 		2929AB3D23FC916400AC18C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				295F9BCC243B635900CEF6C2 /* Legacy */,
+				295F9BD3243B64EA00CEF6C2 /* Alteration.swift */,
+				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
 				295F9BCD243B636E00CEF6C2 /* NoteName.swift */,
+				295F9BD1243B649B00CEF6C2 /* Note.swift */,
 				29E7DDDE23FC91F900D15166 /* Interval.swift */,
 				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
 				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
 				2900F3FD2428FC3000722102 /* Scale.swift */,
 				298E7FC62434C30900723718 /* StaffNote.swift */,
 				29130ECE2437675200B407E6 /* Quality.swift */,
-				295F9BCC243B635900CEF6C2 /* Legacy */,
-				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
+				295F9BD5243B652800CEF6C2 /* Octave.swift */,
+				295F9BD7243B665800CEF6C2 /* Pitch.swift */,
+				295F9BD9243B66C200CEF6C2 /* Frequency.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -799,10 +814,15 @@
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
 				291366A224158DCC00C4BA8C /* AudioKitTestScene.swift in Sources */,
 				291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */,
+				295F9BD6243B652800CEF6C2 /* Octave.swift in Sources */,
 				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
 				298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */,
+				295F9BD2243B649B00CEF6C2 /* Note.swift in Sources */,
+				295F9BD8243B665800CEF6C2 /* Pitch.swift in Sources */,
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
+				295F9BDA243B66C200CEF6C2 /* Frequency.swift in Sources */,
+				295F9BD4243B64EA00CEF6C2 /* Alteration.swift in Sources */,
 				29289F062413F3EE006D2F6A /* Legacy_Note.swift in Sources */,
 				29D48DA6243B4AA800355A86 /* Tuner2ViewController.swift in Sources */,
 			);

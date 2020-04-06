@@ -5,6 +5,7 @@ import Foundation
 
 public enum NoteNaming {
 
+    
     /// Do, Ré, Mi, Fa, Sol, La, Si
     case latinNaming
     
