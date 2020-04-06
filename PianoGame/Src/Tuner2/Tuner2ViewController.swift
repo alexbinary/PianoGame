@@ -63,8 +63,8 @@ class Tuner2ViewController: UIViewController {
         
         self.drawNotesAxis()
         
-        self.noteCursorView = UIView(frame: CGRect(x: self.view.bounds.width - 10, y: 0, width: 10, height: 5))
-        self.noteCursorView.backgroundColor = .black
+        self.noteCursorView = UIView(frame: CGRect(x: self.view.bounds.width - 100, y: 0, width: 100, height: 1))
+        self.noteCursorView.backgroundColor = .red
         self.view.addSubview(self.noteCursorView)
         
         self.microphoneAudioNode = AKMicrophone()
@@ -128,7 +128,15 @@ class Tuner2ViewController: UIViewController {
             let normalizedNoteValue = self.normalize(noteValue: Double(noteValue))
             let y = self.convertToScreenCoordinates(normalizedNoteValue: normalizedNoteValue)
             
-            let view = UIView(frame: CGRect(x: self.view.bounds.width - 10, y: 0, width: 10, height: 1))
+            let noteIndexInCMajorScale = (noteValue - 3 + 12 * 12) % 12
+            
+            let isC = noteIndexInCMajorScale == 0
+            let isSharp = [1, 3, 6, 8, 10].contains(noteIndexInCMajorScale)
+            
+            let length: CGFloat = isC ? 50 : isSharp ? 10 : 20
+            let thickness: CGFloat = isC ? 1 : isSharp ? 2 : 1
+            
+            let view = UIView(frame: CGRect(x: self.view.bounds.width - length, y: 0, width: length, height: thickness))
             view.backgroundColor = .black
             view.center = CGPoint(x: view.center.x, y: y)
             self.view.addSubview(view)
