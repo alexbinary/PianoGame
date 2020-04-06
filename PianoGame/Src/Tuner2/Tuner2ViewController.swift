@@ -11,7 +11,7 @@ class Tuner2ViewController: UIViewController {
     
     class StabilizerNode {
         
-        var threshold: Double
+        let threshold: Double
         var previousSample: Double! = nil
         
         init(threshold: Double) {
@@ -31,6 +31,13 @@ class Tuner2ViewController: UIViewController {
     }
     
     
+    struct Target: Hashable {
+        
+        let targetNoteValueRelativeToA4: Double
+        let tolerance: ClosedRange<Double>
+    }
+    
+    
     var microphoneAudioNode: AKMicrophone!
     var frequencyTrackerAudioNode: AKFrequencyTracker!
     
@@ -41,11 +48,20 @@ class Tuner2ViewController: UIViewController {
     var label: UILabel! = nil
     var noteCursorView: UIView!
     
-
+    
     let fullKeyboardNoteRangeRelativeToA4: ClosedRange<Int> = (-4 * 12)...(3 * 12 + 3)
     let standardClefsNoteRangeRelativeToA4: ClosedRange<Int> = (-3 * 12)...(1 * 12 + 5) // A1 to D6
     
     var noteAxisNoteRangeRelativeToA4: ClosedRange<Int> { self.standardClefsNoteRangeRelativeToA4 }
+    
+    let targets: Set<Target> = [
+        Target(targetNoteValueRelativeToA4: -9-12, tolerance: (-1)...(1)), // C3
+        Target(targetNoteValueRelativeToA4: -9, tolerance: (-1)...(1)), // C4
+        Target(targetNoteValueRelativeToA4: 3, tolerance: (-1)...(1)),  // C5
+    ]
+    var metTargets: Set<Target> = []
+    
+    var targetViews: [Target: UIView] = [:]
     
     
     override func viewDidLoad() {
@@ -60,6 +76,9 @@ class Tuner2ViewController: UIViewController {
         self.label.textAlignment = .center
         self.label.font = UIFont.systemFont(ofSize: 64, weight: .bold)
         self.view.addSubview(self.label)
+        
+        self.draw(targets: self.targets)
+        self.turnOff(targets: self.targets)
         
         self.drawNotesAxis()
         
@@ -92,16 +111,20 @@ class Tuner2ViewController: UIViewController {
             let normalizedNoteValue = self.normalize(noteValue: noteValueRelativeToA4)
             self.noteCursorView.center = CGPoint(x: self.noteCursorView.center.x, y: self.convertToScreenCoordinates(normalizedNoteValue: normalizedNoteValue))
             
+            self.metTargets = self.metTargets(forNoteValue: noteValueRelativeToA4)
+            self.turnOff(targets: self.targets)
+            self.turnOn(targets: self.metTargets)
+            
             let closestIntegerValue = Int(noteValueRelativeToA4.rounded(.toNearestOrAwayFromZero))
             let approximation = (noteValueRelativeToA4 - closestIntegerValue)
             
             let note = Note.a.addingHalfSteps(closestIntegerValue)
             
             self.label.text = """
-                \(String(format: "%.0f Hz", stabilizedFrequency.rounded()))
-                \(note.name(using: .latinNaming))
-                \(String(format: "%.2f", approximation))
-                """
+            \(String(format: "%.0f Hz", stabilizedFrequency.rounded()))
+            \(note.name(using: .latinNaming))
+            \(String(format: "%.2f", approximation))
+            """
         }
     }
     
@@ -140,6 +163,51 @@ class Tuner2ViewController: UIViewController {
             view.backgroundColor = .black
             view.center = CGPoint(x: view.center.x, y: y)
             self.view.addSubview(view)
+        }
+    }
+    
+    
+    func metTargets(forNoteValue noteValue: Double) -> Set<Target> {
+        
+        return Set<Target>(self.targets.filter { noteValue > ($0.targetNoteValueRelativeToA4 + $0.tolerance.lowerBound) && noteValue < ($0.targetNoteValueRelativeToA4 + $0.tolerance.upperBound) })
+    }
+    
+    
+    func draw(targets: Set<Target>) {
+        
+        for target in targets {
+            
+            let normalizedLowerNoteValue = self.normalize(noteValue: Double(target.targetNoteValueRelativeToA4 + target.tolerance.lowerBound))
+            let lowerY = self.convertToScreenCoordinates(normalizedNoteValue: normalizedLowerNoteValue)
+            
+            let normalizedUpperNoteValue = self.normalize(noteValue: Double(target.targetNoteValueRelativeToA4 + target.tolerance.upperBound))
+            let upperY = self.convertToScreenCoordinates(normalizedNoteValue: normalizedUpperNoteValue)
+            
+            let width: CGFloat = 100
+            
+            let view = UIView(frame: CGRect(x: self.view.bounds.width - width, y: upperY, width: width, height: lowerY - upperY))
+            self.view.addSubview(view)
+            self.view.sendSubviewToBack(view)
+            
+            self.targetViews[target] = view
+        }
+    }
+    
+    
+    func turnOn(targets: Set<Target>) {
+        
+        for target in targets {
+            
+            self.targetViews[target]!.backgroundColor = .green
+        }
+    }
+    
+    
+    func turnOff(targets: Set<Target>) {
+        
+        for target in targets {
+            
+            self.targetViews[target]!.backgroundColor = .lightGray
         }
     }
 }
