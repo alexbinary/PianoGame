@@ -16,7 +16,7 @@ public enum NoteName : CaseIterable {
 public extension NoteName {
     
     
-    func name(using naming: NoteNaming) -> String {
+    func displayName(in naming: NoteNaming) -> String {
         
         switch naming {
             
