@@ -49,10 +49,10 @@ class Tuner2ViewController: UIViewController {
     var noteCursorView: UIView!
     
     
-    let fullKeyboardNoteRangeRelativeToA4: ClosedRange<Int> = (-4 * 12)...(3 * 12 + 3)
-    let standardClefsNoteRangeRelativeToA4: ClosedRange<Int> = (-3 * 12)...(1 * 12 + 5) // A1 to D6
+    let fullKeyboardNoteRange: ClosedRange<Note> = Note(.a, at: Octave(0))...Note(.c, at: Octave(8))
+    let standardClefsNoteRange: ClosedRange<Note> = Note(.a, at: Octave(1))...Note(.d, at: Octave(6))
     
-    var noteAxisNoteRangeRelativeToA4: ClosedRange<Int> { self.standardClefsNoteRangeRelativeToA4 }
+    var noteAxisNoteRange: ClosedRange<Note> { self.standardClefsNoteRange }
     
     let targets: Set<Target> = [
         Target(targetNoteValueRelativeToA4: -9-12, tolerance: (-1)...(1)), // C3
@@ -132,8 +132,8 @@ class Tuner2ViewController: UIViewController {
     
     func convertToScreenCoordinates(noteValueRelativeToA4: Double) -> CGFloat {
         
-        let minNoteValue = Double(self.noteAxisNoteRangeRelativeToA4.lowerBound)
-        let maxNoteValue = Double(self.noteAxisNoteRangeRelativeToA4.upperBound)
+        let minNoteValue = Double(self.noteAxisNoteRange.lowerBound.numberOfNotes(relativeTo: .A4))
+        let maxNoteValue = Double(self.noteAxisNoteRange.upperBound.numberOfNotes(relativeTo: .A4))
         
         let normalizedNoteValue = (noteValueRelativeToA4 - minNoteValue) / (maxNoteValue - minNoteValue)
         
@@ -143,7 +143,9 @@ class Tuner2ViewController: UIViewController {
     
     func drawNotesAxis() {
         
-        for noteValue in self.noteAxisNoteRangeRelativeToA4 {
+        for note in self.noteAxisNoteRange {
+            
+            let noteValue = note.numberOfNotes(relativeTo: .A4)
             
             let y = self.convertToScreenCoordinates(noteValueRelativeToA4: Double(noteValue))
             

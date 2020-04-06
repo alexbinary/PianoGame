@@ -71,7 +71,8 @@ public struct Note {
     
     var upOneNoteName: Note {
         
-        let newName: NoteName
+        var newName: NoteName
+        var newOctave = self.octave
         
         switch self.name {
             
@@ -89,20 +90,23 @@ public struct Note {
             newName = .b
         case .b:
             newName = .c
+            newOctave = Octave(self.octave.absoluteNumber + 1)
         }
         
-        return self.replacingNoteName(with: newName)
+        return self.replacingNoteName(with: newName).replacingOctave(with: newOctave)
     }
     
     
     var downOneNoteName: Note {
         
         let newName: NoteName
+        var newOctave = self.octave
         
         switch self.name {
             
         case .c:
             newName = .b
+            newOctave = Octave(self.octave.absoluteNumber - 1)
         case .d:
             newName = .c
         case .e:
@@ -117,7 +121,13 @@ public struct Note {
             newName = .a
         }
         
-        return self.replacingNoteName(with: newName)
+        return self.replacingNoteName(with: newName).replacingOctave(with: newOctave)
+    }
+    
+    
+    func replacingOctave(with newOctave: Octave) -> Note {
+        
+        return Note(self.name, self.alteration, at: newOctave)
     }
     
     
@@ -197,5 +207,43 @@ public struct Note {
         }
         
         return note
+    }
+}
+
+
+extension Note: Comparable {
+    
+    
+    public static func < (lhs: Note, rhs: Note) -> Bool {
+        
+        let referenceNote: Note = .A4
+        
+        return lhs.numberOfNotes(relativeTo: referenceNote) < rhs.numberOfNotes(relativeTo: referenceNote)
+    }
+    
+    
+    public static func == (lhs: Note, rhs: Note) -> Bool {
+        
+        let referenceNote: Note = .A4
+        
+        return lhs.numberOfNotes(relativeTo: referenceNote) == rhs.numberOfNotes(relativeTo: referenceNote)
+    }
+}
+
+
+extension Note: Strideable {
+    
+    
+    public typealias Stride = Int
+    
+    
+    public func distance(to other: Note) -> Int {
+        
+        return self.numberOfNotes(relativeTo: other)
+    }
+    
+    public func advanced(by n: Int) -> Note {
+        
+        return self.addingHalfSteps(n)
     }
 }
