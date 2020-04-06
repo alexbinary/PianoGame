@@ -132,6 +132,8 @@ class TunerViewController: UIViewController {
                 let octaveFromA4 = log2(stabilizedFrequency / 440.0)
                 let keysFromA4 = octaveFromA4 * 12  // 12 keys in an octave
                 
+                
+                
                 let closestIntegerValue = Int(keysFromA4.rounded(.toNearestOrAwayFromZero))
                 let approximation = (keysFromA4 - closestIntegerValue)
                 

@@ -43,9 +43,11 @@
 		298E7FC22434BE9200723718 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC12434BE9200723718 /* MasterViewController.swift */; };
 		298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC42434C16D00723718 /* ChordsScene.swift */; };
 		298E7FC72434C30900723718 /* StaffNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC62434C30900723718 /* StaffNote.swift */; };
+		2996D37A243B4DF300175031 /* Percent in Frameworks */ = {isa = PBXBuildFile; productRef = 2996D379243B4DF300175031 /* Percent */; };
 		29A6A607242B62D900CA22D5 /* PianoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A606242B62D900CA22D5 /* PianoGameTests.swift */; };
 		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
+		29D48DA6243B4AA800355A86 /* Tuner2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D48DA5243B4AA800355A86 /* Tuner2ViewController.swift */; };
 		29D6FAD424216EF2002FC01D /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6FAD324216EF2002FC01D /* RecorderViewController.swift */; };
 		29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D994E12415360100EC274D /* SpeechGameScene.swift */; };
 		29F5C558243A06DB004FF7C9 /* TunerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F5C557243A06DB004FF7C9 /* TunerViewController.swift */; };
@@ -165,6 +167,7 @@
 		29B1CAB4240C13D000A653AA /* IntervalQuizPhysicsDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizPhysicsDisplayScene.swift; sourceTree = "<group>"; };
 		29C198CF23EF712C007950DE /* wedding.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = wedding.mid; sourceTree = "<group>"; };
 		29D1B02E2412AEEF005C7DEC /* SimpleCountingDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingDisplayScene.swift; sourceTree = "<group>"; };
+		29D48DA5243B4AA800355A86 /* Tuner2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tuner2ViewController.swift; sourceTree = "<group>"; };
 		29D6FAD324216EF2002FC01D /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 		29D7DF3323E765BF00760A8D /* PlayerCharacterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCharacterNode.swift; sourceTree = "<group>"; };
 		29D7DF3523E7680F00760A8D /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2996D37A243B4DF300175031 /* Percent in Frameworks */,
 				296D110A24389788007AA520 /* AudioKitUI.framework in Frameworks */,
 				294DCAB1241591D5005E69F0 /* AudioKit.framework in Frameworks */,
 				296B1BA223EB334800A7D97B /* MIKMIDI.framework in Frameworks */,
@@ -460,6 +464,14 @@
 			path = SimpleCountingDisplay;
 			sourceTree = "<group>";
 		};
+		29D48D9F243B4A9600355A86 /* Tuner2 */ = {
+			isa = PBXGroup;
+			children = (
+				29D48DA5243B4AA800355A86 /* Tuner2ViewController.swift */,
+			);
+			path = Tuner2;
+			sourceTree = "<group>";
+		};
 		29D6FACD24216EBC002FC01D /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +557,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				29D48D9F243B4A9600355A86 /* Tuner2 */,
 				29F5C551243A06CA004FF7C9 /* Tuner */,
 				29698F3C2438856100691D01 /* Sing */,
 				290C7287243762D600397374 /* ChordsPlay */,
@@ -604,6 +617,9 @@
 			dependencies = (
 			);
 			name = PianoGame;
+			packageProductDependencies = (
+				2996D379243B4DF300175031 /* Percent */,
+			);
 			productName = PianoGame_iPad;
 			productReference = 296B1B8B23EB320300A7D97B /* PianoGame.app */;
 			productType = "com.apple.product-type.application";
@@ -772,6 +788,7 @@
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
 				29289F062413F3EE006D2F6A /* Note.swift in Sources */,
+				29D48DA6243B4AA800355A86 /* Tuner2ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,6 +1077,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2996D379243B4DF300175031 /* Percent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 295B83A4240013D500993564 /* XCRemoteSwiftPackageReference "Percentage" */;
+			productName = Percent;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29F7523723E6DBA600CC776C /* Project object */;
 }
