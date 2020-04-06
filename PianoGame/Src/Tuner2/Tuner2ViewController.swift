@@ -31,47 +31,6 @@ class Tuner2ViewController: UIViewController {
     }
     
     
-    struct PitchValue {
-        
-        let numberOfNotesRelativeToA4: Double
-        
-        init(withFrequency frequency: Double) {
-            
-            let octaveValueRelativeToA4 = log2(frequency / 440.0)
-            let numberOfNotesRelativeToA4 = octaveValueRelativeToA4 * 12  // 12 notes in an octave
-            
-            self.init(fromNumberOfNotesRelativeToA4: numberOfNotesRelativeToA4)
-        }
-        
-        init(fromNumberOfNotesRelativeToA4 numberOfNotesRelativeToA4: Double) {
-            
-            self.numberOfNotesRelativeToA4 = numberOfNotesRelativeToA4
-        }
-        
-        init(fromNote note: Legacy_Note, atOctave octave: Int) {
-            
-            let notesInOneOctave: Int = 12
-            let A4OctaveValue: Int = 4
-            let A4IndexInChromaticScale: Int = Legacy_Note.a.indexInChromaticScale
-            
-            let octaveValueRelativeToA4: Int = (octave - A4OctaveValue)
-            let indexInChromaticScaleRelativeToA4: Int = note.indexInChromaticScale - A4IndexInChromaticScale
-            
-            self.numberOfNotesRelativeToA4 = octaveValueRelativeToA4 * notesInOneOctave + indexInChromaticScaleRelativeToA4
-        }
-        
-        var numberOfNotesRelativeToA4ClosestIntegerValue: Int { Int(self.numberOfNotesRelativeToA4.rounded(.toNearestOrAwayFromZero)) }
-        var distanceToClosestNote: Double { self.numberOfNotesRelativeToA4 - numberOfNotesRelativeToA4ClosestIntegerValue }
-        
-        var closestNote: Legacy_Note { Legacy_Note.a.addingHalfSteps(self.numberOfNotesRelativeToA4ClosestIntegerValue) }
-        
-        func numberOfNotes(fromNote note: Legacy_Note, atOctave octave: Int) -> Double {
-        
-            self.numberOfNotesRelativeToA4 - PitchValue(fromNote: note, atOctave: octave).numberOfNotesRelativeToA4
-        }
-    }
-    
-    
     struct Target: Hashable {
         
         let targetNoteValueRelativeToA4: Double
