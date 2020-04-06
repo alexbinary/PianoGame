@@ -43,6 +43,36 @@ public enum Note : CaseIterable {
     var sharp: Note { return self.addingHalfSteps(1) }
     
     var flat: Note { return self.addingHalfSteps(-1) }
+    
+    var indexInChromaticScale: Int {
+        
+        switch self {
+        case .c:
+            return 0
+        case .c_sharp:
+            return 1
+        case .d:
+            return 2
+        case .d_sharp:
+            return 3
+        case .e:
+            return 4
+        case .f:
+            return 5
+        case .f_sharp:
+            return 6
+        case .g:
+            return 7
+        case .g_sharp:
+            return 8
+        case .a:
+            return 9
+        case .a_sharp:
+            return 10
+        case .b:
+            return 11
+        }
+    }
 }
 
 

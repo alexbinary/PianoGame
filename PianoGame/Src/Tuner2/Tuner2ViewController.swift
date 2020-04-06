@@ -31,6 +31,47 @@ class Tuner2ViewController: UIViewController {
     }
     
     
+    struct PitchValue {
+        
+        let numberOfNotesRelativeToA4: Double
+        
+        init(withFrequency frequency: Double) {
+            
+            let octaveValueRelativeToA4 = log2(frequency / 440.0)
+            let numberOfNotesRelativeToA4 = octaveValueRelativeToA4 * 12  // 12 notes in an octave
+            
+            self.init(fromNumberOfNotesRelativeToA4: numberOfNotesRelativeToA4)
+        }
+        
+        init(fromNumberOfNotesRelativeToA4 numberOfNotesRelativeToA4: Double) {
+            
+            self.numberOfNotesRelativeToA4 = numberOfNotesRelativeToA4
+        }
+        
+        init(fromNote note: Note, atOctave octave: Int) {
+            
+            let notesInOneOctave: Int = 12
+            let A4OctaveValue: Int = 4
+            let A4IndexInChromaticScale: Int = Note.a.indexInChromaticScale
+            
+            let octaveValueRelativeToA4: Int = (octave - A4OctaveValue)
+            let indexInChromaticScaleRelativeToA4: Int = note.indexInChromaticScale - A4IndexInChromaticScale
+            
+            self.numberOfNotesRelativeToA4 = octaveValueRelativeToA4 * notesInOneOctave + indexInChromaticScaleRelativeToA4
+        }
+        
+        var numberOfNotesRelativeToA4ClosestIntegerValue: Int { Int(self.numberOfNotesRelativeToA4.rounded(.toNearestOrAwayFromZero)) }
+        var distanceToClosestNote: Double { self.numberOfNotesRelativeToA4 - numberOfNotesRelativeToA4ClosestIntegerValue }
+        
+        var closestNote: Note { Note.a.addingHalfSteps(self.numberOfNotesRelativeToA4ClosestIntegerValue) }
+        
+        func numberOfNotes(fromNote note: Note, atOctave octave: Int) -> Double {
+        
+            self.numberOfNotesRelativeToA4 - PitchValue(fromNote: note, atOctave: octave).numberOfNotesRelativeToA4
+        }
+    }
+    
+    
     struct Target: Hashable {
         
         let targetNoteValueRelativeToA4: Double
@@ -104,43 +145,33 @@ class Tuner2ViewController: UIViewController {
             let stabilizedFrequency = frequencyStabilizerNode.inject(sample: rawFrequency)
             
             let frequency = stabilizedFrequency
+
+            let pitchValue = PitchValue(withFrequency: frequency)
+            self.noteCursorView.center = CGPoint(x: self.noteCursorView.center.x, y: self.convertToScreenCoordinates(pitchValue: pitchValue))
             
-            let octaveValueRelativeToA4 = log2(frequency / 440.0)
-            let noteValueRelativeToA4 = octaveValueRelativeToA4 * 12  // 12 notes in an octave
-            
-            let normalizedNoteValue = self.normalize(noteValue: noteValueRelativeToA4)
-            self.noteCursorView.center = CGPoint(x: self.noteCursorView.center.x, y: self.convertToScreenCoordinates(normalizedNoteValue: normalizedNoteValue))
-            
-            self.metTargets = self.metTargets(forNoteValue: noteValueRelativeToA4)
+            self.metTargets = self.metTargets(forPitchValue: pitchValue)
             self.turnOff(targets: self.targets)
             self.turnOn(targets: self.metTargets)
             
-            let closestIntegerValue = Int(noteValueRelativeToA4.rounded(.toNearestOrAwayFromZero))
-            let approximation = (noteValueRelativeToA4 - closestIntegerValue)
-            
-            let note = Note.a.addingHalfSteps(closestIntegerValue)
+            let closestNote: Note = pitchValue.closestNote
+            let distanceToClosestNote: Double = pitchValue.distanceToClosestNote
             
             self.label.text = """
-            \(String(format: "%.0f Hz", stabilizedFrequency.rounded()))
-            \(note.name(using: .latinNaming))
-            \(String(format: "%.2f", approximation))
+            \(String(format: "%.0f Hz", frequency.rounded()))
+            \(closestNote.name(using: .latinNaming))
+            \(String(format: "%.2f", distanceToClosestNote))
             """
         }
     }
     
     
-    func normalize(noteValue: Double) -> Percent {
-        
+    func convertToScreenCoordinates(pitchValue: PitchValue) -> CGFloat {
+    
         let minNoteValue = Double(self.noteAxisNoteRangeRelativeToA4.lowerBound)
         let maxNoteValue = Double(self.noteAxisNoteRangeRelativeToA4.upperBound)
-        let normalizedNoteValue = (noteValue - minNoteValue) / (maxNoteValue - minNoteValue)
-        return Percent(fraction: normalizedNoteValue)
-    }
-    
-    
-    func convertToScreenCoordinates(normalizedNoteValue: Percent) -> CGFloat {
+        let normalizedNoteValue = (pitchValue.numberOfNotesRelativeToA4 - minNoteValue) / (maxNoteValue - minNoteValue)
         
-        return self.view.bounds.height * CGFloat(1 - normalizedNoteValue.fraction)
+        return self.view.bounds.height * CGFloat(1 - normalizedNoteValue)
     }
     
     
@@ -148,8 +179,9 @@ class Tuner2ViewController: UIViewController {
         
         for noteValue in self.noteAxisNoteRangeRelativeToA4 {
             
-            let normalizedNoteValue = self.normalize(noteValue: Double(noteValue))
-            let y = self.convertToScreenCoordinates(normalizedNoteValue: normalizedNoteValue)
+            let pitchValue = PitchValue(fromNumberOfNotesRelativeToA4: Double(noteValue))
+            
+            let y = self.convertToScreenCoordinates(pitchValue: pitchValue)
             
             let noteIndexInCMajorScale = (noteValue - 3 + 12 * 12) % 12
             
@@ -167,9 +199,9 @@ class Tuner2ViewController: UIViewController {
     }
     
     
-    func metTargets(forNoteValue noteValue: Double) -> Set<Target> {
+    func metTargets(forPitchValue pitchValue: PitchValue) -> Set<Target> {
         
-        return Set<Target>(self.targets.filter { noteValue > ($0.targetNoteValueRelativeToA4 + $0.tolerance.lowerBound) && noteValue < ($0.targetNoteValueRelativeToA4 + $0.tolerance.upperBound) })
+        return Set<Target>(self.targets.filter { pitchValue.numberOfNotesRelativeToA4 > ($0.targetNoteValueRelativeToA4 + $0.tolerance.lowerBound) && pitchValue.numberOfNotesRelativeToA4 < ($0.targetNoteValueRelativeToA4 + $0.tolerance.upperBound) })
     }
     
     
@@ -177,11 +209,8 @@ class Tuner2ViewController: UIViewController {
         
         for target in targets {
             
-            let normalizedLowerNoteValue = self.normalize(noteValue: Double(target.targetNoteValueRelativeToA4 + target.tolerance.lowerBound))
-            let lowerY = self.convertToScreenCoordinates(normalizedNoteValue: normalizedLowerNoteValue)
-            
-            let normalizedUpperNoteValue = self.normalize(noteValue: Double(target.targetNoteValueRelativeToA4 + target.tolerance.upperBound))
-            let upperY = self.convertToScreenCoordinates(normalizedNoteValue: normalizedUpperNoteValue)
+            let lowerY = self.convertToScreenCoordinates(pitchValue: PitchValue(fromNumberOfNotesRelativeToA4: Double(target.targetNoteValueRelativeToA4 + target.tolerance.lowerBound)))
+            let upperY = self.convertToScreenCoordinates(pitchValue: PitchValue(fromNumberOfNotesRelativeToA4: Double(target.targetNoteValueRelativeToA4 + target.tolerance.upperBound)))
             
             let width: CGFloat = 100
             
