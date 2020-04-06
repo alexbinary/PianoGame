@@ -16,7 +16,7 @@
 		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
 		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
 		291A095D24157C1400DC1BD2 /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
-		29289F062413F3EE006D2F6A /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Note.swift */; };
+		29289F062413F3EE006D2F6A /* Legacy_Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2929AB3823FC915200AC18C1 /* Legacy_Note.swift */; };
 		29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD582412DFE1004ADD2F /* InWorldPuzzleCountingGameScene.swift */; };
 		29289F0B2413F406006D2F6A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */; };
 		29289F0D2413F91E006D2F6A /* SimpleCountingDisplayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291DAD552412DC1D004ADD2F /* SimpleCountingDisplayNode.swift */; };
@@ -132,7 +132,7 @@
 		2921E30524071B4800119589 /* Display2Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display2Scene.swift; sourceTree = "<group>"; };
 		29289F182413FCC6006D2F6A /* PianoGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PianoGame.entitlements; sourceTree = "<group>"; };
 		2929AB3523FC8B0E00AC18C1 /* IntervalQuizScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalQuizScene.swift; sourceTree = "<group>"; };
-		2929AB3823FC915200AC18C1 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		2929AB3823FC915200AC18C1 /* Legacy_Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Legacy_Note.swift; sourceTree = "<group>"; };
 		2945344123EA0AB200F92152 /* MIKMIDI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MIKMIDI.xcodeproj; path = Frameworks/MIKMIDI/Framework/MIKMIDI.xcodeproj; sourceTree = "<group>"; };
 		2945345123EA16E700F92152 /* sample.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = sample.mid; sourceTree = "<group>"; };
 		294963E524336EAB002D267A /* treble_clef.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = treble_clef.png; sourceTree = "<group>"; };
@@ -300,7 +300,7 @@
 		2929AB3D23FC916400AC18C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2929AB3823FC915200AC18C1 /* Note.swift */,
+				2929AB3823FC915200AC18C1 /* Legacy_Note.swift */,
 				29E7DDDE23FC91F900D15166 /* Interval.swift */,
 				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
 				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
@@ -787,7 +787,7 @@
 				298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */,
 				29289F122413F9EE006D2F6A /* SpriteKit-Spring.swift in Sources */,
 				29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */,
-				29289F062413F3EE006D2F6A /* Note.swift in Sources */,
+				29289F062413F3EE006D2F6A /* Legacy_Note.swift in Sources */,
 				29D48DA6243B4AA800355A86 /* Tuner2ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -48,11 +48,11 @@ class Tuner2ViewController: UIViewController {
             self.numberOfNotesRelativeToA4 = numberOfNotesRelativeToA4
         }
         
-        init(fromNote note: Note, atOctave octave: Int) {
+        init(fromNote note: Legacy_Note, atOctave octave: Int) {
             
             let notesInOneOctave: Int = 12
             let A4OctaveValue: Int = 4
-            let A4IndexInChromaticScale: Int = Note.a.indexInChromaticScale
+            let A4IndexInChromaticScale: Int = Legacy_Note.a.indexInChromaticScale
             
             let octaveValueRelativeToA4: Int = (octave - A4OctaveValue)
             let indexInChromaticScaleRelativeToA4: Int = note.indexInChromaticScale - A4IndexInChromaticScale
@@ -63,9 +63,9 @@ class Tuner2ViewController: UIViewController {
         var numberOfNotesRelativeToA4ClosestIntegerValue: Int { Int(self.numberOfNotesRelativeToA4.rounded(.toNearestOrAwayFromZero)) }
         var distanceToClosestNote: Double { self.numberOfNotesRelativeToA4 - numberOfNotesRelativeToA4ClosestIntegerValue }
         
-        var closestNote: Note { Note.a.addingHalfSteps(self.numberOfNotesRelativeToA4ClosestIntegerValue) }
+        var closestNote: Legacy_Note { Legacy_Note.a.addingHalfSteps(self.numberOfNotesRelativeToA4ClosestIntegerValue) }
         
-        func numberOfNotes(fromNote note: Note, atOctave octave: Int) -> Double {
+        func numberOfNotes(fromNote note: Legacy_Note, atOctave octave: Int) -> Double {
         
             self.numberOfNotesRelativeToA4 - PitchValue(fromNote: note, atOctave: octave).numberOfNotesRelativeToA4
         }
@@ -153,7 +153,7 @@ class Tuner2ViewController: UIViewController {
             self.turnOff(targets: self.targets)
             self.turnOn(targets: self.metTargets)
             
-            let closestNote: Note = pitchValue.closestNote
+            let closestNote: Legacy_Note = pitchValue.closestNote
             let distanceToClosestNote: Double = pitchValue.distanceToClosestNote
             
             self.label.text = """

@@ -10,11 +10,11 @@ class QuizGameScene: SKScene {
     
     var labelNode: SKLabelNode!
     
-    var currentNote: Note!
+    var currentNote: Legacy_Note!
     var currentOffset = 0
     
-    var currentExpectedNote: Note {
-        return Note.allCases[(Note.allCases.firstIndex(of: currentNote)! + currentOffset) % Note.allCases.count]
+    var currentExpectedNote: Legacy_Note {
+        return Legacy_Note.allCases[(Legacy_Note.allCases.firstIndex(of: currentNote)! + currentOffset) % Legacy_Note.allCases.count]
     }
     
     
@@ -28,13 +28,13 @@ class QuizGameScene: SKScene {
         
         generateNewNote()
         updateLabel()
-        playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60))
+        playerDelegate?.playNote(UInt(Legacy_Note.allCases.firstIndex(of: currentNote)! + 60))
     }
     
     
     func generateNewNote() {
         
-        currentNote = Note.allCases.randomElement()
+        currentNote = Legacy_Note.allCases.randomElement()
         currentOffset = Int.random(in: 1...12)
     }
     
@@ -45,20 +45,20 @@ class QuizGameScene: SKScene {
     }
     
     
-    func onNotePlayed(_ note: Note) {
+    func onNotePlayed(_ note: Legacy_Note) {
         
         if note == currentExpectedNote {
             
             generateNewNote()
             updateLabel()
-            playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60))
+            playerDelegate?.playNote(UInt(Legacy_Note.allCases.firstIndex(of: currentNote)! + 60))
         }
     }
     
     
     func noteOn(_ noteCode: UInt) {
         
-        let note = Note.allCases[(Int(noteCode) - 60 + 8*12) % Note.allCases.count]
+        let note = Legacy_Note.allCases[(Int(noteCode) - 60 + 8*12) % Legacy_Note.allCases.count]
         
         onNotePlayed(note)
     }

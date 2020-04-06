@@ -9,7 +9,7 @@ class NoteTests: XCTestCase {
     
     func test_allCases() {
         
-        XCTAssertEqual(Note.allCases, [Note]([
+        XCTAssertEqual(Legacy_Note.allCases, [Legacy_Note]([
             .c,
             .c_sharp,
             .d,

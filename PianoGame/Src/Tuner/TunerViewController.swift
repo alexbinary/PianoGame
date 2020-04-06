@@ -137,7 +137,7 @@ class TunerViewController: UIViewController {
                 let closestIntegerValue = Int(keysFromA4.rounded(.toNearestOrAwayFromZero))
                 let approximation = (keysFromA4 - closestIntegerValue)
                 
-                let note = Note.a.addingHalfSteps(closestIntegerValue)
+                let note = Legacy_Note.a.addingHalfSteps(closestIntegerValue)
                 
                 self.label.text = """
                                 \(String(format: "%.0f Hz", stabilizedFrequency.rounded()))

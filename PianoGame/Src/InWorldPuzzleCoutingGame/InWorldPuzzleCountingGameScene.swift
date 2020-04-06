@@ -33,7 +33,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
     var simpleCountingDisplayNodes: [SimpleCountingDisplayNode] = []
     
     
-    var puzzles = (0...30).map { _ in Puzzle.random(startingWith: Note.allCases.filter { !$0.isSharp } .randomElement()!) }
+    var puzzles = (0...30).map { _ in Puzzle.random(startingWith: Legacy_Note.allCases.filter { !$0.isSharp } .randomElement()!) }
         
 //        [
 //
@@ -190,7 +190,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
     
     var currentPuzzleSolved = false
     
-    var currentQuestionSolutionNote: Note { self.puzzles[self.currentPuzzleIndex].expectedNote }
+    var currentQuestionSolutionNote: Legacy_Note { self.puzzles[self.currentPuzzleIndex].expectedNote }
     
     
     var playerCharacterNode: SKNode!
@@ -346,7 +346,7 @@ class InWorldPuzzleCountingGameScene: SKScene {
         let velocityMaxValue: Double = 128.0
         let velocityFactor: Double = Double(velocity)/velocityMaxValue
         
-        let note = Note(fromNoteCode: noteCode)
+        let note = Legacy_Note(fromNoteCode: noteCode)
         
         let elevateNote = note == self.currentQuestionSolutionNote
         

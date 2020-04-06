@@ -194,13 +194,13 @@ class ChordsPlayScene: SKScene {
         
         self.currentChordNoteCodes = Set<NoteCode>(chordNoteCodes)
         
-        var chordName = Note(fromNoteCode: chordRootNoteCode).name(using: self.noteNamingForChords)
+        var chordName = Legacy_Note(fromNoteCode: chordRootNoteCode).name(using: self.noteNamingForChords)
         
         if quality != .major {
             chordName += quality == .minor ? "m" : "d"
         }
         if chordNoteCodes[0] != chordRootNoteCode {
-            chordName += "/" + Note(fromNoteCode: chordNoteCodes[0]).name(using: self.noteNamingForChords)
+            chordName += "/" + Legacy_Note(fromNoteCode: chordNoteCodes[0]).name(using: self.noteNamingForChords)
         }
         
         self.chordLabelNode.text = "\(chordName) - \(octave)"

@@ -13,7 +13,7 @@ class SimpleCountingDisplayNode: SKNode {
 
     let noteSize: CGFloat = 50
 
-    var noteDisplayNodeByNote: [Note: SKShapeNode] = [:]
+    var noteDisplayNodeByNote: [Legacy_Note: SKShapeNode] = [:]
     
     
     var delegate: SimpleCountingDisplayNodeDelegate?
@@ -56,7 +56,7 @@ class SimpleCountingDisplayNode: SKNode {
         
         self.noteDisplayNodeByNote.forEach { $0.value.removeFromParent() }
 
-        for note in Note.allCases {
+        for note in Legacy_Note.allCases {
 
             let labelNode = SKLabelNode(text: note.description.uppercased())
             labelNode.fontColor = colorPalette.foregroundColor
@@ -89,7 +89,7 @@ class SimpleCountingDisplayNode: SKNode {
 
         for i in 0...11 {
 
-            let note = Note.allCases[(Note.allCases.firstIndex(of: self.puzzle.startingNote)! + i) % 12]
+            let note = Legacy_Note.allCases[(Legacy_Note.allCases.firstIndex(of: self.puzzle.startingNote)! + i) % 12]
 
             let noteNode = noteDisplayNodeByNote[note]!
 
@@ -110,7 +110,7 @@ class SimpleCountingDisplayNode: SKNode {
             fatalError("Color palette is not defined.")
         }
 
-        let playedNote = Note(fromNoteCode: noteCode)
+        let playedNote = Legacy_Note(fromNoteCode: noteCode)
 
         let noteDisplayNode = noteDisplayNodeByNote[playedNote]!
 
@@ -155,7 +155,7 @@ class SimpleCountingDisplayNode: SKNode {
 
     func onNoteOff(noteCode: NoteCode) {
 
-        let playedNote = Note(fromNoteCode: noteCode)
+        let playedNote = Legacy_Note(fromNoteCode: noteCode)
 
         let noteDisplayNode = noteDisplayNodeByNote[playedNote]!
 

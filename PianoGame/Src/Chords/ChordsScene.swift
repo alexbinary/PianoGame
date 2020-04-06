@@ -80,7 +80,7 @@ class ChordsScene: SKScene {
     
     func nextExercise() {
         
-        let centerNote: StaffNote = StaffNote(Note.allCases.filter { !$0.isSharp } .randomElement()!, octave: 4)
+        let centerNote: StaffNote = StaffNote(Legacy_Note.allCases.filter { !$0.isSharp } .randomElement()!, octave: 4)
         
         var chordNotes = [centerNote, centerNote.addingStaffOffset(2), centerNote.addingStaffOffset(4)]
         

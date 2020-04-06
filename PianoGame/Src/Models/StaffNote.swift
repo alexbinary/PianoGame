@@ -5,10 +5,10 @@ import Foundation
 
 struct StaffNote {
     
-    let note: Note
+    let note: Legacy_Note
     let octave: Int
     
-    init(_ note: Note, octave: Int) {
+    init(_ note: Legacy_Note, octave: Int) {
         self.note = note
         self.octave = octave
     }
@@ -19,7 +19,7 @@ struct StaffNote {
     
     func addingStaffOffset(_ offset: Int) -> StaffNote {
         
-        let naturalNotes = Note.allCases.filter { !$0.isSharp }
+        let naturalNotes = Legacy_Note.allCases.filter { !$0.isSharp }
         let absoluteIndex = naturalNotes.firstIndex(of: self.note)! + offset
         let note = naturalNotes[(absoluteIndex + 7) % 7]
         

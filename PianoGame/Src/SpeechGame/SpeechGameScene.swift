@@ -8,7 +8,7 @@ import Speech
 class SpeechGameScene: SKScene {
     
     
-    var targetsByNote: [Note: SKNode] = [:]
+    var targetsByNote: [Legacy_Note: SKNode] = [:]
     
     var playerCharacterNode: SKNode!
     
@@ -30,7 +30,7 @@ class SpeechGameScene: SKScene {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        for note in Note.allCases.filter({ !$0.isSharp }) {
+        for note in Legacy_Note.allCases.filter({ !$0.isSharp }) {
             
             let labelNode = SKLabelNode(text: note.description.uppercased())
             labelNode.position = CGPoint(x: (-Int(self.size.width)/2...Int(self.size.width)/2).randomElement()!,
@@ -52,13 +52,13 @@ class SpeechGameScene: SKScene {
         
         self.currentNoteIndex += 1
         
-        let note = Note.allCases.filter { !$0.isSharp } [self.currentNoteIndex % 7]
+        let note = Legacy_Note.allCases.filter { !$0.isSharp } [self.currentNoteIndex % 7]
         
         self.move(to: note)
     }
     
     
-    func move(to note: Note) {
+    func move(to note: Legacy_Note) {
         
         let target = targetsByNote[note]!
         

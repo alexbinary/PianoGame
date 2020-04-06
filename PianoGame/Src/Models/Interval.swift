@@ -23,9 +23,9 @@ enum Interval: CaseIterable {
     }
     
     
-    init(from bottomNote: Note, to topNote: Note) {
+    init(from bottomNote: Legacy_Note, to topNote: Legacy_Note) {
         
-        self.init(fromHalfSteps: UInt(((Note.allCases.firstIndex(of: topNote)! - Note.allCases.firstIndex(of: bottomNote)!)+12) % 12))
+        self.init(fromHalfSteps: UInt(((Legacy_Note.allCases.firstIndex(of: topNote)! - Legacy_Note.allCases.firstIndex(of: bottomNote)!)+12) % 12))
     }
     
     

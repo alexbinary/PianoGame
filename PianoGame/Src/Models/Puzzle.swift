@@ -6,16 +6,16 @@ import CoreGraphics
 struct Puzzle {
 
     
-    let startingNote: Note
+    let startingNote: Legacy_Note
     
-    let visibleNotes: Set<Note>
-    let hiddenNoteNames: Set<Note>
+    let visibleNotes: Set<Legacy_Note>
+    let hiddenNoteNames: Set<Legacy_Note>
     
-    let expectedNote: Note
+    let expectedNote: Legacy_Note
     let distanceToPreviousPuzzle: CGFloat
     
     
-    init(startingNote: Note, visibleNotes: Set<Note> = Set<Note>(Note.allCases), hiddenNoteNames: Set<Note> = [], expectedNote: Note, distanceToPreviousPuzzle: CGFloat = 800) {
+    init(startingNote: Legacy_Note, visibleNotes: Set<Legacy_Note> = Set<Legacy_Note>(Legacy_Note.allCases), hiddenNoteNames: Set<Legacy_Note> = [], expectedNote: Legacy_Note, distanceToPreviousPuzzle: CGFloat = 800) {
         
         self.startingNote = startingNote
         self.visibleNotes = visibleNotes
@@ -25,12 +25,12 @@ struct Puzzle {
     }
     
     
-    static func random(startingWith startingNote: Note) -> Puzzle {
+    static func random(startingWith startingNote: Legacy_Note) -> Puzzle {
         
-        let visibleNotes = Set<Note>(Note.allCases.filter { !$0.isSharp })
-        let expectedNote: Note = visibleNotes.randomElement()!
+        let visibleNotes = Set<Legacy_Note>(Legacy_Note.allCases.filter { !$0.isSharp })
+        let expectedNote: Legacy_Note = visibleNotes.randomElement()!
         
-        var hiddenNoteNames: Set<Note> = [ expectedNote ]
+        var hiddenNoteNames: Set<Legacy_Note> = [ expectedNote ]
         while hiddenNoteNames.count < 5 {
             hiddenNoteNames.insert(visibleNotes.randomElement()!)
         }

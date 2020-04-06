@@ -184,7 +184,7 @@ class SightReadingScene: SKScene {
         case .chords:
             
             let clef: Clef = Bool.random() ? .treble : .bass
-            let centerNote: StaffNote = StaffNote(Note.allCases.filter { !$0.isSharp } .randomElement()!, octave: clef == .treble ? 4 : 3)
+            let centerNote: StaffNote = StaffNote(Legacy_Note.allCases.filter { !$0.isSharp } .randomElement()!, octave: clef == .treble ? 4 : 3)
             
             var chordNotes = [centerNote, centerNote.addingStaffOffset(2), centerNote.addingStaffOffset(4)]
             
@@ -195,7 +195,7 @@ class SightReadingScene: SKScene {
                 }
             }
             
-            let qualityMap: [Note: Quality] = [
+            let qualityMap: [Legacy_Note: Quality] = [
                 .c: .major,
                 .d: .minor,
                 .e: .minor,
@@ -289,11 +289,11 @@ class SightReadingScene: SKScene {
     
     func drawNotes(_ staffNotes: [StaffNote], clef: Clef, x: CGFloat) -> [SKNode] {
         
-        let referenceNote: Note = .c
+        let referenceNote: Legacy_Note = .c
         let referenceOctave = 4
         let offsetForOneOctave = 7
         
-        let naturalNotes = Note.allCases.filter { !$0.isSharp }
+        let naturalNotes = Legacy_Note.allCases.filter { !$0.isSharp }
         
         var nodes: [SKNode] = []
         

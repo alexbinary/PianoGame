@@ -10,7 +10,7 @@ class SimpleQuizGameScene: SKScene {
     
     var labelNode: SKLabelNode!
     
-    var currentNote: Note!
+    var currentNote: Legacy_Note!
     
     
     override func didMove(to view: SKView) {
@@ -23,13 +23,13 @@ class SimpleQuizGameScene: SKScene {
         
         generateNewNote()
         updateLabel()
-        playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: currentNote)! + 60 - 12))
+        playerDelegate?.playNote(UInt(Legacy_Note.allCases.firstIndex(of: currentNote)! + 60 - 12))
     }
     
     
     func generateNewNote() {
         
-        currentNote = Note.allCases.randomElement()
+        currentNote = Legacy_Note.allCases.randomElement()
     }
     
     
@@ -39,7 +39,7 @@ class SimpleQuizGameScene: SKScene {
     }
     
     
-    func onNotePlayed(_ note: Note) {
+    func onNotePlayed(_ note: Legacy_Note) {
         
         if note == currentNote {
             
@@ -47,7 +47,7 @@ class SimpleQuizGameScene: SKScene {
                 
                 self.generateNewNote()
                 self.updateLabel()
-                self.playerDelegate?.playNote(UInt(Note.allCases.firstIndex(of: self.currentNote)! + 60 - 12))
+                self.playerDelegate?.playNote(UInt(Legacy_Note.allCases.firstIndex(of: self.currentNote)! + 60 - 12))
                 
             }
         }
@@ -56,7 +56,7 @@ class SimpleQuizGameScene: SKScene {
     
     func noteOn(_ noteCode: UInt) {
         
-        let note = Note.allCases[(Int(noteCode) - 60 + 8*12) % Note.allCases.count]
+        let note = Legacy_Note.allCases[(Int(noteCode) - 60 + 8*12) % Legacy_Note.allCases.count]
         
         onNotePlayed(note)
     }

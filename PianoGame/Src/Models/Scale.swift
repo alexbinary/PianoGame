@@ -3,7 +3,7 @@ import Foundation
 
 
 
-typealias Scale = [Note]
+typealias Scale = [Legacy_Note]
 
 
 extension Scale {
