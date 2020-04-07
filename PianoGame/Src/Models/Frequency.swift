@@ -35,6 +35,22 @@ extension Frequency: Equatable {
 }
 
 
+extension Frequency: Hashable {
+    
+    
+}
+
+
+extension Frequency: Comparable {
+    
+    
+    static func < (lhs: Frequency, rhs: Frequency) -> Bool {
+        
+        return lhs.valueInHertz < rhs.valueInHertz
+    }
+}
+
+
 extension Frequency {
     
     

@@ -16,7 +16,7 @@ class FrequenciesViewController: UIViewController {
         let fifthRatio: Double = 3
         let thirdRatio: Double = 5
         
-        var allFrequencies: Set<Double> = []
+        var allFrequencies: Set<Frequency> = []
         
         print("base frequency:")
         print(Pitch(at: baseFrequency))
@@ -26,7 +26,7 @@ class FrequenciesViewController: UIViewController {
             
             let f = baseFrequency * pow(octaveRatio, Double(i))
             print("\(Pitch(at: f))")
-            allFrequencies.insert(f.valueInHertz)
+            allFrequencies.insert(f)
         }
         
         print("generating fifths")
@@ -34,7 +34,7 @@ class FrequenciesViewController: UIViewController {
             
             let f = baseFrequency * pow(fifthRatio, Double(i))
             print("\(Pitch(at: f))")
-            allFrequencies.insert(f.valueInHertz)
+            allFrequencies.insert(f)
         }
         
         print("generating thirds")
@@ -42,12 +42,12 @@ class FrequenciesViewController: UIViewController {
             
             let f = baseFrequency * pow(thirdRatio, Double(i))
             print("\(Pitch(at: f))")
-            allFrequencies.insert(f.valueInHertz)
+            allFrequencies.insert(f)
         }
         
         print("all frequencies")
-        for f in [Double](allFrequencies).sorted() {
-            print("\(Pitch(at: Frequency(valueInHertz: f)))")
+        for f in allFrequencies.sorted() {
+            print("\(Pitch(at: f))")
         }
     }
     

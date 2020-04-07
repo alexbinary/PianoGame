@@ -50,6 +50,14 @@ class FrequencyTests: XCTestCase {
     }
     
     
+    func test_operator_lowerThan() {
+        
+        XCTAssertTrue(440.Hz < 441.Hz)
+        XCTAssertFalse(441.Hz < 440.Hz)
+        XCTAssertFalse(440.Hz < 440.Hz)
+    }
+    
+    
     func test_operator_multiplyByDouble() {
         
         let frequencyValue: Double = 440
