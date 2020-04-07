@@ -11,7 +11,7 @@ class FrequenciesViewController: UIViewController {
     let thirdFrequencyRatio: Double = 5.0/4.0
     
     let workingFrequencyRange = 27.5.Hz...4187.Hz
-    let referenceFrequency = 352.Hz
+    let referenceFrequency = 27.5.Hz
     
     var collectedFrequencies: [(source: String, frequency: Frequency)] = []
     

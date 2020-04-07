@@ -3,7 +3,7 @@ import XCTest
 
 
 
-func XCTAssertEqual(_ expr1: Double, _ expr2: Double, within epsilon: Double) {
+func XCTAssertEqual(_ expr1: Double, _ expr2: Double, within epsilon: Double, file: StaticString = #file, line: UInt = #line) {
     
-    XCTAssertTrue(abs(expr1 - expr2) < epsilon)
+    XCTAssertLessThan(abs(expr1 - expr2), epsilon, file: file, line: line)
 }
