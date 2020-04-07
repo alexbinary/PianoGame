@@ -13,7 +13,8 @@ class TuningViewController: UIViewController {
     }
     
     
-    let workingFrequencyRange = 27.5.Hz...4187.Hz
+    let standardPianoFrequencyRange = 27.5.Hz...4187.Hz
+    var workingFrequencyRange: ClosedRange<Frequency> { (standardPianoFrequencyRange.lowerBound + (-150).cents)...(standardPianoFrequencyRange.upperBound + (150).cents) }
     
     let fifthFrequencyRatio = FrequencyRatio(rawValue: 3.0/2.0)
     
@@ -24,37 +25,44 @@ class TuningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var y: Double
+        var ref: Frequency
+        
         // equal temperament based on 440Hz
+        
+        ref = 27.5.Hz
+        y = 9/10
+        
+        self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 300))
         
         for i in 0...11 {
             
-            self.drawMarkForAllOctaves(of: 440.Hz + i * 100.cents,
-                                       atYPosition: 1/2,
-                                       with: MarkOptions(color: self.colors[i], size: self.view.bounds.height))
+            self.drawMarkForAllOctaves(of: ref + i * 100.cents,
+                                       atYPosition: y,
+                                       with: MarkOptions(color: .red, size: 200))
         }
         
-        // Pythagorean - 1
+        // Pythagorean
         
-        var ref: Frequency
-        var y: Double
-        var colorIndex: Int
+        ref = 27.5.Hz
+        y = 1/2
+        
+        self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 300))
+        
+        self.drawMarkForAllOctaves(of: ref,
+                                   atYPosition: y,
+                                   with: MarkOptions(color: .white, size: 100))
         
         for i in 1...12 {
             
-            ref = 440.Hz + i * self.fifthFrequencyRatio
-            y = Double(i)/13
+            let fifth = ref + i * self.fifthFrequencyRatio
+            let color = self.colors[i-1]
             
-            self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 200))
+            self.drawMark(for: fifth, atYPosition: y, with: MarkOptions(color: color, size: 300))
             
-            colorIndex = 7
-            
-            for i in 1...12 {
-                
-                self.drawMarkForAllOctaves(of: ref + i * self.fifthFrequencyRatio,
-                                           atYPosition: y,
-                                           with: MarkOptions(color: self.colors[colorIndex % self.colors.count], size: 100))
-                colorIndex += 7
-            }
+            self.drawMarkForAllOctaves(of: fifth,
+                                       atYPosition: y,
+                                       with: MarkOptions(color: color, size: 100))
         }
     }
     
