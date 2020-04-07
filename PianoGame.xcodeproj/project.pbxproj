@@ -427,6 +427,42 @@
 			path = Frequencies;
 			sourceTree = "<group>";
 		};
+		2976864E243CA7AF0093B835 /* Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				29D48D9F243B4A9600355A86 /* Tuner2 */,
+				29F5C551243A06CA004FF7C9 /* Tuner */,
+				29698F3C2438856100691D01 /* Sing */,
+				290C7287243762D600397374 /* ChordsPlay */,
+				298E7FC32434C15900723718 /* Chords */,
+				290CA5B62431F43000D097DE /* SightReading */,
+				2900F3F52428F6E000722102 /* Scale */,
+				29D6FACD24216EBC002FC01D /* Recorder */,
+				291366A024158DB500C4BA8C /* AudioKitTest */,
+				291A09562415797900DC1BD2 /* SequencingTest */,
+				29D994DD241535DB00EC274D /* SpeechGame */,
+				291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */,
+				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
+				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
+				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */,
+				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplay */,
+				290CCC9E240D095C00526404 /* CountingExerciseTiming */,
+				291BEE43240C2D4A0043217B /* CountingExercise */,
+				29B1CAB0240C13AC00A653AA /* IntervalQuizPhysicsDisplay */,
+				29E87DC9240A88A700A0BA0A /* PhysicsDisplay */,
+				29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */,
+				2921E30124071B0100119589 /* Display2 */,
+				295B839E24000D8900993564 /* IntervalGame */,
+				2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */,
+				2950285C23FC1B4800073C4E /* IntervalDisplay */,
+				298E410B23EEC6920064288E /* DefaultGame */,
+				299F7AB223EB88B2008E6F56 /* SimpleQuiz */,
+				29818D3A23EB86EE009E71F2 /* Display */,
+				296B1BA923EB7C8600A7D97B /* Quiz */,
+			);
+			path = Experiments;
+			sourceTree = "<group>";
+		};
 		29818D3A23EB86EE009E71F2 /* Display */ = {
 			isa = PBXGroup;
 			children = (
@@ -600,35 +636,7 @@
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
 				296ECE5C243C82D100CE0721 /* Frequencies */,
-				29D48D9F243B4A9600355A86 /* Tuner2 */,
-				29F5C551243A06CA004FF7C9 /* Tuner */,
-				29698F3C2438856100691D01 /* Sing */,
-				290C7287243762D600397374 /* ChordsPlay */,
-				298E7FC32434C15900723718 /* Chords */,
-				290CA5B62431F43000D097DE /* SightReading */,
-				2900F3F52428F6E000722102 /* Scale */,
-				29D6FACD24216EBC002FC01D /* Recorder */,
-				291366A024158DB500C4BA8C /* AudioKitTest */,
-				291A09562415797900DC1BD2 /* SequencingTest */,
-				29D994DD241535DB00EC274D /* SpeechGame */,
-				291DAD572412DFB7004ADD2F /* InWorldPuzzleCoutingGame */,
-				291DAD522412D71C004ADD2F /* PhysicsCountingGame */,
-				29A92B3F24100FB9004C5131 /* SimpleCountingGame */,
-				29D1B02A2412AEC5005C7DEC /* SimpleCountingDisplay */,
-				29AFDA90240FBD1A00E385E3 /* ProgressiveCountingDisplay */,
-				290CCC9E240D095C00526404 /* CountingExerciseTiming */,
-				291BEE43240C2D4A0043217B /* CountingExercise */,
-				29B1CAB0240C13AC00A653AA /* IntervalQuizPhysicsDisplay */,
-				29E87DC9240A88A700A0BA0A /* PhysicsDisplay */,
-				29DF7255240A6120004DD36F /* IntervalQuizDisplay2 */,
-				2921E30124071B0100119589 /* Display2 */,
-				295B839E24000D8900993564 /* IntervalGame */,
-				2929AB3123FC8AEF00AC18C1 /* IntervalQuiz */,
-				2950285C23FC1B4800073C4E /* IntervalDisplay */,
-				298E410B23EEC6920064288E /* DefaultGame */,
-				299F7AB223EB88B2008E6F56 /* SimpleQuiz */,
-				29818D3A23EB86EE009E71F2 /* Display */,
-				296B1BA923EB7C8600A7D97B /* Quiz */,
+				2976864E243CA7AF0093B835 /* Experiments */,
 			);
 			path = Src;
 			sourceTree = "<group>";
