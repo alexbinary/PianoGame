@@ -16,8 +16,8 @@
 		2914FCD4243CC9000097F4F4 /* FrequencyRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCD3243CC9000097F4F4 /* FrequencyRatio.swift */; };
 		2914FCDB243CC96D0097F4F4 /* FrequencyRatioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDA243CC96D0097F4F4 /* FrequencyRatioTests.swift */; };
 		2914FCDE243CD0A20097F4F4 /* TuningSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */; };
-		2914FCE0243CD3B40097F4F4 /* Tuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDF243CD3B40097F4F4 /* Tuner.swift */; };
-		2914FCE2243CD4D10097F4F4 /* TunerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE1243CD4D10097F4F4 /* TunerTests.swift */; };
+		2914FCE0243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */; };
+		2914FCE2243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE1243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift */; };
 		2914FCE6243CDFF30097F4F4 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE5243CDFF30097F4F4 /* Assertions.swift */; };
 		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
 		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
@@ -140,8 +140,8 @@
 		2914FCD3243CC9000097F4F4 /* FrequencyRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyRatio.swift; sourceTree = "<group>"; };
 		2914FCDA243CC96D0097F4F4 /* FrequencyRatioTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyRatioTests.swift; sourceTree = "<group>"; };
 		2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuningSystem.swift; sourceTree = "<group>"; };
-		2914FCDF243CD3B40097F4F4 /* Tuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tuner.swift; sourceTree = "<group>"; };
-		2914FCE1243CD4D10097F4F4 /* TunerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunerTests.swift; sourceTree = "<group>"; };
+		2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualTemperamentTuningSystem.swift; sourceTree = "<group>"; };
+		2914FCE1243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualTemperamentTuningSystemTests.swift; sourceTree = "<group>"; };
 		2914FCE5243CDFF30097F4F4 /* Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
 		291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencingTestScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
@@ -283,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				295F9BCC243B635900CEF6C2 /* Legacy */,
+				2914FCE7243D050B0097F4F4 /* Tuning */,
 				295F9BD3243B64EA00CEF6C2 /* Alteration.swift */,
 				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
 				295F9BCD243B636E00CEF6C2 /* NoteName.swift */,
@@ -295,10 +296,17 @@
 				295F9BD7243B665800CEF6C2 /* Pitch.swift */,
 				295F9BD9243B66C200CEF6C2 /* Frequency.swift */,
 				2914FCD3243CC9000097F4F4 /* FrequencyRatio.swift */,
-				2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */,
-				2914FCDF243CD3B40097F4F4 /* Tuner.swift */,
 			);
 			path = Music;
+			sourceTree = "<group>";
+		};
+		2914FCE7243D050B0097F4F4 /* Tuning */ = {
+			isa = PBXGroup;
+			children = (
+				2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */,
+				2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */,
+			);
+			path = Tuning;
 			sourceTree = "<group>";
 		};
 		291A09562415797900DC1BD2 /* SequencingTest */ = {
@@ -530,7 +538,7 @@
 				29A6A606242B62D900CA22D5 /* NoteTests.swift */,
 				2976864C243CA2D00093B835 /* FrequencyTests.swift */,
 				2914FCDA243CC96D0097F4F4 /* FrequencyRatioTests.swift */,
-				2914FCE1243CD4D10097F4F4 /* TunerTests.swift */,
+				2914FCE1243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift */,
 			);
 			path = PianoGameTests;
 			sourceTree = "<group>";
@@ -865,7 +873,7 @@
 				291366A224158DCC00C4BA8C /* AudioKitTestScene.swift in Sources */,
 				291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */,
 				295F9BD6243B652800CEF6C2 /* Octave.swift in Sources */,
-				2914FCE0243CD3B40097F4F4 /* Tuner.swift in Sources */,
+				2914FCE0243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift in Sources */,
 				29289F112413F9E3006D2F6A /* Operators.swift in Sources */,
 				298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */,
 				2914FCDE243CD0A20097F4F4 /* TuningSystem.swift in Sources */,
@@ -884,7 +892,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2914FCE2243CD4D10097F4F4 /* TunerTests.swift in Sources */,
+				2914FCE2243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift in Sources */,
 				2976864D243CA2D00093B835 /* FrequencyTests.swift in Sources */,
 				29A6A607242B62D900CA22D5 /* NoteTests.swift in Sources */,
 				2914FCE6243CDFF30097F4F4 /* Assertions.swift in Sources */,
