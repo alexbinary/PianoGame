@@ -17,3 +17,13 @@ public struct Frequency {
     
     static let A4 = Frequency(valueInHertz: 440)
 }
+
+
+extension Frequency: CustomStringConvertible {
+    
+    
+    public var description: String {
+        
+        return String(format: "%.2f Hz", self.valueInHertz)
+    }
+}

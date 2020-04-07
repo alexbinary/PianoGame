@@ -46,6 +46,7 @@
 		296B1BA323EB334800A7D97B /* MIKMIDI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2945344A23EA0AB200F92152 /* MIKMIDI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		296D110A24389788007AA520 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAB0241591A7005E69F0 /* AudioKitUI.framework */; };
 		296D110B24389788007AA520 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAB0241591A7005E69F0 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		296ECE63243C830500CE0721 /* FrequenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296ECE62243C830500CE0721 /* FrequenciesViewController.swift */; };
 		298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FBA2434B80300723718 /* SplitViewController.swift */; };
 		298E7FC22434BE9200723718 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC12434BE9200723718 /* MasterViewController.swift */; };
 		298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC42434C16D00723718 /* ChordsScene.swift */; };
@@ -165,6 +166,7 @@
 		296B1B9B23EB320700A7D97B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		296B1BA523EB7C7700A7D97B /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizGameScene.swift; sourceTree = "<group>"; };
+		296ECE62243C830500CE0721 /* FrequenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequenciesViewController.swift; sourceTree = "<group>"; };
 		29818D3E23EB8711009E71F2 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
 		298E7FBA2434B80300723718 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -415,6 +417,14 @@
 			path = Quiz;
 			sourceTree = "<group>";
 		};
+		296ECE5C243C82D100CE0721 /* Frequencies */ = {
+			isa = PBXGroup;
+			children = (
+				296ECE62243C830500CE0721 /* FrequenciesViewController.swift */,
+			);
+			path = Frequencies;
+			sourceTree = "<group>";
+		};
 		29818D3A23EB86EE009E71F2 /* Display */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +596,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				296ECE5C243C82D100CE0721 /* Frequencies */,
 				29D48D9F243B4A9600355A86 /* Tuner2 */,
 				29F5C551243A06CA004FF7C9 /* Tuner */,
 				29698F3C2438856100691D01 /* Sing */,
@@ -810,6 +821,7 @@
 				298E7FC72434C30900723718 /* StaffNote.swift in Sources */,
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
 				2900F3FC2428F6FC00722102 /* ScaleViewController.swift in Sources */,
+				296ECE63243C830500CE0721 /* FrequenciesViewController.swift in Sources */,
 				29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */,
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,
 				291366A224158DCC00C4BA8C /* AudioKitTestScene.swift in Sources */,

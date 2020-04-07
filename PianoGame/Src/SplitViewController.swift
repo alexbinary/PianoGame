@@ -24,6 +24,13 @@ class SplitViewController: UISplitViewController {
         
         var items: [(title: String, viewControllerBuilder: () -> UIViewController)] = []
         
+        items.append((title: "Frequencies", viewControllerBuilder: {
+            
+            let vc = FrequenciesViewController()
+            
+            return vc
+        }))
+        
         #if targetEnvironment(macCatalyst)
         
         items.append((title: "Chords Play", viewControllerBuilder: {
@@ -39,6 +46,8 @@ class SplitViewController: UISplitViewController {
         }))
         
         #endif
+        
+        #if !targetEnvironment(macCatalyst)
         
         items.append((title: "Tuner2", viewControllerBuilder: {
             
@@ -60,6 +69,8 @@ class SplitViewController: UISplitViewController {
             
             return vc
         }))
+        
+        #endif
         
         items.append((title: "Chords", viewControllerBuilder: {
             

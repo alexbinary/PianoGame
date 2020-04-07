@@ -194,7 +194,7 @@ public struct Note {
         var note = self
         
         if halfSteps > 0 {
-
+            
             for _ in 1...halfSteps {
                 note = note.oneHalfStepUp
             }
@@ -245,5 +245,49 @@ extension Note: Strideable {
     public func advanced(by n: Int) -> Note {
         
         return self.addingHalfSteps(n)
+    }
+}
+
+
+extension Note: CustomStringConvertible {
+    
+    
+    public var description: String {
+        
+        var name: String
+        
+        switch (self.numberOfNotes(relativeTo: .A4) - 3 + 12*12) % 12 {
+            
+        case 0:
+            name = "C"
+        case 1:
+            name = "C#/Db"
+        case 2:
+            name = "D"
+        case 3:
+            name = "D#/Eb"
+        case 4:
+            name = "E"
+        case 5:
+            name = "F"
+        case 6:
+            name = "F#/Gb"
+        case 7:
+            name = "G"
+        case 8:
+            name = "G#/Ab"
+        case 9:
+            name = "A"
+        case 10:
+            name = "A#/Bb"
+        case 11:
+            name = "B"
+        default:
+            name = ""
+        }
+        
+        name += "\(self.octave.absoluteNumber)"
+        
+        return name
     }
 }
