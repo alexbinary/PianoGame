@@ -271,6 +271,26 @@
 			path = AudioKitTest;
 			sourceTree = "<group>";
 		};
+		2914FCDC243CD0370097F4F4 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				295F9BCC243B635900CEF6C2 /* Legacy */,
+				295F9BD3243B64EA00CEF6C2 /* Alteration.swift */,
+				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
+				295F9BCD243B636E00CEF6C2 /* NoteName.swift */,
+				295F9BD1243B649B00CEF6C2 /* Note.swift */,
+				29E7DDDE23FC91F900D15166 /* Interval.swift */,
+				2900F3FD2428FC3000722102 /* Scale.swift */,
+				298E7FC62434C30900723718 /* StaffNote.swift */,
+				29130ECE2437675200B407E6 /* Quality.swift */,
+				295F9BD5243B652800CEF6C2 /* Octave.swift */,
+				295F9BD7243B665800CEF6C2 /* Pitch.swift */,
+				295F9BD9243B66C200CEF6C2 /* Frequency.swift */,
+				2914FCD3243CC9000097F4F4 /* FrequencyRatio.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		291A09562415797900DC1BD2 /* SequencingTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,21 +342,9 @@
 		2929AB3D23FC916400AC18C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				295F9BCC243B635900CEF6C2 /* Legacy */,
-				295F9BD3243B64EA00CEF6C2 /* Alteration.swift */,
-				295F9BCF243B641400CEF6C2 /* NoteNaming.swift */,
-				295F9BCD243B636E00CEF6C2 /* NoteName.swift */,
-				295F9BD1243B649B00CEF6C2 /* Note.swift */,
-				29E7DDDE23FC91F900D15166 /* Interval.swift */,
+				2914FCDC243CD0370097F4F4 /* Music */,
 				291DAD5A2412E175004ADD2F /* Puzzle.swift */,
 				291DAD5C2412E1E4004ADD2F /* ColorPalette.swift */,
-				2900F3FD2428FC3000722102 /* Scale.swift */,
-				298E7FC62434C30900723718 /* StaffNote.swift */,
-				29130ECE2437675200B407E6 /* Quality.swift */,
-				295F9BD5243B652800CEF6C2 /* Octave.swift */,
-				295F9BD7243B665800CEF6C2 /* Pitch.swift */,
-				295F9BD9243B66C200CEF6C2 /* Frequency.swift */,
-				2914FCD3243CC9000097F4F4 /* FrequencyRatio.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
