@@ -20,15 +20,14 @@ class TuningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.drawMarkForAllOctaves(of: self.referenceFrequency,
-                                   atYPosition: 1/4,
-                                   with: MarkOptions(color: .red, size: 100),
-                                   optionsForReferenceFrequency: MarkOptions(color: .blue, size: 200))
+        let colors: [UIColor] = [.red, .blue, .green, .yellow, .systemPink, .brown, .cyan, .darkGray, .gray, .magenta, .orange, .purple]
         
-        self.drawMarkForAllOctaves(of: self.referenceFrequency + 1.octaves,
-                                   atYPosition: 3/4,
-                                   with: MarkOptions(color: .red, size: 100),
-                                   optionsForReferenceFrequency: MarkOptions(color: .blue, size: 200))
+        for i in 0...11 {
+            
+            self.drawMarkForAllOctaves(of: self.referenceFrequency + i * 100.cents,
+                                       atYPosition: 1/2,
+                                       with: MarkOptions(color: colors[i], size: 100))
+        }
     }
     
     
