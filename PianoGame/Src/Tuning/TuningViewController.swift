@@ -14,19 +14,47 @@ class TuningViewController: UIViewController {
     
     
     let workingFrequencyRange = 27.5.Hz...4187.Hz
-    let referenceFrequency: Frequency = 440.Hz
+    
+    let fifthFrequencyRatio = FrequencyRatio(rawValue: 3.0/2.0)
+    
+    
+    let colors: [UIColor] = [.red, .blue, .green, .yellow, .systemPink, .brown, .cyan, .darkGray, .gray, .magenta, .orange, .purple]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let colors: [UIColor] = [.red, .blue, .green, .yellow, .systemPink, .brown, .cyan, .darkGray, .gray, .magenta, .orange, .purple]
+        // equal temperament based on 440Hz
         
         for i in 0...11 {
             
-            self.drawMarkForAllOctaves(of: self.referenceFrequency + i * 100.cents,
+            self.drawMarkForAllOctaves(of: 440.Hz + i * 100.cents,
                                        atYPosition: 1/2,
-                                       with: MarkOptions(color: colors[i], size: 100))
+                                       with: MarkOptions(color: self.colors[i], size: self.view.bounds.height))
+        }
+        
+        // Pythagorean - 1
+        
+        var ref: Frequency
+        var y: Double
+        var colorIndex: Int
+        
+        for i in 1...12 {
+            
+            ref = 440.Hz + i * self.fifthFrequencyRatio
+            y = Double(i)/13
+            
+            self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 200))
+            
+            colorIndex = 7
+            
+            for i in 1...12 {
+                
+                self.drawMarkForAllOctaves(of: ref + i * self.fifthFrequencyRatio,
+                                           atYPosition: y,
+                                           with: MarkOptions(color: self.colors[colorIndex % self.colors.count], size: 100))
+                colorIndex += 7
+            }
         }
     }
     
@@ -43,9 +71,15 @@ class TuningViewController: UIViewController {
     }
     
     
-    func drawMark(for frequency: Frequency, atYPosition y: Double, with options: MarkOptions) {
+    func drawMark(for frequency: Frequency, atYPosition y: Double, with options: MarkOptions, drawGhost: Bool = false) {
         
-        self.drawMark(atX: self.xCoordinate(for: frequency), y: y, with: options)
+        let x = self.xCoordinate(for: frequency)
+        
+        if drawGhost {
+            self.drawMark(atX: x, y: 1/2, with: MarkOptions(color: UIColor.white.withAlphaComponent(0.1), size: self.view.bounds.height))
+        }
+        
+        self.drawMark(atX: x, y: y, with: options)
     }
     
     
