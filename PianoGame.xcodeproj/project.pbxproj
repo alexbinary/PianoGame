@@ -18,6 +18,7 @@
 		2914FCDE243CD0A20097F4F4 /* TuningSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */; };
 		2914FCE0243CD3B40097F4F4 /* Tuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDF243CD3B40097F4F4 /* Tuner.swift */; };
 		2914FCE2243CD4D10097F4F4 /* TunerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE1243CD4D10097F4F4 /* TunerTests.swift */; };
+		2914FCE6243CDFF30097F4F4 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE5243CDFF30097F4F4 /* Assertions.swift */; };
 		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
 		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
 		291A095D24157C1400DC1BD2 /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
@@ -141,6 +142,7 @@
 		2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuningSystem.swift; sourceTree = "<group>"; };
 		2914FCDF243CD3B40097F4F4 /* Tuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tuner.swift; sourceTree = "<group>"; };
 		2914FCE1243CD4D10097F4F4 /* TunerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunerTests.swift; sourceTree = "<group>"; };
+		2914FCE5243CDFF30097F4F4 /* Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
 		291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencingTestScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
 		291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCountingGameScene.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				29A6A608242B62D900CA22D5 /* Info.plist */,
+				2914FCE5243CDFF30097F4F4 /* Assertions.swift */,
 				29A6A606242B62D900CA22D5 /* NoteTests.swift */,
 				2976864C243CA2D00093B835 /* FrequencyTests.swift */,
 				2914FCDA243CC96D0097F4F4 /* FrequencyRatioTests.swift */,
@@ -884,6 +887,7 @@
 				2914FCE2243CD4D10097F4F4 /* TunerTests.swift in Sources */,
 				2976864D243CA2D00093B835 /* FrequencyTests.swift in Sources */,
 				29A6A607242B62D900CA22D5 /* NoteTests.swift in Sources */,
+				2914FCE6243CDFF30097F4F4 /* Assertions.swift in Sources */,
 				2914FCDB243CC96D0097F4F4 /* FrequencyRatioTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

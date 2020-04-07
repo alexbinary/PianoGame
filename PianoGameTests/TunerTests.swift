@@ -8,6 +8,9 @@ import XCTest
 class TunerTests: XCTestCase {
     
     
+    let frequencyComparisonPrecision: Double = 0.01
+    
+    
     func test_frequencyForNote() {
         
         let tuningSystem: TuningSystem = .equalTemperament(referenceNote: .A4, referenceFrequency: .standardA4)
@@ -17,9 +20,10 @@ class TunerTests: XCTestCase {
             440.Hz
         )
         
-//        XCTAssertEqual(
-//            Tuner.frequency(for: .middleC, using: tuningSystem),
-//            261.6255653005986.Hz
-//        )
+        XCTAssertEqual(
+            Tuner.frequency(for: .middleC, using: tuningSystem).valueInHertz,
+            261.63,
+            within: self.frequencyComparisonPrecision
+        )
     }
 }

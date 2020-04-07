@@ -8,6 +8,9 @@ import XCTest
 class FrequencyRatioTests: XCTestCase {
     
     
+    let ratioComparisonPrecision: Double = 0.0000000000001
+    
+    
     func test_init_rawValue() {
         
         XCTAssertEqual(
@@ -109,6 +112,12 @@ class FrequencyRatioTests: XCTestCase {
             Double(2.0) * 1.octaves,
             2.octaves
         )
+        
+        XCTAssertEqual(
+            (Double(1_200.0) * 1.cents).rawValue,
+            1.octaves.rawValue,
+            within: self.ratioComparisonPrecision
+        )
     }
     
     
@@ -117,6 +126,12 @@ class FrequencyRatioTests: XCTestCase {
         XCTAssertEqual(
             Int(2) * 1.octaves,
             2.octaves
+        )
+        
+        XCTAssertEqual(
+            (Int(1200) * 1.cents).rawValue,
+            1.octaves.rawValue,
+            within: self.ratioComparisonPrecision
         )
     }
 }
