@@ -19,6 +19,7 @@
 		2914FCE0243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */; };
 		2914FCE2243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE1243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift */; };
 		2914FCE6243CDFF30097F4F4 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE5243CDFF30097F4F4 /* Assertions.swift */; };
+		2914FCEA243D0F8D0097F4F4 /* TuningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914FCE9243D0F8D0097F4F4 /* TuningViewController.swift */; };
 		291A095B2415799C00DC1BD2 /* SequencingTestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */; };
 		291A095C24157C1000DC1BD2 /* sample.mid in Resources */ = {isa = PBXBuildFile; fileRef = 2945345123EA16E700F92152 /* sample.mid */; };
 		291A095D24157C1400DC1BD2 /* wedding.mid in Resources */ = {isa = PBXBuildFile; fileRef = 29C198CF23EF712C007950DE /* wedding.mid */; };
@@ -143,6 +144,7 @@
 		2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualTemperamentTuningSystem.swift; sourceTree = "<group>"; };
 		2914FCE1243CD4D10097F4F4 /* EqualTemperamentTuningSystemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EqualTemperamentTuningSystemTests.swift; sourceTree = "<group>"; };
 		2914FCE5243CDFF30097F4F4 /* Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
+		2914FCE9243D0F8D0097F4F4 /* TuningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuningViewController.swift; sourceTree = "<group>"; };
 		291A095A2415799C00DC1BD2 /* SequencingTestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequencingTestScene.swift; sourceTree = "<group>"; };
 		291BEE47240C2D6C0043217B /* CountingExerciseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingExerciseScene.swift; sourceTree = "<group>"; };
 		291DAD532412D73A004ADD2F /* PhysicsCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCountingGameScene.swift; sourceTree = "<group>"; };
@@ -305,6 +307,14 @@
 			children = (
 				2914FCDD243CD0A20097F4F4 /* TuningSystem.swift */,
 				2914FCDF243CD3B40097F4F4 /* EqualTemperamentTuningSystem.swift */,
+			);
+			path = Tuning;
+			sourceTree = "<group>";
+		};
+		2914FCE8243D0F570097F4F4 /* Tuning */ = {
+			isa = PBXGroup;
+			children = (
+				2914FCE9243D0F8D0097F4F4 /* TuningViewController.swift */,
 			);
 			path = Tuning;
 			sourceTree = "<group>";
@@ -669,6 +679,7 @@
 				29DF725D240A6687004DD36F /* Operators.swift */,
 				2961E71E24127F9D009DACD4 /* SpriteKit-Spring.swift */,
 				2929AB3D23FC916400AC18C1 /* Models */,
+				2914FCE8243D0F570097F4F4 /* Tuning */,
 				296ECE5C243C82D100CE0721 /* Frequencies */,
 				2976864E243CA7AF0093B835 /* Experiments */,
 			);
@@ -867,6 +878,7 @@
 				298E7FC72434C30900723718 /* StaffNote.swift in Sources */,
 				29289F0E2413F928006D2F6A /* Puzzle.swift in Sources */,
 				2900F3FC2428F6FC00722102 /* ScaleViewController.swift in Sources */,
+				2914FCEA243D0F8D0097F4F4 /* TuningViewController.swift in Sources */,
 				296ECE63243C830500CE0721 /* FrequenciesViewController.swift in Sources */,
 				29D994E22415360100EC274D /* SpeechGameScene.swift in Sources */,
 				29289F0A2413F3FB006D2F6A /* InWorldPuzzleCountingGameScene.swift in Sources */,

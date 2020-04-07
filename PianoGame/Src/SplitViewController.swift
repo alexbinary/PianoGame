@@ -14,6 +14,8 @@ class SplitViewController: UISplitViewController {
             self.primaryBackgroundStyle = .sidebar
         }
         
+        self.preferredDisplayMode = .primaryHidden
+        
         if let item = SplitViewController.items.first {
             self.showDetailViewController(item.viewControllerBuilder(), sender: nil)
         }
@@ -23,6 +25,8 @@ class SplitViewController: UISplitViewController {
     static var items: [(title: String, viewControllerBuilder: () -> UIViewController)] = {
         
         var items: [(title: String, viewControllerBuilder: () -> UIViewController)] = []
+        
+        items.append((title: "Tuning", viewControllerBuilder: { TuningViewController() }))
         
         items.append((title: "Frequencies", viewControllerBuilder: {
             
