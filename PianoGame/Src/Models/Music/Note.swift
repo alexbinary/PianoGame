@@ -19,11 +19,6 @@ public struct Note {
     }
     
     
-    static let A4 = Note(.a, at: Octave(4))
-    
-    static let middleC = Note(.c, at: Octave(4))
-    
-    
     func numberOfNotes(relativeTo referenceNote: Note) -> Int {
         
         (self.octave.absoluteNumber - referenceNote.octave.absoluteNumber) * Note.numberOfNotesInOneOctave + (self.indexInChromaticScale - referenceNote.indexInChromaticScale)
@@ -292,4 +287,17 @@ extension Note: CustomStringConvertible {
         
         return name
     }
+}
+
+
+extension Note {
+    
+    
+    static let A0 = Note(.a, at: Octave(0))
+    
+    static let middleC = Note(.c, at: Octave(4))
+    
+    static let A4 = Note(.a, at: Octave(4))
+    
+    static let C8 = Note(.c, at: Octave(8))
 }
