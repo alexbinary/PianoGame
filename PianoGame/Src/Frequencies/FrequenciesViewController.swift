@@ -50,8 +50,8 @@ class FrequenciesViewController: UIViewController {
     
     func spellFrequencies(fromBase baseFrequency: Frequency, withRatio ratio: Double, inRange range: ClosedRange<Frequency>) -> Set<Frequency> {
 
-        let min = log(range.lowerBound.valueInHertz / baseFrequency.valueInHertz, base: ratio)
-        let max = log(range.upperBound.valueInHertz / baseFrequency.valueInHertz, base: ratio)
+        let min = log(range.lowerBound/baseFrequency, base: ratio)
+        let max = log(range.upperBound/baseFrequency, base: ratio)
         
         return Set<Frequency>((Int(min.rounded())...Int(max.rounded())).map { baseFrequency * pow(ratio, Double($0)) })
     }

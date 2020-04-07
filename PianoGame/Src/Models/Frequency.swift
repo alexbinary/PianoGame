@@ -58,6 +58,12 @@ extension Frequency {
         
         return Frequency(valueInHertz: left.valueInHertz * right)
     }
+    
+    
+    static func / (left: Frequency, right: Frequency) -> Double {
+        
+        return left.valueInHertz / right.valueInHertz
+    }
 }
 
 
