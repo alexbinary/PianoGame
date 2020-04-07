@@ -38,6 +38,22 @@ extension FrequencyRatio {
 }
 
 
+extension FrequencyRatio {
+    
+    
+    static func * (left: Double, right: FrequencyRatio) -> FrequencyRatio {
+        
+        return (right.valueInCents * left).cents
+    }
+    
+    
+    static func * (left: Int, right: FrequencyRatio) -> FrequencyRatio {
+        
+        return Double(left) * right
+    }
+}
+
+
 extension Double {
     
     

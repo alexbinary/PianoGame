@@ -101,6 +101,24 @@ class FrequencyRatioTests: XCTestCase {
             1_200
         )
     }
+    
+    
+    func test_operator_multiplyByDouble() {
+        
+        XCTAssertEqual(
+            Double(2.0) * 1.octaves,
+            2.octaves
+        )
+    }
+    
+    
+    func test_operator_multiplyByInt() {
+        
+        XCTAssertEqual(
+            Int(2) * 1.octaves,
+            2.octaves
+        )
+    }
 }
 
 

@@ -23,6 +23,6 @@ struct Tuner {
         
         let notes = note.numberOfNotes(relativeTo: referenceNote)
         
-        return referenceFrequency + (notes * 100).cents
+        return referenceFrequency + notes * 100.cents
     }
 }
