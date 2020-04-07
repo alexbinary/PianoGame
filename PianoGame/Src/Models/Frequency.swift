@@ -3,7 +3,7 @@ import Foundation
 
 
 
-public struct Frequency {
+struct Frequency {
     
     
     let valueInHertz: Double
@@ -22,7 +22,7 @@ public struct Frequency {
 extension Frequency: CustomStringConvertible {
     
     
-    public var description: String {
+    var description: String {
         
         return String(format: "%.2f Hz", self.valueInHertz)
     }

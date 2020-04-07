@@ -47,12 +47,13 @@
 		296D110A24389788007AA520 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAB0241591A7005E69F0 /* AudioKitUI.framework */; };
 		296D110B24389788007AA520 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 294DCAB0241591A7005E69F0 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		296ECE63243C830500CE0721 /* FrequenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296ECE62243C830500CE0721 /* FrequenciesViewController.swift */; };
+		2976864D243CA2D00093B835 /* FrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976864C243CA2D00093B835 /* FrequencyTests.swift */; };
 		298E7FBB2434B80300723718 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FBA2434B80300723718 /* SplitViewController.swift */; };
 		298E7FC22434BE9200723718 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC12434BE9200723718 /* MasterViewController.swift */; };
 		298E7FC52434C16D00723718 /* ChordsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC42434C16D00723718 /* ChordsScene.swift */; };
 		298E7FC72434C30900723718 /* StaffNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298E7FC62434C30900723718 /* StaffNote.swift */; };
 		2996D37A243B4DF300175031 /* Percent in Frameworks */ = {isa = PBXBuildFile; productRef = 2996D379243B4DF300175031 /* Percent */; };
-		29A6A607242B62D900CA22D5 /* PianoGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A606242B62D900CA22D5 /* PianoGameTests.swift */; };
+		29A6A607242B62D900CA22D5 /* NoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6A606242B62D900CA22D5 /* NoteTests.swift */; };
 		29C363D523F14CAF003C4DF4 /* SimpleQuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */; };
 		29C363D623F14CF0003C4DF4 /* QuizGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */; };
 		29D48DA6243B4AA800355A86 /* Tuner2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D48DA5243B4AA800355A86 /* Tuner2ViewController.swift */; };
@@ -167,6 +168,7 @@
 		296B1BA523EB7C7700A7D97B /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		296B1BA723EB7C8300A7D97B /* QuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizGameScene.swift; sourceTree = "<group>"; };
 		296ECE62243C830500CE0721 /* FrequenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequenciesViewController.swift; sourceTree = "<group>"; };
+		2976864C243CA2D00093B835 /* FrequencyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTests.swift; sourceTree = "<group>"; };
 		29818D3E23EB8711009E71F2 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		29818D4023EB8721009E71F2 /* DisplayGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayGameScene.swift; sourceTree = "<group>"; };
 		298E7FBA2434B80300723718 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
@@ -176,7 +178,7 @@
 		299F7AB623EB88D0008E6F56 /* SimpleQuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizViewController.swift; sourceTree = "<group>"; };
 		299F7AB823EB88DB008E6F56 /* SimpleQuizGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleQuizGameScene.swift; sourceTree = "<group>"; };
 		29A6A604242B62D900CA22D5 /* PianoGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PianoGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		29A6A606242B62D900CA22D5 /* PianoGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoGameTests.swift; sourceTree = "<group>"; };
+		29A6A606242B62D900CA22D5 /* NoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTests.swift; sourceTree = "<group>"; };
 		29A6A608242B62D900CA22D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29A92B4024100FD6004C5131 /* SimpleCountingGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCountingGameScene.swift; sourceTree = "<group>"; };
 		29AFDA94240FBD5000E385E3 /* ProgressiveCountingDisplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressiveCountingDisplayScene.swift; sourceTree = "<group>"; };
@@ -465,7 +467,8 @@
 			isa = PBXGroup;
 			children = (
 				29A6A608242B62D900CA22D5 /* Info.plist */,
-				29A6A606242B62D900CA22D5 /* PianoGameTests.swift */,
+				29A6A606242B62D900CA22D5 /* NoteTests.swift */,
+				2976864C243CA2D00093B835 /* FrequencyTests.swift */,
 			);
 			path = PianoGameTests;
 			sourceTree = "<group>";
@@ -844,7 +847,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A6A607242B62D900CA22D5 /* PianoGameTests.swift in Sources */,
+				2976864D243CA2D00093B835 /* FrequencyTests.swift in Sources */,
+				29A6A607242B62D900CA22D5 /* NoteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
