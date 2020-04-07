@@ -29,6 +29,12 @@ extension Frequency: CustomStringConvertible {
 }
 
 
+extension Frequency: Equatable {
+    
+    
+}
+
+
 extension Double {
     
     
