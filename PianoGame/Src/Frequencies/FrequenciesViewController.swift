@@ -11,7 +11,7 @@ class FrequenciesViewController: UIViewController {
     let thirdFrequencyRatio: Double = 5.0/4.0
     
     let workingFrequencyRange = 27.5.Hz...4187.Hz
-    let referenceFrequency = 27.5.Hz
+    let referenceFrequency = 352.Hz
     
     var collectedFrequencies: [(source: String, frequency: Frequency)] = []
     
@@ -29,28 +29,34 @@ class FrequenciesViewController: UIViewController {
                                     withinRange: self.workingFrequencyRange,
                                     source: "base")
         
-        print("")
-        print("fifths from reference frequency")
-        self.printAndCollectFrequencyClass(fromReference: self.referenceFrequency,
-                                           withRatio: self.fifthFrequencyRatio,
-                                           withinRange: self.workingFrequencyRange,
-                                           source: "fifths",
-                                           prefix: { "fifth #\($0)" })
-        
-        for (index, fifthFrequency) in self.generateFrequencyClass(fromReference: self.referenceFrequency,
-                                                                   withRatio: self.fifthFrequencyRatio,
-                                                                   withinRange: self.workingFrequencyRange
-        ).sorted().enumerated() {
+        for (name, ratio) in [
+            (name: "fifth", ratio: self.fifthFrequencyRatio),
+            (name: "third", ratio: self.thirdFrequencyRatio),
+        ] {
             
             print("")
-            print("fifth #\(index)")
-            print(Pitch(at: fifthFrequency))
+            print("\(name)s from reference frequency")
+            self.printAndCollectFrequencyClass(fromReference: self.referenceFrequency,
+                                               withRatio: ratio,
+                                               withinRange: self.workingFrequencyRange,
+                                               source: "\(name)s",
+                prefix: { "\(name) #\($0)" })
             
-            print("")
-            print("octaves from fifth #\(index)")
-            self.printAndCollectOctaves(fromReference: fifthFrequency,
-                                        withinRange: self.workingFrequencyRange,
-                                        source: "fifth #\(index)")
+            for (index, frequency) in self.generateFrequencyClass(fromReference: self.referenceFrequency,
+                                                                  withRatio: ratio,
+                                                                  withinRange: self.workingFrequencyRange
+            ).sorted().enumerated() {
+
+                print("")
+                print("\(name) #\(index)")
+                print(Pitch(at: frequency))
+
+                print("")
+                print("octaves from \(name) #\(index)")
+                self.printAndCollectOctaves(fromReference: frequency,
+                                            withinRange: self.workingFrequencyRange,
+                                            source: "\(name) #\(index)")
+            }
         }
         
         print("")
