@@ -50,4 +50,10 @@ class FrequenciesViewController: UIViewController {
             print("\(Pitch(at: Frequency(valueInHertz: f)))")
         }
     }
+    
+    
+//    func spellFrequencies(fromBase baseFrequency: Frequency, withRatio ratio: Double, inRange range: ClosedRange<Frequency>) -> Set<Frequency> {
+//        
+//        
+//    }
 }

@@ -15,7 +15,7 @@ public struct Frequency {
     }
     
     
-    static let A4 = Frequency(valueInHertz: 440)
+    static let standardA4 = 440.Hz
 }
 
 
@@ -26,4 +26,11 @@ extension Frequency: CustomStringConvertible {
         
         return String(format: "%.2f Hz", self.valueInHertz)
     }
+}
+
+
+extension Double {
+    
+    
+    var Hz: Frequency { Frequency(valueInHertz: self) }
 }

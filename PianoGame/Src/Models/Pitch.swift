@@ -17,7 +17,7 @@ struct Pitch {
     
     func numberOfNotes(relativeTo referenceNote: Note) -> Double {
         
-        let pitchNumberOfOctavesRelativeToA4: Double = log2(self.frequency.valueInHertz / Frequency.A4.valueInHertz)
+        let pitchNumberOfOctavesRelativeToA4: Double = log2(self.frequency.valueInHertz / Frequency.standardA4.valueInHertz)
         let pitchNumberOfNotesRelativeToA4 = pitchNumberOfOctavesRelativeToA4 * Double(Note.numberOfNotesInOneOctave)
         
         return pitchNumberOfNotesRelativeToA4 - Double(referenceNote.numberOfNotes(relativeTo: .A4))
