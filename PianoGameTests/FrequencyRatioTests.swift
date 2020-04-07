@@ -63,4 +63,23 @@ class FrequencyRatioTests: XCTestCase {
             1.0
         )
     }
+    
+    
+    func test_property_valueInCents() {
+        
+        XCTAssertEqual(
+            FrequencyRatio(between: 440.Hz, and: 440.Hz).valueInCents,
+            0.0
+        )
+        
+        XCTAssertEqual(
+            FrequencyRatio(between: 440.Hz, and: 880.Hz).valueInCents,
+            -1_200
+        )
+        
+        XCTAssertEqual(
+            FrequencyRatio(between: 880.Hz, and: 440.Hz).valueInCents,
+            1_200
+        )
+    }
 }

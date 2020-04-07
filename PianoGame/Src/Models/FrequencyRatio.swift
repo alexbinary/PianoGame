@@ -26,4 +26,7 @@ extension FrequencyRatio {
     
     
     var valueInOctaves: Double { log2(self.rawValue) }
+    
+    
+    var valueInCents: Double { self.valueInOctaves * 1_200 }
 }
