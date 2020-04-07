@@ -19,17 +19,6 @@ class FrequencyTests: XCTestCase {
     }
     
     
-    func test_extension_double_Hz() {
-        
-        let frequencyValue: Double = 440
-        
-        XCTAssertEqual(
-            frequencyValue.Hz,
-            Frequency(valueInHertz: frequencyValue)
-        )
-    }
-    
-    
     func test_property_valueInHertz() {
         
         let frequencyValue: Double = 440
@@ -89,6 +78,21 @@ class FrequencyTests: XCTestCase {
         XCTAssertEqual(
             frequency1/frequency2,
             FrequencyRatio(between: frequency1, and: frequency2)
+        )
+    }
+}
+
+
+class FrequencyTests_ExtensionsOnOtherClasses: XCTestCase {
+    
+    
+    func test_double_property_Hz() {
+        
+        let frequencyValue: Double = 440
+        
+        XCTAssertEqual(
+            frequencyValue.Hz,
+            Frequency(valueInHertz: frequencyValue)
         )
     }
 }
