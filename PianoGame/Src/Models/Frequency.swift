@@ -35,6 +35,16 @@ extension Frequency: Equatable {
 }
 
 
+extension Frequency {
+    
+    
+    static func * (left: Frequency, right: Double) -> Frequency {
+        
+        return Frequency(valueInHertz: left.valueInHertz * right)
+    }
+}
+
+
 extension Double {
     
     

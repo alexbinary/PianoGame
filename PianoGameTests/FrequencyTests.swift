@@ -50,6 +50,18 @@ class FrequencyTests: XCTestCase {
     }
     
     
+    func test_operator_multiplyByDouble() {
+        
+        let frequencyValue: Double = 440
+        let multiplier: Double = 2
+        
+        XCTAssertEqual(
+            Frequency(valueInHertz: frequencyValue) * multiplier,
+            Frequency(valueInHertz: frequencyValue * multiplier)
+        )
+    }
+    
+    
     func test_extension_double_Hz() {
         
         let frequencyValue: Double = 440
