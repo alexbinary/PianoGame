@@ -19,12 +19,23 @@ class FrequencyTests: XCTestCase {
     }
     
     
+    func test_extension_double_Hz() {
+        
+        let frequencyValue: Double = 440
+        
+        XCTAssertEqual(
+            frequencyValue.Hz,
+            Frequency(valueInHertz: frequencyValue)
+        )
+    }
+    
+    
     func test_property_valueInHertz() {
         
         let frequencyValue: Double = 440
         
         XCTAssertEqual(
-            Frequency(valueInHertz: frequencyValue).valueInHertz,
+            frequencyValue.Hz.valueInHertz,
             frequencyValue
         )
     }
@@ -33,19 +44,19 @@ class FrequencyTests: XCTestCase {
     func test_property_standardA4() {
         
         XCTAssertEqual(
-            Frequency.standardA4.valueInHertz,
-            440
+            Frequency.standardA4,
+            440.Hz
         )
     }
     
     
     func test_property_description() {
         
-        let frequencyValue: Double = 440
+        let frequency = 440.Hz
         
         XCTAssertEqual(
-            Frequency(valueInHertz: frequencyValue).description,
-            String(format: "%.2f Hz", frequencyValue)
+            frequency.description,
+            String(format: "%.2f Hz", frequency.valueInHertz)
         )
     }
     
@@ -64,19 +75,8 @@ class FrequencyTests: XCTestCase {
         let multiplier: Double = 2
         
         XCTAssertEqual(
-            Frequency(valueInHertz: frequencyValue) * multiplier,
-            Frequency(valueInHertz: frequencyValue * multiplier)
-        )
-    }
-    
-    
-    func test_extension_double_Hz() {
-        
-        let frequencyValue: Double = 440
-        
-        XCTAssertEqual(
-            frequencyValue.Hz,
-            Frequency(valueInHertz: frequencyValue)
+            frequencyValue.Hz * multiplier,
+            (frequencyValue * multiplier).Hz
         )
     }
 }
