@@ -14,7 +14,7 @@ class TuningViewController: UIViewController {
     
     
     let standardPianoFrequencyRange = 27.5.Hz...4187.Hz
-    var workingFrequencyRange: ClosedRange<Frequency> { (standardPianoFrequencyRange.lowerBound + (-150).cents)...(standardPianoFrequencyRange.upperBound + (150).cents) }
+    var workingFrequencyRange: ClosedRange<Frequency> { (standardPianoFrequencyRange.lowerBound + (-150).cents)...(standardPianoFrequencyRange.upperBound + (150).cents + 1.octaves) }
     
     let fifthFrequencyRatio = FrequencyRatio(rawValue: 3.0/2.0)
     
@@ -42,40 +42,49 @@ class TuningViewController: UIViewController {
                                        with: MarkOptions(color: .red, size: 200))
         }
         
-        // Pythagorean
+        // Pythagorean - 1
         
         ref = 27.5.Hz
+        y = 1/4
+        
+        self.drawPythagorean(for: ref, atYPosition: y)
+        
+        // Pythagorean - 1
+        
+        ref = 27.5.Hz + self.fifthFrequencyRatio
         y = 1/2
         
-        self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 300))
+        self.drawPythagorean(for: ref, atYPosition: y)
+    }
+    
+    
+    func drawPythagorean(for ref: Frequency, atYPosition y: Double) {
         
-        self.drawMarkForAllOctaves(of: ref,
-                                   atYPosition: y,
-                                   with: MarkOptions(color: .white, size: 100))
+        self.drawMark(for: ref, atYPosition: y, with: MarkOptions(color: .white, size: 300), drawGhost: true)
+        self.drawMarkForAllOctaves(of: ref, atYPosition: y, with: MarkOptions(color: .white, size: 100), drawGhost: true)
         
         for i in 1...12 {
             
             let fifth = ref + i * self.fifthFrequencyRatio
             let color = self.colors[i-1]
             
-            self.drawMark(for: fifth, atYPosition: y, with: MarkOptions(color: color, size: 300))
+            let sizeRatio: CGFloat = i == 12 ? 0.5 : 1
             
-            self.drawMarkForAllOctaves(of: fifth,
-                                       atYPosition: y,
-                                       with: MarkOptions(color: color, size: 100))
+            self.drawMark(for: fifth, atYPosition: y, with: MarkOptions(color: color, size: 300 * sizeRatio), drawGhost: i != 12)
+            self.drawMarkForAllOctaves(of: fifth, atYPosition: y, with: MarkOptions(color: color, size: 100 * sizeRatio), drawGhost: i != 12)
         }
     }
     
     
-    func drawMarkForAllOctaves(of frequency: Frequency, atYPosition y: Double, with options: MarkOptions, optionsForReferenceFrequency: MarkOptions? = nil) {
+    func drawMarkForAllOctaves(of frequency: Frequency, atYPosition y: Double, with options: MarkOptions, optionsForReferenceFrequency: MarkOptions? = nil, drawGhost: Bool = false) {
         
         let frequencies = self.generateFrequencyClass(fromReference: frequency,
                                                       withRatio: 1.octaves,
                                                       withinRange: self.workingFrequencyRange)
         
-        self.drawMark(for: frequency, atYPosition: y, with: optionsForReferenceFrequency ?? options)
+        self.drawMark(for: frequency, atYPosition: y, with: optionsForReferenceFrequency ?? options, drawGhost: drawGhost)
         
-        frequencies.subtracting([frequency]) .forEach { self.drawMark(for: $0, atYPosition: y, with: options) }
+        frequencies.subtracting([frequency]) .forEach { self.drawMark(for: $0, atYPosition: y, with: options, drawGhost: drawGhost) }
     }
     
     
