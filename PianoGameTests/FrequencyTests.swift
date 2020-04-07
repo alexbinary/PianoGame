@@ -70,6 +70,15 @@ class FrequencyTests: XCTestCase {
     }
     
     
+    func test_operator_multiplyByFrequencyRatio() {
+        
+        XCTAssertEqual(
+            440.Hz + 1.0.octaves,
+            880.Hz
+        )
+    }
+    
+    
     func test_operator_dividedBy() {
         
         let frequency1 = 440.Hz

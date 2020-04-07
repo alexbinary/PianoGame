@@ -21,6 +21,8 @@ public struct Note {
     
     static let A4 = Note(.a, at: Octave(4))
     
+    static let middleC = Note(.c, at: Octave(4))
+    
     
     func numberOfNotes(relativeTo referenceNote: Note) -> Int {
         

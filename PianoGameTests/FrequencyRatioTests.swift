@@ -110,12 +110,12 @@ class FrequencyRatioTests_ExtensionsOnOtherClasses: XCTestCase {
     func test_double_property_octaves() {
         
         XCTAssertEqual(
-            1.octaves,
+            Double(1.0).octaves,
             FrequencyRatio(rawValue: 2)
         )
         
         XCTAssertEqual(
-            2.octaves,
+            Double(2.0).octaves,
             FrequencyRatio(rawValue: 4)
         )
     }
@@ -124,12 +124,40 @@ class FrequencyRatioTests_ExtensionsOnOtherClasses: XCTestCase {
     func test_double_property_cents() {
         
         XCTAssertEqual(
-            1_200.cents,
+            Double(1_200.0).cents,
             1.octaves
         )
         
         XCTAssertEqual(
-            2_400.cents,
+            Double(2_400.0).cents,
+            2.octaves
+        )
+    }
+    
+    
+    func test_int_property_octaves() {
+        
+        XCTAssertEqual(
+            Int(1).octaves,
+            FrequencyRatio(rawValue: 2)
+        )
+        
+        XCTAssertEqual(
+            Int(2).octaves,
+            FrequencyRatio(rawValue: 4)
+        )
+    }
+    
+    
+    func test_int_property_cents() {
+        
+        XCTAssertEqual(
+            Int(1_200).cents,
+            1.octaves
+        )
+        
+        XCTAssertEqual(
+            Int(2_400).cents,
             2.octaves
         )
     }

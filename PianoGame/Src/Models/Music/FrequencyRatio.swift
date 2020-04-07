@@ -46,3 +46,14 @@ extension Double {
     
     var cents: FrequencyRatio { (self/1_200.0).octaves }
 }
+
+
+
+extension Int {
+    
+    
+    var octaves: FrequencyRatio { Double(self).octaves }
+    
+    
+    var cents: FrequencyRatio { Double(self).cents }
+}
