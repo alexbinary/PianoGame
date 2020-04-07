@@ -60,9 +60,9 @@ extension Frequency {
     }
     
     
-    static func / (left: Frequency, right: Frequency) -> Double {
+    static func / (left: Frequency, right: Frequency) -> FrequencyRatio {
         
-        return left.valueInHertz / right.valueInHertz
+        return FrequencyRatio(between: left, and: right)
     }
 }
 

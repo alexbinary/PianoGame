@@ -67,8 +67,8 @@ class FrequenciesViewController: UIViewController {
     
     func generateFrequencyClass(fromReference baseFrequency: Frequency, withRatio ratio: Double, withinRange range: ClosedRange<Frequency>) -> Set<Frequency> {
         
-        let min = log(range.lowerBound/baseFrequency, base: ratio)
-        let max = log(range.upperBound/baseFrequency, base: ratio)
+        let min = log((range.lowerBound/baseFrequency).ratio, base: ratio)
+        let max = log((range.upperBound/baseFrequency).ratio, base: ratio)
         
         return Set<Frequency>((Int(min.rounded(.up))...Int(max.rounded(.down))).map { baseFrequency * pow(ratio, Double($0)) })
     }

@@ -79,4 +79,16 @@ class FrequencyTests: XCTestCase {
             (frequencyValue * multiplier).Hz
         )
     }
+    
+    
+    func test_operator_dividedBy() {
+        
+        let frequency1 = 440.Hz
+        let frequency2 = 880.Hz
+        
+        XCTAssertEqual(
+            frequency1/frequency2,
+            FrequencyRatio(between: frequency1, and: frequency2)
+        )
+    }
 }
