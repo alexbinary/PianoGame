@@ -26,6 +26,12 @@ class SplitViewController: UISplitViewController {
         
         var items: [(title: String, viewControllerBuilder: () -> UIViewController)] = []
         
+        #if !targetEnvironment(macCatalyst)
+        
+        items.append((title: "SingingGame", viewControllerBuilder: { SingingGameViewController() }))
+        
+        #endif
+        
         items.append((title: "Tuning", viewControllerBuilder: { TuningViewController() }))
         
         items.append((title: "Frequencies", viewControllerBuilder: {
